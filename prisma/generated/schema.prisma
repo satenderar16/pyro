@@ -1,0 +1,209 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["partialIndexes"]
+  output          = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model users {
+  id                                            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                                          String
+  username                                      String         @unique @db.VarChar(50)
+  password                                      String
+  email                                         String         @unique @db.VarChar(255)
+  business_name                                 String?
+  deleted_at                                    DateTime?      @db.Timestamp(6)
+  created_at                                    DateTime       @default(now()) @db.Timestamp(6)
+  updated_at                                    DateTime       @default(now()) @db.Timestamp(6)
+  categories_categories_created_byTousers       categories[]   @relation("categories_created_byTousers")
+  categories_categories_updated_byTousers       categories[]   @relation("categories_updated_byTousers")
+  categories_categories_user_idTousers          categories[]   @relation("categories_user_idTousers")
+  items_items_created_byTousers                 items[]        @relation("items_created_byTousers")
+  items_items_updated_byTousers                 items[]        @relation("items_updated_byTousers")
+  options_options_created_byTousers             options[]      @relation("options_created_byTousers")
+  options_options_updated_byTousers             options[]      @relation("options_updated_byTousers")
+  order_options_order_options_created_byTousers orderOptions[] @relation("order_options_created_byTousers")
+  order_options_order_options_updated_byTousers orderOptions[] @relation("order_options_updated_byTousers")
+  orders_orders_created_byTousers               orders[]       @relation("orders_created_byTousers")
+  orders_orders_status_changed_byTousers        orders[]       @relation("orders_status_changed_byTousers")
+  orders_orders_user_idTousers                  orders[]       @relation("orders_user_idTousers")
+  refreshTokens                                 refreshToken[]
+}
+
+model categories {
+  id                                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  parent_id                          String?      @db.Uuid
+  name                               String
+  image_url                          String?
+  user_id                            String       @db.Uuid
+  created_at                         DateTime     @default(now()) @db.Timestamp(6)
+  created_by                         String       @db.Uuid
+  updated_at                         DateTime     @default(now()) @db.Timestamp(6)
+  updated_by                         String       @db.Uuid
+  deleted_at                         DateTime?    @db.Timestamp(6)
+  users_categories_created_byTousers users        @relation("categories_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_created_by")
+  categories                         categories?  @relation("categoriesTocategories", fields: [parent_id], references: [id], onUpdate: NoAction, map: "fk_parent")
+  other_categories                   categories[] @relation("categoriesTocategories")
+  users_categories_updated_byTousers users        @relation("categories_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_updated_by")
+  users_categories_user_idTousers    users        @relation("categories_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+  items                              items[]
+
+  @@unique([user_id, name], map: "unique_category_name_per_user", where: raw("(deleted_at IS NULL)"))
+  @@index([deleted_at], map: "idx_categories_deleted_at")
+  @@index([parent_id], map: "idx_categories_parent_id")
+  @@index([user_id], map: "idx_categories_user_id")
+}
+
+model items {
+  id                            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                          String
+  image_url                     String?
+  cat_id                        String     @db.Uuid
+  created_at                    DateTime   @default(now()) @db.Timestamp(6)
+  updated_at                    DateTime   @default(now()) @db.Timestamp(6)
+  deleted_at                    DateTime?  @db.Timestamp(6)
+  created_by                    String     @db.Uuid
+  updated_by                    String     @db.Uuid
+  type                          itemType
+  categories                    categories @relation(fields: [cat_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_items_category")
+  users_items_created_byTousers users      @relation("items_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_items_created_by")
+  users_items_updated_byTousers users      @relation("items_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_items_updated_by")
+  options                       options[]
+}
+
+model options {
+  id                              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                            String
+  price_per_base_unit             Decimal        @db.Decimal(18, 6)
+  unit_id                         String         @db.Uuid
+  item_id                         String         @db.Uuid
+  created_at                      DateTime       @default(now()) @db.Timestamp(6)
+  updated_at                      DateTime       @default(now()) @db.Timestamp(6)
+  deleted_at                      DateTime?      @db.Timestamp(6)
+  created_by                      String         @db.Uuid
+  updated_by                      String         @db.Uuid
+  currency                        currencyType   @default(INR)
+  users_options_created_byTousers users          @relation("options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_options_created_by")
+  items                           items          @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_options_item")
+  users_options_updated_byTousers users          @relation("options_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_options_updated_by")
+  order_options                   orderOptions[]
+  units                           units          @relation(fields: [unit_id], references: [id])
+}
+
+model orderOptions {
+  id                                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order_id                              String    @db.Uuid
+  option_id                             String    @db.Uuid
+  unit_id                               String    @db.Uuid
+  quantity                              Decimal   @db.Decimal(10, 3)
+  price_per_base_unit                   Decimal   @db.Decimal(18, 6)
+  created_at                            DateTime  @default(now()) @db.Timestamp(6)
+  updated_at                            DateTime  @default(now()) @db.Timestamp(6)
+  deleted_at                            DateTime? @db.Timestamp(6)
+  created_by                            String    @db.Uuid
+  updated_by                            String    @db.Uuid
+  users_order_options_created_byTousers users     @relation("order_options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_order_options_created_by")
+  options                               options   @relation(fields: [option_id], references: [id], onUpdate: NoAction, map: "fk_order_options_option")
+  orders                                orders    @relation(fields: [order_id], references: [id], onUpdate: NoAction, map: "fk_order_options_order")
+  users_order_options_updated_byTousers users     @relation("order_options_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_order_options_updated_by")
+  units                                 units     @relation(fields: [unit_id], references: [id])
+}
+
+model orders {
+  id                                    String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order_number                          BigInt         @unique @default(autoincrement())
+  order_name                            String?
+  created_at                            DateTime       @default(now()) @db.Timestamp(6)
+  status_changed_at                     DateTime?      @db.Timestamp(6)
+  discount                              Decimal        @default(0) @db.Decimal(10, 2)
+  cash_amount                           Decimal        @default(0) @db.Decimal(10, 2)
+  created_by                            String         @db.Uuid
+  status_changed_by                     String         @db.Uuid
+  user_id                               String         @db.Uuid
+  status                                orderStatus    @default(PENDING)
+  payment_type                          paymentType
+  order_options                         orderOptions[]
+  users_orders_created_byTousers        users          @relation("orders_created_byTousers", fields: [created_by], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_orders_created_by")
+  users_orders_status_changed_byTousers users          @relation("orders_status_changed_byTousers", fields: [status_changed_by], references: [id], onUpdate: NoAction, map: "fk_orders_status_changed_by")
+  users_orders_user_idTousers           users          @relation("orders_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_orders_user")
+}
+
+model refreshToken {
+  id      String @id @default(cuid())
+  user_id String @db.Uuid
+
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  token_hash String // store hashed token, NOT raw token
+  expired_at DateTime
+  created_at DateTime @default(now())
+
+  device    String?
+  ipAddress String?
+
+  @@index([user_id])
+  @@index([token_hash])
+}
+
+enum itemType {
+  PACKAGE
+  LOOSE
+}
+
+enum currencyType {
+  INR
+  USD
+  EUR
+}
+
+enum orderStatus {
+  PENDING
+  FULFILLED
+  CANCELLED
+}
+
+enum paymentType {
+  CASH
+  CASHLESS
+  HYBRID
+}
+
+model unit_classes {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name String @unique // WEIGHT, VOLUME, LENGTH, COUNT, TIME
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+
+  units units[]
+}
+
+model units {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  name   String // kilogram, gram, liter, milliliter, box
+  symbol String // kg, g, L, ml, box
+
+  class_id   String       @db.Uuid
+  unit_class unit_classes @relation(fields: [class_id], references: [id], onDelete: Cascade)
+
+  // conversion factor to BASE UNIT of the class
+  // Example:
+  // WEIGHT base = gram → kg = 1000, g = 1
+  // VOLUME base = ml → liter = 1000, ml = 1
+  to_base_factor Decimal @db.Decimal(18, 6)
+
+  is_base Boolean @default(false)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+
+  options       options[]
+  order_options orderOptions[]
+
+  @@unique([class_id, name])
+  @@index([class_id])
+}

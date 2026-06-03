@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import authRoute from './auth.routes.ts';
 import itemRoute from "./item.routes.ts";
-
-import prisma from "../config/prisma";
-
+import companyRouter from './company.routes.ts';
 import categoryRoutes from "./category.routes.ts";
 const router = Router();
 
@@ -15,6 +13,7 @@ router.get("/", (req:any, res:any) => {
 
 
 router.use("/auth", authRoute);
+router.use("company",companyRouter);
 router.use("/categories",categoryRoutes);
 router.use("/items",itemRoute);
 

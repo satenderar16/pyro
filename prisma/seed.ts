@@ -1,352 +1,749 @@
 import prisma from "../src/config/prisma";
-import { orderStatus } from "../src/generated/client";
-import { currencyType, itemType, paymentType } from "./generated";
+import { orderStatus } from "../prisma/generated/client";
+import { currencyType, itemType, paymentType,userType } from "./generated";
+
+
+
+/**
+ * FIXED NORMALIZATION:
+ * base unit for WEIGHT = gram (g)
+ * price_per_base_unit = input_price / (input_value * to_base_factor)
+ */
+function calcPricePerBaseUnit(
+  inputPrice: number,
+  inputValue: number,
+  toBaseFactor: number
+) {
+  return inputPrice / (inputValue * toBaseFactor);
+}
+
+ function calcCashAmount(
+  total: number,
+  discount: number,
+  cashless:number,
+  payment: paymentType
+) {
+  const final = total - discount;
+
+  if (payment === "CASH") return final;
+  if (payment === "CASHLESS") return 0;
+  return  total - cashless; // HYBRID assumption: 50-50 split
+}
 
 async function main() {
-  // ======================
-  // USERS
-  // ======================
-  const users = await Promise.all([
-    prisma.users.create({
-      data: {
-        name: "Admin User",
-        username: "admin",
-        email: "admin@example.com",
-        password: "hashed_pw",
-        business_name: "My Store",
-      },
-    }),
-    prisma.users.create({
-      data: {
-        name: "John Doe",
-        username: "john",
-        email: "john@example.com",
-        password: "hashed_pw",
-        business_name: "John Traders",
-      },
-    }),
-    prisma.users.create({
-      data: {
-        name: "Sarah Khan",
-        username: "sarah",
-        email: "sarah@example.com",
-        password: "hashed_pw",
-        business_name: "Fresh Mart",
-      },
-    }),
-    prisma.users.create({
-      data: {
-        name: "Mike Ross",
-        username: "mike",
-        email: "mike@example.com",
-        password: "hashed_pw",
-        business_name: "Quick Shop",
-      },
-    }),
-    prisma.users.create({
-      data: {
-        name: "Anna Lee",
-        username: "anna",
-        email: "anna@example.com",
-        password: "hashed_pw",
-        business_name: "Daily Needs",
-      },
-    }),
-  ]);
+  console.log("🌱 Full system seed starting...");
 
-  const admin = users[0];
-  const john = users[1];
-  const sarah = users[2];
-  const mike = users[3];
-  const anna = users[4];
+  // ====================================================
+  // 1. PERMISSIONS
+  // ====================================================
+  const permissionKeys = [
+    "admin.create",
+    "admin.update",
+    "admin.delete",
 
-  // ======================
-  // UNIT CLASSES
-  // ======================
-  const weightClass = await prisma.unit_classes.create({
-    data: { name: "WEIGHT" },
+    "user.read",
+    "user.create",
+    "user.update",
+    "user.delete",
+
+    "categories.read",
+    "categories.create",
+    "categories.update",
+    "categories.delete",
+
+    "items.read",
+    "items.create",
+    "items.update",
+    "items.delete",
+
+    "options.read",
+    "options.create",
+    "options.update",
+    "options.delete",
+
+    "orders.read",
+    "orders.create",
+    "orders.update",
+    "orders.delete",
+
+    "roles.read",
+    "roles.create",
+    "roles.update",
+    "roles.delete",
+
+    "company.read",
+    "company.update",
+  ];
+
+  await prisma.permission.createMany({
+    data: permissionKeys.map((permission_key) => ({
+      permission_key,
+    })),
+    skipDuplicates: true,
   });
 
-  const volumeClass = await prisma.unit_classes.create({
-    data: { name: "VOLUME" },
-  });
+  const permissions = await prisma.permission.findMany();
 
-  const countClass = await prisma.unit_classes.create({
-    data: { name: "COUNT" },
-  });
-
-  // ======================
-  // UNITS
-  // ======================
-  const gram = await prisma.units.create({
+  // ====================================================
+  // 2. COMPANY
+  // ====================================================
+  const company = await prisma.company.create({
     data: {
+      name: "Demo Store",
+      contact: "+91 9999999999",
+      address: "Delhi, India",
+    },
+  });
+
+  // ====================================================
+  // 3. USERS
+  // ====================================================
+  const password =
+    "$2b$10$zjQ2D0PkB8A6dF6z5uW9vO4b4R1FJf5h4zA4Y5XkG7fG6J9s7nD7K";
+
+  const owner = await prisma.users.create({
+    data: {
+      name: "Owner",
+      username: "owner",
+      email: "owner@example.com",
+      password,
+    },
+  });
+
+  const admin = await prisma.users.create({
+    data: {
+      name: "Admin",
+      username: "admin",
+      email: "admin@example.com",
+      password,
+    },
+  });
+
+  const staff1 = await prisma.users.create({
+    data: {
+      name: "Staff One",
+      username: "staff1",
+      email: "staff1@example.com",
+      password,
+    },
+  });
+
+  const staff2 = await prisma.users.create({
+    data: {
+      name: "Staff Two",
+      username: "staff2",
+      email: "staff2@example.com",
+      password,
+    },
+  });
+
+  // ====================================================
+  // 4. ROLES
+  // ====================================================
+  const ownerRole = await prisma.companyRole.create({
+    data: {
+      company_id: company.id,
+      name: "Owner",
+      is_system: true,
+    },
+  });
+
+  const adminRole = await prisma.companyRole.create({
+    data: {
+      company_id: company.id,
+      name: "Admin",
+      is_system: true,
+    },
+  });
+
+  const staffRole = await prisma.companyRole.create({
+    data: {
+      company_id: company.id,
+      name: "Staff",
+      is_system: true,
+    },
+  });
+
+  // ====================================================
+  // 5. ROLE PERMISSIONS
+  // ====================================================
+
+  const ownerPermissions = permissions;
+
+  const adminPermissions = permissions.filter(
+    (p) =>
+      !["admin.create", "admin.update", "admin.delete"].includes(
+        p.permission_key
+      )
+  );
+
+  const staffPermissions = permissions.filter((p) =>
+    [
+      "orders.read",
+      "orders.create",
+      "orders.update",
+      "items.read",
+      "categories.read",
+      "options.read",
+    ].includes(p.permission_key)
+  );
+
+  await prisma.rolePermission.createMany({
+    data: ownerPermissions.map((p) => ({
+      role_id: ownerRole.id,
+      permission_id: p.id,
+    })),
+  });
+
+  await prisma.rolePermission.createMany({
+    data: adminPermissions.map((p) => ({
+      role_id: adminRole.id,
+      permission_id: p.id,
+    })),
+  });
+
+  await prisma.rolePermission.createMany({
+    data: staffPermissions.map((p) => ({
+      role_id: staffRole.id,
+      permission_id: p.id,
+    })),
+  });
+
+  // ====================================================
+  // 6. COMPANY USERS (4 USERS)
+  // ====================================================
+  await prisma.companyUser.createMany({
+    data: [
+      {
+        company_id: company.id,
+        user_id: owner.id,
+        role_id: ownerRole.id,
+        user_type: userType.OWNER,
+        verified_user: true,
+        verified_by: owner.id,
+        verified_at: new Date(),
+      },
+      {
+        company_id: company.id,
+        user_id: admin.id,
+        role_id: adminRole.id,
+        user_type: userType.ADMIN,
+        verified_user: true,
+        verified_by: owner.id,
+        verified_at: new Date(),
+      },
+      {
+        company_id: company.id,
+        user_id: staff1.id,
+        role_id: staffRole.id,
+        user_type: userType.STAFF,
+        verified_user: true,
+        verified_by: owner.id,
+        verified_at: new Date(),
+      },
+      {
+        company_id: company.id,
+        user_id: staff2.id,
+        role_id: staffRole.id,
+        user_type: userType.STAFF,
+        verified_user: true,
+        verified_by: owner.id,
+        verified_at: new Date(),
+      },
+    ],
+  });
+
+  // ====================================================
+  // 7. UNIT CLASS
+  // ====================================================
+  const weight = await prisma.unitClass.create({
+    data: {
+      name: "WEIGHT",
+      base_unit_name: "gram",
+      base_unit_symbol: "g",
+    },
+  });
+
+  const volume = await prisma.unitClass.create({
+    data: {
+      name: "VOLUME",
+      base_unit_name: "milliliter",
+      base_unit_symbol: "ml",
+    },
+  });
+
+  // ====================================================
+  // 8. UNITS
+  // ====================================================
+  const g = await prisma.units.create({
+    data: {
+      class_id: weight.id,
       name: "gram",
       symbol: "g",
-      class_id: weightClass.id,
       to_base_factor: 1,
-      is_base: true,
     },
   });
 
-  const kilogram = await prisma.units.create({
+  const kg = await prisma.units.create({
     data: {
+      class_id: weight.id,
       name: "kilogram",
       symbol: "kg",
-      class_id: weightClass.id,
       to_base_factor: 1000,
-      is_base: false,
     },
   });
 
-  const milliliter = await prisma.units.create({
+  const ml = await prisma.units.create({
     data: {
+      class_id: volume.id,
       name: "milliliter",
       symbol: "ml",
-      class_id: volumeClass.id,
       to_base_factor: 1,
-      is_base: true,
     },
   });
 
-  const liter = await prisma.units.create({
+  const l = await prisma.units.create({
     data: {
+      class_id: volume.id,
       name: "liter",
-      symbol: "L",
-      class_id: volumeClass.id,
+      symbol: "l",
       to_base_factor: 1000,
-      is_base: false,
     },
   });
 
-  const piece = await prisma.units.create({
+  // ====================================================
+  // 9. CATEGORIES (4)
+  // ====================================================
+  const grocery = await prisma.categories.create({
     data: {
-      name: "piece",
-      symbol: "pc",
-      class_id: countClass.id,
-      to_base_factor: 1,
-      is_base: true,
-    },
-  });
-
-  // ======================
-  // CATEGORIES
-  // ======================
-  const fruits = await prisma.categories.create({
-    data: {
-      name: "Fruits",
-      user_id: admin.id,
-      created_by: admin.id,
-      updated_by: admin.id,
-    },
-  });
-
-  const dairy = await prisma.categories.create({
-    data: {
-      name: "Dairy",
-      user_id: john.id,
-      created_by: john.id,
-      updated_by: john.id,
-    },
-  });
-
-  const snacks = await prisma.categories.create({
-    data: {
-      name: "Snacks",
-      user_id: sarah.id,
-      created_by: sarah.id,
-      updated_by: sarah.id,
+      name: "Grocery",
+      company_id: company.id,
+      created_by: owner.id,
+      updated_by: owner.id,
     },
   });
 
   const beverages = await prisma.categories.create({
     data: {
       name: "Beverages",
-      user_id: mike.id,
-      created_by: mike.id,
-      updated_by: mike.id,
+      company_id: company.id,
+      created_by: owner.id,
+      updated_by: owner.id,
     },
   });
 
-  const vegetables = await prisma.categories.create({
+  const fruits = await prisma.categories.create({
     data: {
-      name: "Vegetables",
-      user_id: admin.id,
-      created_by: admin.id,
-      updated_by: admin.id,
+      name: "Fruits",
+      company_id: company.id,
+      created_by: owner.id,
+      updated_by: owner.id,
     },
   });
 
-  // ======================
-  // ITEMS
-  // ======================
-  const apple = await prisma.items.create({
+  const snacks = await prisma.categories.create({
     data: {
-      name: "Apple",
-      type: itemType.PACKAGE,
-      cat_id: fruits.id,
-      created_by: admin.id,
-      updated_by: admin.id,
+      name: "Snacks",
+      company_id: company.id,
+      created_by: owner.id,
+      updated_by: owner.id,
     },
   });
 
-  const banana = await prisma.items.create({
-    data: {
-      name: "Banana",
-      type: itemType.LOOSE,
-      cat_id: fruits.id,
-      created_by: admin.id,
-      updated_by: admin.id,
-    },
+  // ====================================================
+  // 10. ITEMS (5 each category = 20 items)
+  // ====================================================
+
+  const rice = await prisma.items.create({
+    data: { name: "Rice", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const wheat = await prisma.items.create({
+    data: { name: "Wheat", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const sugar = await prisma.items.create({
+    data: { name: "Sugar", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const salt = await prisma.items.create({
+    data: { name: "Salt", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const dal = await prisma.items.create({
+    data: { name: "Lentils", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
   });
 
   const milk = await prisma.items.create({
-    data: {
-      name: "Milk",
-      type: itemType.PACKAGE,
-      cat_id: dairy.id,
-      created_by: john.id,
-      updated_by: john.id,
-    },
+    data: { name: "Milk", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const tea = await prisma.items.create({
+    data: { name: "Tea", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const coffee = await prisma.items.create({
+    data: { name: "Coffee", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const juice = await prisma.items.create({
+    data: { name: "Juice", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const soda = await prisma.items.create({
+    data: { name: "Soda", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const apple = await prisma.items.create({
+    data: { name: "Apple", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const banana = await prisma.items.create({
+    data: { name: "Banana", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const mango = await prisma.items.create({
+    data: { name: "Mango", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const orange = await prisma.items.create({
+    data: { name: "Orange", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const grapes = await prisma.items.create({
+    data: { name: "Grapes", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
   });
 
   const chips = await prisma.items.create({
-    data: {
-      name: "Chips",
-      type: itemType.PACKAGE,
-      cat_id: snacks.id,
-      created_by: sarah.id,
-      updated_by: sarah.id,
-    },
+    data: { name: "Chips", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
   });
 
-  const coke = await prisma.items.create({
-    data: {
-      name: "Coke",
-      type: itemType.PACKAGE,
-      cat_id: beverages.id,
-      created_by: mike.id,
-      updated_by: mike.id,
-    },
+  const biscuits = await prisma.items.create({
+    data: { name: "Biscuits", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
   });
 
-  // ======================
-  // OPTIONS (UPDATED)
-  // ======================
-  const appleOpt = await prisma.options.create({
+  const namkeen = await prisma.items.create({
+    data: { name: "Namkeen", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const chocolate = await prisma.items.create({
+    data: { name: "Chocolate", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  const popcorn = await prisma.items.create({
+    data: { name: "Popcorn", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+  });
+
+  // ====================================================
+  // 11. OPTIONS (FIXED NORMALIZATION)
+  // ====================================================
+const optionData = [
+  // Grocery
+  { item: rice, name: "Rice 1kg", price: 80, value: 1, unit: kg },
+  { item: wheat, name: "Wheat 1kg", price: 50, value: 1, unit: kg },
+  { item: sugar, name: "Sugar 1kg", price: 45, value: 1, unit: kg },
+  { item: salt, name: "Salt 1kg", price: 20, value: 1, unit: kg },
+  { item: dal, name: "Lentils 1kg", price: 110, value: 1, unit: kg },
+
+  // Beverages
+  { item: milk, name: "Milk 1L", price: 60, value: 1, unit: l },
+  { item: tea, name: "Tea 250g", price: 140, value: 250, unit: g },
+  { item: coffee, name: "Coffee 200g", price: 180, value: 200, unit: g },
+  { item: juice, name: "Juice 1L", price: 120, value: 1, unit: l },
+  { item: soda, name: "Soda 500ml", price: 40, value: 500, unit: ml },
+
+  // Fruits
+  { item: apple, name: "Apple 1kg", price: 180, value: 1, unit: kg },
+  { item: banana, name: "Banana 1kg", price: 60, value: 1, unit: kg },
+  { item: mango, name: "Mango 1kg", price: 150, value: 1, unit: kg },
+  { item: orange, name: "Orange 1kg", price: 90, value: 1, unit: kg },
+  { item: grapes, name: "Grapes 1kg", price: 120, value: 1, unit: kg },
+
+  // Snacks
+  { item: chips, name: "Chips 200g", price: 50, value: 200, unit: g },
+  { item: biscuits, name: "Biscuits 250g", price: 40, value: 250, unit: g },
+  { item: namkeen, name: "Namkeen 500g", price: 90, value: 500, unit: g },
+  { item: chocolate, name: "Chocolate 100g", price: 80, value: 100, unit: g },
+  { item: popcorn, name: "Popcorn 250g", price: 70, value: 250, unit: g },
+];
+
+for (const opt of optionData) {
+  await prisma.options.create({
     data: {
-      name: "Apple 1kg Pack",
+      name: opt.name,
+      input_price: opt.price,
+      input_value: opt.value,
+      unit_id: opt.unit.id,
+      item_id: opt.item.id,
       currency: currencyType.INR,
-      unit_id: kilogram.id,
-      price_per_base_unit: 0.12, // 120 / 1000
-      item_id: apple.id,
-      created_by: admin.id,
-      updated_by: admin.id,
+      price_per_base_unit: calcPricePerBaseUnit(
+        opt.price,
+        opt.value,
+       Number( opt.unit.to_base_factor)
+      ),
+      created_by: owner.id,
+      updated_by: owner.id,
     },
   });
+}
+  const options = await prisma.options.findMany();
 
-  const bananaOpt = await prisma.options.create({
-    data: {
-      name: "Banana 1kg",
-      currency: currencyType.INR,
-      unit_id: kilogram.id,
-      price_per_base_unit: 0.06,
-      item_id: banana.id,
-      created_by: admin.id,
-      updated_by: admin.id,
-    },
-  });
+  // ===============================
+// ORDER 1 - CASH
+// ===============================
+const order1 = await prisma.orders.create({
+  data: {
+    order_name: "Order #1",
+    created_by: owner.id,
+    status_changed_by: owner.id,
+    company_id: company.id,
+    status: orderStatus.PENDING,
+    payment_type: paymentType.CASH,
+    discount: 10,
 
-  const milkOpt = await prisma.options.create({
-    data: {
-      name: "Milk 1L",
-      currency: currencyType.INR,
-      unit_id: liter.id,
-      price_per_base_unit: 0.055, // 55 / 1000 ml
-      item_id: milk.id,
-      created_by: john.id,
-      updated_by: john.id,
-    },
-  });
+    cash_amount: 0, // will update later
+  },
+});
 
-  const chipsOpt = await prisma.options.create({
-    data: {
-      name: "Chips Pack",
-      currency: currencyType.INR,
-      unit_id: piece.id,
-      price_per_base_unit: 20,
-      item_id: chips.id,
-      created_by: sarah.id,
-      updated_by: sarah.id,
-    },
-  });
+// ===============================
+// ORDER OPTIONS (5 items)
+// ===============================
+const order1Options = options.slice(0, 5);
 
-  const cokeOpt = await prisma.options.create({
-    data: {
-      name: "Coke 500ml",
-      currency: currencyType.INR,
-      unit_id: milliliter.id,
-      price_per_base_unit: 0.08,
-      item_id: coke.id,
-      created_by: mike.id,
-      updated_by: mike.id,
-    },
-  });
+let total1 = 0;
 
-  // ======================
-  // ORDERS
-  // ======================
-  const order1 = await prisma.orders.create({
-    data: {
-      order_name: "Order 1",
-      status: orderStatus.PENDING,
-      payment_type: paymentType.CASH,
-      cash_amount: 200,
-      created_by: admin.id,
-      status_changed_by: admin.id,
-      user_id: admin.id,
-    },
-  });
+await Promise.all(
+  order1Options.map(async (opt) => {
+    const qty = 2;
+    const base_factor = await prisma.units.findFirst({where:{id:opt.unit_id}});
+    
 
-  const order2 = await prisma.orders.create({
-    data: {
-      order_name: "Order 2",
-      status: orderStatus.FULFILLED,
-      payment_type: paymentType.CASHLESS,
-      cash_amount: 150,
-      created_by: john.id,
-      status_changed_by: john.id,
-      user_id: john.id,
-    },
-  });
+    const lineTotal = Number(opt.price_per_base_unit) * qty * Number(base_factor?.to_base_factor ?? 1);
 
-  // ======================
-  // ORDER OPTIONS (UPDATED)
-  // ======================
-  await prisma.orderOptions.create({
-    data: {
-      order_id: order1.id,
-      option_id: appleOpt.id,
-      unit_id: kilogram.id,
-      quantity: 2.5,
-      price_per_base_unit: appleOpt.price_per_base_unit,
-      created_by: admin.id,
-      updated_by: admin.id,
-    },
-  });
+    total1 += lineTotal;
 
-  await prisma.orderOptions.create({
-    data: {
-      order_id: order2.id,
-      option_id: milkOpt.id,
-      unit_id: liter.id,
-      quantity: 2,
-      price_per_base_unit: milkOpt.price_per_base_unit,
-      created_by: john.id,
-      updated_by: john.id,
-    },
-  });
+    await prisma.orderOptions.create({
+      data: {
+        order_id: order1.id,
+        option_id: opt.id,
+        sell_unit_id: opt.unit_id,
+        sell_quantity: qty,
+        price_per_base_unit: opt.price_per_base_unit,
+        created_by: owner.id,
+        updated_by: owner.id,
+      },
+    });
+  })
+);
 
-  console.log("🌱 Seed completed successfully");
+await prisma.orders.update({
+  where: { id: order1.id },
+  data: {
+    cash_amount: calcCashAmount(total1, 10, 0,paymentType.CASH),
+  },
+});
+
+// ===============================
+// ORDER 2 - CASHLESS
+// ===============================
+const order2 = await prisma.orders.create({
+  data: {
+    order_name: "Order #2",
+    created_by: admin.id,
+    status_changed_by: admin.id,
+      company_id: company.id,
+    status: orderStatus.FULFILLED,
+    payment_type: paymentType.CASHLESS,
+    discount: 0,
+    cash_amount: 0,
+  },
+});
+
+const order2Options = options.slice(5, 10);
+
+let total2 = 0;
+
+await Promise.all(
+  order2Options.map(async (opt) => {
+    const qty = 1;
+
+    const base_factor = await prisma.units.findFirst({where:{id:opt.unit_id}});
+    const lineTotal = Number(opt.price_per_base_unit) * qty * Number(base_factor?.to_base_factor);
+    total2 += lineTotal;
+
+    await prisma.orderOptions.create({
+      data: {
+        order_id: order2.id,
+        option_id: opt.id,
+        sell_unit_id: opt.unit_id,
+        sell_quantity: qty,
+        price_per_base_unit: opt.price_per_base_unit,
+        created_by: admin.id,
+        updated_by: admin.id,
+      },
+    });
+  })
+);
+
+await prisma.orders.update({
+  where: { id: order2.id },
+  data: {
+    cash_amount: calcCashAmount(total2, 0, total2,paymentType.CASHLESS),
+  },
+});
+
+// ===============================
+// ORDER 3 - HYBRID + DISCOUNT
+// ===============================
+const order3 = await prisma.orders.create({
+  data: {
+    order_name: "Order #3",
+    created_by: owner.id,
+    status_changed_by: owner.id,
+       company_id: company.id,
+    status: orderStatus.PENDING,
+    payment_type: paymentType.HYBRID,
+    discount: 20,
+    cash_amount: 0,
+  },
+});
+
+const order3Options = options.slice(10, 15);
+
+let total3 = 0;
+
+await Promise.all(
+  order3Options.map(async (opt) => {
+    const qty = 3;
+    const base_factor = await prisma.units.findFirst({where:{id:opt.unit_id}});
+
+     const lineTotal = Number(opt.price_per_base_unit) * qty * Number(base_factor?.to_base_factor);
+
+
+    total3 += lineTotal;
+
+    await prisma.orderOptions.create({
+      data: {
+        order_id: order3.id,
+        option_id: opt.id,
+        sell_unit_id: opt.unit_id,
+        sell_quantity: qty,
+        price_per_base_unit: opt.price_per_base_unit,
+        created_by: owner.id,
+        updated_by: owner.id,
+      },
+    });
+  })
+);
+
+await prisma.orders.update({
+  where: { id: order3.id },
+  data: {
+    cash_amount: calcCashAmount(total3, 20,10 ,paymentType.HYBRID),
+  },
+});
+
+// ===============================
+// ORDER 4 - CASH
+// ===============================
+const order4 = await prisma.orders.create({
+  data: {
+    order_name: "Order #4",
+    created_by: admin.id,
+    status_changed_by: admin.id,
+      company_id: company.id,
+    status: orderStatus.PENDING,
+    payment_type: paymentType.CASH,
+    discount: 5,
+    cash_amount: 0,
+  },
+});
+
+const order4Options = options.slice(0, 5);
+
+let total4 = 0;
+
+await Promise.all(
+  order4Options.map(async (opt) => {
+    const qty = 2;
+
+    const base_factor = await prisma.units.findFirst({where:{id:opt.unit_id}});
+
+     const lineTotal = Number(opt.price_per_base_unit) * qty * Number(base_factor?.to_base_factor);
+
+    total4 += lineTotal;
+
+    await prisma.orderOptions.create({
+      data: {
+        order_id: order4.id,
+        option_id: opt.id,
+        sell_unit_id: opt.unit_id,
+        sell_quantity: qty,
+        price_per_base_unit: opt.price_per_base_unit,
+        created_by: admin.id,
+        updated_by: admin.id,
+      },
+    });
+  })
+);
+
+await prisma.orders.update({
+  where: { id: order4.id },
+  data: {
+    cash_amount: calcCashAmount(total4, 5,0, paymentType.CASH),
+  },
+});
+
+// ===============================
+// ORDER 5 - HYBRID
+// ===============================
+const order5 = await prisma.orders.create({
+  data: {
+    order_name: "Order #5",
+    created_by: owner.id,
+    status_changed_by: owner.id,
+      company_id: company.id,
+    status: orderStatus.FULFILLED,
+    payment_type: paymentType.HYBRID,
+    discount: 15,
+    cash_amount: 0,
+  },
+});
+
+const order5Options = options.slice(5, 10);
+
+let total5 = 0;
+
+await Promise.all(
+  order5Options.map(async (opt) => {
+    const qty = 1;
+
+   const base_factor = await prisma.units.findFirst({where:{id:opt.unit_id}});
+
+ const lineTotal = Number(opt.price_per_base_unit) * qty * Number(base_factor?.to_base_factor);
+
+    total5 += lineTotal;
+
+    await prisma.orderOptions.create({
+      data: {
+        order_id: order5.id,
+        option_id: opt.id,
+        sell_unit_id: opt.unit_id,
+        sell_quantity: qty,
+        price_per_base_unit: opt.price_per_base_unit,
+        created_by: owner.id,
+        updated_by: owner.id,
+      },
+    });
+  })
+);
+
+await prisma.orders.update({
+  where: { id: order5.id },
+  data: {
+    cash_amount: calcCashAmount(total5, 15,4, paymentType.HYBRID),
+  },
+});
 }
 
 main()

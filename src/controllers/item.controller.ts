@@ -1,5 +1,5 @@
 import prisma from "../config/prisma";
-import { currencyType, itemType } from "../generated/client";
+import { currencyType, itemType } from "../../prisma/generated/client";
 
 /**
  * GET /items/:id : it gives only the details of the item:
@@ -18,13 +18,13 @@ export const getItemById = async (req: any, res: any) => {
   try {
     const { id } = req.params;
 
-    const item = await prisma.items.findFirst({
+    const item = await prisma.items.findUnique({
       where: {
         id,
         deleted_at: null,
         // access control
         categories: {
-          user_id: req.user.user_id,
+          company_id: req.user.user_id,
         },
       },
 
@@ -86,7 +86,7 @@ export const getItems = async (req: any, res: any) => {
       });
     }
 
-    if(category.user_id !== req.user.user_id){
+    if(category.company_id !== req.user.user_id){
         return res.status(403).json({message:"Access Denied"});
     }
 
@@ -97,7 +97,7 @@ export const getItems = async (req: any, res: any) => {
 
         // extra access safety
         categories: {
-          user_id: req.user.user_id,
+          company_id: req.user.user_id,
         },
       },
 
@@ -154,6 +154,7 @@ export const createItem = async (req: any, res: any) => {
   unit_id,
   currency,
 }: CreateItemDTO = req.body;
+//TODO update input type or type return error:
     // validate category exists
     const category = await prisma.categories.findFirst({
       where: {
@@ -168,7 +169,7 @@ export const createItem = async (req: any, res: any) => {
         message: "Category not found",
       });
     }
-    if(category.user_id !== req.user.user_id){
+    if(category.company_id !== req.user.user_id){
         return res.status(403).json({message: "Access Denied"});
     }
 
@@ -220,7 +221,7 @@ export const createItem = async (req: any, res: any) => {
           name, // same as item name
           item_id: item.id,
           unit_id,
-
+          input_price:40,input_value:2,
           price_per_base_unit,
 
           currency: currency || "INR",
@@ -238,6 +239,7 @@ export const createItem = async (req: any, res: any) => {
       data: result,
     });
   } catch (err: any) {
+    console.log(err);
     if (err.code === "P2002") {
       return res.status(409).json({
         message: "Item already exists",
@@ -265,7 +267,7 @@ export const updateItem = async (req: any, res: any) => {
         deleted_at: null,
 
         categories: {
-          user_id: req.user.user_id,
+          company_id: req.user.user_id,
         },
       },
     });
@@ -310,7 +312,7 @@ export const deleteItem = async (req: any, res: any) => {
         id,
         deleted_at: null,
         categories: {
-          user_id: req.user.user_id,
+          company_id: req.user.user_id,
         },
       },
     });

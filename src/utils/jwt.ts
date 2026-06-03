@@ -24,3 +24,4 @@ export const generateRefreshToken = (payload: any) => {
 export const verifyToken = (token: any) => {
   return jwt.verify(token, getEnv('JWT_SECRET'));
 };
+

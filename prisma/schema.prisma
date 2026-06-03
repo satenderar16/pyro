@@ -7,6 +7,7 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+//User -> company -> role -> permissions -> allow/deny
 
 model users {
   id                                            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -14,13 +15,12 @@ model users {
   username                                      String         @unique @db.VarChar(50)
   password                                      String
   email                                         String         @unique @db.VarChar(255)
-  business_name                                 String?
   deleted_at                                    DateTime?      @db.Timestamp(6)
   created_at                                    DateTime       @default(now()) @db.Timestamp(6)
   updated_at                                    DateTime       @default(now()) @db.Timestamp(6)
   categories_categories_created_byTousers       categories[]   @relation("categories_created_byTousers")
   categories_categories_updated_byTousers       categories[]   @relation("categories_updated_byTousers")
-  categories_categories_user_idTousers          categories[]   @relation("categories_user_idTousers")
+ 
   items_items_created_byTousers                 items[]        @relation("items_created_byTousers")
   items_items_updated_byTousers                 items[]        @relation("items_updated_byTousers")
   options_options_created_byTousers             options[]      @relation("options_created_byTousers")
@@ -29,16 +29,108 @@ model users {
   order_options_order_options_updated_byTousers orderOptions[] @relation("order_options_updated_byTousers")
   orders_orders_created_byTousers               orders[]       @relation("orders_created_byTousers")
   orders_orders_status_changed_byTousers        orders[]       @relation("orders_status_changed_byTousers")
-  orders_orders_user_idTousers                  orders[]       @relation("orders_user_idTousers")
+ 
   refreshTokens                                 refreshToken[]
+  
+  company_user  companyUser[]  @relation("company_users")
+  verified_members     companyUser[] @relation("company_member_verifier")
+
 }
+
+
+model company {
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String        @db.VarChar(255)
+  contact       String?       @db.VarChar(100)
+  address       String?
+
+  created_at    DateTime      @default(now()) @db.Timestamp(6)
+  updated_at    DateTime      @updatedAt @db.Timestamp(6)
+
+  company_orders   orders[]       @relation("order_company_id")
+  users         companyUser[]
+  roles         companyRole[]
+  categories    categories[]  @relation("company_categories")
+  @@map("companies")
+}
+
+model companyUser {
+  company_id      String    @db.Uuid
+  user_id         String    @db.Uuid
+
+  user_type            userType      @default(STAFF)
+  role_id         String? @db.Uuid
+  verified_user   Boolean   @default(false)
+  verified_by     String?   @db.Uuid
+  verified_at     DateTime? @db.Timestamp(6)
+
+  created_at      DateTime  @default(now()) @db.Timestamp(6)
+  updated_at      DateTime  @updatedAt @db.Timestamp(6)
+
+  company         company   @relation(fields: [company_id], references: [id], onDelete: Cascade)
+
+ user             users     @relation("company_users", fields: [user_id], references: [id])
+
+  verifier        users?    @relation("company_member_verifier", fields: [verified_by], references: [id])
+
+  role companyRole? @relation(fields: [role_id], references: [id])
+
+  @@id([company_id, user_id])
+  @@index([user_id])
+  @@index([verified_by])
+  @@map("company_users")
+}
+
+model companyRole {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  company_id String @db.Uuid
+
+  name       String  // Cashier, Manager, Inventory Staff
+
+  is_system  Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  company company @relation(fields: [company_id], references: [id], onDelete: Cascade)
+
+  users companyUser[]
+
+  role_permissions rolePermission[]
+
+  @@unique([company_id, name])
+    @@map("company_role")
+}
+
+
+model rolePermission {
+  role_id        String @db.Uuid
+  permission_id Int
+
+  role companyRole @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  permission permission @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+
+  @@id([role_id, permission_id])
+  @@map("role_permissions")
+}
+
+
+model permission {
+  id             Int     @id @default(autoincrement())
+  permission_key String  @unique
+
+  role_permissions rolePermission[]
+}
+
 
 model categories {
   id                                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   parent_id                          String?      @db.Uuid
   name                               String
   image_url                          String?
-  user_id                            String       @db.Uuid
+  company_id                         String       @db.Uuid
   created_at                         DateTime     @default(now()) @db.Timestamp(6)
   created_by                         String       @db.Uuid
   updated_at                         DateTime     @default(now()) @db.Timestamp(6)
@@ -48,13 +140,13 @@ model categories {
   categories                         categories?  @relation("categoriesTocategories", fields: [parent_id], references: [id], onUpdate: NoAction, map: "fk_parent")
   other_categories                   categories[] @relation("categoriesTocategories")
   users_categories_updated_byTousers users        @relation("categories_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_updated_by")
-  users_categories_user_idTousers    users        @relation("categories_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+  company_categories                 company        @relation("company_categories", fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_company")
   items                              items[]
 
-  @@unique([user_id, name], map: "unique_category_name_per_user", where: raw("(deleted_at IS NULL)"))
+  @@unique([company_id, name], map: "unique_category_name_per_company", where: raw("(deleted_at IS NULL)"))
   @@index([deleted_at], map: "idx_categories_deleted_at")
   @@index([parent_id], map: "idx_categories_parent_id")
-  @@index([user_id], map: "idx_categories_user_id")
+  @@index([company_id], map: "idx_categories_company_id")
 }
 
 model items {
@@ -75,41 +167,61 @@ model items {
 }
 
 model options {
-  id                              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
   name                            String
-  price_per_base_unit            Decimal      @db.Decimal(18,6)
-  unit_id                         String       @db.Uuid
-  item_id                         String         @db.Uuid
-  created_at                      DateTime       @default(now()) @db.Timestamp(6)
-  updated_at                      DateTime       @default(now()) @db.Timestamp(6)
-  deleted_at                      DateTime?      @db.Timestamp(6)
-  created_by                      String         @db.Uuid
-  updated_by                      String         @db.Uuid
-  currency                        currencyType   @default(INR)
-  users_options_created_byTousers users          @relation("options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_options_created_by")
-  items                           items          @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_options_item")
-  users_options_updated_byTousers users          @relation("options_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_options_updated_by")
+
+  // Original user input 4(input_price) per 2(input_value) kg(unit_id)
+  // TODO: we can simply avoid calculating the price_per_Base_unit for pack_item as they gonna be in whole number:
+  input_price                     Decimal       @db.Decimal(18,6)
+  input_value                     Decimal       @db.Decimal(18,6)
+  unit_id                         String        @db.Uuid
+
+  // Normalized value used for calculations
+  price_per_base_unit             Decimal       @db.Decimal(18,6)
+
+  item_id                         String        @db.Uuid
+
+  created_at                      DateTime      @default(now()) @db.Timestamp(6)
+  updated_at                      DateTime      @updatedAt @db.Timestamp(6)
+  deleted_at                      DateTime?     @db.Timestamp(6)
+
+  created_by                      String        @db.Uuid
+  updated_by                      String        @db.Uuid
+
+  currency                        currencyType  @default(INR)
+
+  users_options_created_byTousers users         @relation("options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_options_created_by")
+
+  users_options_updated_byTousers users         @relation("options_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_options_updated_by")
+
+  items                           items         @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_options_item")
+
+  units                           units         @relation(fields: [unit_id], references: [id])
+
   order_options                   orderOptions[]
-  units                           units        @relation(fields: [unit_id], references: [id])
 }
 
 model orderOptions {
   id                                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   order_id                              String    @db.Uuid
   option_id                             String    @db.Uuid
-   unit_id                               String    @db.Uuid
-  quantity                              Decimal   @db.Decimal(10,3)
+   sell_unit_id                               String    @db.Uuid
+  sell_quantity                              Decimal   @db.Decimal(10,3)
+  // it is the snapshot of the store value in option at the time of ordering :
   price_per_base_unit                  Decimal   @db.Decimal(18,6)
   created_at                            DateTime  @default(now()) @db.Timestamp(6)
   updated_at                            DateTime  @default(now()) @db.Timestamp(6)
   deleted_at                            DateTime? @db.Timestamp(6)
   created_by                            String    @db.Uuid
   updated_by                            String    @db.Uuid
+
   users_order_options_created_byTousers users     @relation("order_options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_order_options_created_by")
   options                               options   @relation(fields: [option_id], references: [id], onUpdate: NoAction, map: "fk_order_options_option")
   orders                                orders    @relation(fields: [order_id], references: [id], onUpdate: NoAction, map: "fk_order_options_order")
   users_order_options_updated_byTousers users     @relation("order_options_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_order_options_updated_by")
-  units                                 units     @relation(fields: [unit_id], references: [id])
+  units                                 units     @relation(fields: [sell_unit_id], references: [id])
+  @@map("order_options")
 }
 
 model orders {
@@ -122,14 +234,57 @@ model orders {
   cash_amount                           Decimal        @default(0) @db.Decimal(10, 2)
   created_by                            String         @db.Uuid
   status_changed_by                     String         @db.Uuid
-  user_id                               String         @db.Uuid
+  company_id                               String         @db.Uuid
   status                                orderStatus    @default(PENDING)
   payment_type                          paymentType
   order_options                         orderOptions[]
   users_orders_created_byTousers        users          @relation("orders_created_byTousers", fields: [created_by], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_orders_created_by")
   users_orders_status_changed_byTousers users          @relation("orders_status_changed_byTousers", fields: [status_changed_by], references: [id], onUpdate: NoAction, map: "fk_orders_status_changed_by")
-  users_orders_user_idTousers           users          @relation("orders_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_orders_user")
+  order_company                         company          @relation("order_company_id", fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_orders_company")
 }
+
+
+
+model unitClass {
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // WEIGHT, VOLUME, LENGTH, COUNT, TIME
+  name              String   @unique
+
+  // Base unit definition
+  base_unit_name    String   // gram, milliliter, meter, piece
+  base_unit_symbol  String   // g, ml, m, pc
+
+  created_at        DateTime @default(now()) @db.Timestamp(6)
+  updated_at        DateTime @updatedAt @db.Timestamp(6)
+
+  units             units[]
+    @@map("unit_class")
+}
+
+model units {
+  id                String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  class_id          String        @db.Uuid
+  unit_class        unitClass  @relation(fields: [class_id], references: [id], onDelete: Cascade)
+
+  name              String        // kilogram, liter, centimeter, box
+  symbol            String        // kg, L, cm, box
+
+  
+  to_base_factor    Decimal       @db.Decimal(18,6)
+
+  created_at        DateTime      @default(now()) @db.Timestamp(6)
+  updated_at        DateTime      @updatedAt @db.Timestamp(6)
+
+  options           options[]
+  order_options     orderOptions[]
+
+  @@unique([class_id, name])
+  @@unique([class_id, symbol])
+  @@index([class_id])
+}
+
 
 model refreshToken {
   id     String @id @default(cuid())
@@ -146,7 +301,16 @@ model refreshToken {
 
   @@index([user_id])
   @@index([token_hash])
+  @@map("refresh_token")
 }
+
+
+enum userType {
+  OWNER
+  ADMIN
+  STAFF
+}
+
 
 enum itemType {
   PACKAGE
@@ -172,40 +336,3 @@ enum paymentType {
 }
 
 
-
-model unit_classes {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name       String   @unique // WEIGHT, VOLUME, LENGTH, COUNT, TIME
-
-  created_at DateTime @default(now()) @db.Timestamp(6)
-  updated_at DateTime @default(now()) @db.Timestamp(6)
-
-  units      units[]
-}
-
-model units {
-  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-
-  name            String   // kilogram, gram, liter, milliliter, box
-  symbol          String   // kg, g, L, ml, box
-
-  class_id        String   @db.Uuid
-  unit_class      unit_classes @relation(fields: [class_id], references: [id], onDelete: Cascade)
-
-  // conversion factor to BASE UNIT of the class
-  // Example:
-  // WEIGHT base = gram → kg = 1000, g = 1
-  // VOLUME base = ml → liter = 1000, ml = 1
-  to_base_factor  Decimal  @db.Decimal(18,6)
-
-  is_base         Boolean  @default(false)
-
-  created_at      DateTime @default(now()) @db.Timestamp(6)
-  updated_at      DateTime @default(now()) @db.Timestamp(6)
-  
-  options         options[]
-  order_options   orderOptions[]
-
-  @@unique([class_id, name])
-  @@index([class_id])
-}

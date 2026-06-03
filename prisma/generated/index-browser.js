@@ -126,10 +126,49 @@ exports.Prisma.UsersScalarFieldEnum = {
   username: 'username',
   password: 'password',
   email: 'email',
-  business_name: 'business_name',
   deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contact: 'contact',
+  address: 'address',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CompanyUserScalarFieldEnum = {
+  company_id: 'company_id',
+  user_id: 'user_id',
+  user_type: 'user_type',
+  role_id: 'role_id',
+  verified_user: 'verified_user',
+  verified_by: 'verified_by',
+  verified_at: 'verified_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CompanyRoleScalarFieldEnum = {
+  id: 'id',
+  company_id: 'company_id',
+  name: 'name',
+  is_system: 'is_system',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.RolePermissionScalarFieldEnum = {
+  role_id: 'role_id',
+  permission_id: 'permission_id'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  permission_key: 'permission_key'
 };
 
 exports.Prisma.CategoriesScalarFieldEnum = {
@@ -137,7 +176,7 @@ exports.Prisma.CategoriesScalarFieldEnum = {
   parent_id: 'parent_id',
   name: 'name',
   image_url: 'image_url',
-  user_id: 'user_id',
+  company_id: 'company_id',
   created_at: 'created_at',
   created_by: 'created_by',
   updated_at: 'updated_at',
@@ -161,8 +200,10 @@ exports.Prisma.ItemsScalarFieldEnum = {
 exports.Prisma.OptionsScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  price_per_base_unit: 'price_per_base_unit',
+  input_price: 'input_price',
+  input_value: 'input_value',
   unit_id: 'unit_id',
+  price_per_base_unit: 'price_per_base_unit',
   item_id: 'item_id',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -176,8 +217,8 @@ exports.Prisma.OrderOptionsScalarFieldEnum = {
   id: 'id',
   order_id: 'order_id',
   option_id: 'option_id',
-  unit_id: 'unit_id',
-  quantity: 'quantity',
+  sell_unit_id: 'sell_unit_id',
+  sell_quantity: 'sell_quantity',
   price_per_base_unit: 'price_per_base_unit',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -196,9 +237,28 @@ exports.Prisma.OrdersScalarFieldEnum = {
   cash_amount: 'cash_amount',
   created_by: 'created_by',
   status_changed_by: 'status_changed_by',
-  user_id: 'user_id',
+  company_id: 'company_id',
   status: 'status',
   payment_type: 'payment_type'
+};
+
+exports.Prisma.UnitClassScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  base_unit_name: 'base_unit_name',
+  base_unit_symbol: 'base_unit_symbol',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.UnitsScalarFieldEnum = {
+  id: 'id',
+  class_id: 'class_id',
+  name: 'name',
+  symbol: 'symbol',
+  to_base_factor: 'to_base_factor',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -209,24 +269,6 @@ exports.Prisma.RefreshTokenScalarFieldEnum = {
   created_at: 'created_at',
   device: 'device',
   ipAddress: 'ipAddress'
-};
-
-exports.Prisma.Unit_classesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.UnitsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  symbol: 'symbol',
-  class_id: 'class_id',
-  to_base_factor: 'to_base_factor',
-  is_base: 'is_base',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -243,6 +285,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.userType = exports.$Enums.userType = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  STAFF: 'STAFF'
+};
+
 exports.itemType = exports.$Enums.itemType = {
   PACKAGE: 'PACKAGE',
   LOOSE: 'LOOSE'
@@ -268,14 +316,19 @@ exports.paymentType = exports.$Enums.paymentType = {
 
 exports.Prisma.ModelName = {
   users: 'users',
+  company: 'company',
+  companyUser: 'companyUser',
+  companyRole: 'companyRole',
+  rolePermission: 'rolePermission',
+  permission: 'permission',
   categories: 'categories',
   items: 'items',
   options: 'options',
   orderOptions: 'orderOptions',
   orders: 'orders',
-  refreshToken: 'refreshToken',
-  unit_classes: 'unit_classes',
-  units: 'units'
+  unitClass: 'unitClass',
+  units: 'units',
+  refreshToken: 'refreshToken'
 };
 
 /**

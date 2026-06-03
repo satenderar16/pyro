@@ -9,15 +9,19 @@ export const getCategoryById = async (req: any, res: any) => {
   try {
     const { id } = req.params;
 
-    const category = await prisma.categories.findUnique({
-      where: { id },
-    });
-
-    if (!category) {
-      return res.status(404).json({ message: "Category not found" });
+    const cat = await prisma.categories.findUnique({where:{id:id}});
+    if(!cat){
+        return res.status(404).json({message: "Content not found"});
     }
 
-    return res.json(category);
+    // make sure: only owner can delete the categories:
+    if(cat.company_id !==req.user.user_id){
+      return res.status(403).json({message:"Access denial"});
+    }
+
+    
+    return res.json(cat);
+  
   } catch (err) {
     return res.status(500).json({ message: "Server error" });
   }
@@ -36,7 +40,7 @@ export const getCategories = async (req: any, res: any) => {
         user_id: req.user.userId,
         deleted_at: null,
       },
-      take: limit + 1, // 👈 fetch one extra to check has_next
+      take: limit + 1, // fetch one extra to check has_next
       skip,
       orderBy: {
         created_at: "desc",
@@ -92,7 +96,7 @@ export const createCategory = async (req: any, res: any) => {
       data: {
         name,
         parent_id: parent_id || null,
-        user_id: req.user.user_id,
+        company_id: req.user.user_id,
         created_by: req.user.user_id,
         updated_by: req.user.user_id,
       },
@@ -118,6 +122,17 @@ export const updateCategory = async (req: any, res: any) => {
     const { id } = req.params;
     const { name } = req.body;
 
+
+    const cat = await prisma.categories.findFirst({where:{id:id}});
+    console.log(cat);
+    if(!cat){
+        return res.status(404).json({message: "Content not found"});
+    }
+    // make sure: only owner can delete the categories:
+    if(cat.company_id !==req.user.user_id){
+      return res.status(403).json({message:"Access denial"});
+    }
+
     const category = await prisma.categories.update({
       where: { id },
       data: {
@@ -140,8 +155,13 @@ export const deleteCategory = async (req: any, res: any) => {
 
 
     const cat = await prisma.categories.findFirst({where:{id:id}});
+    console.log(cat);
     if(!cat){
         return res.status(404).json({message: "Content not found"});
+    }
+    // make sure: only owner can delete the categories:
+    if(cat.company_id !==req.user.user_id){
+      return res.status(403).json({message:"Access denial"});
     }
 
     await prisma.categories.update({
@@ -154,6 +174,7 @@ export const deleteCategory = async (req: any, res: any) => {
 
     return res.status(200).json({ message: "Category deleted" }); 
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: "Server error" });
   }
 };

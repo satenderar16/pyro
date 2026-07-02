@@ -1,8 +1,8 @@
 import prisma from "../src/config/prisma";
 import { orderStatus } from "../prisma/generated/client";
-import { currencyType, itemType, paymentType,userType } from "./generated";
+import { currencyType, optionType, paymentType,userType } from "./generated";
 
-
+import { ALL_PERMISSION_KEYS, getRolePermissions } from "../src/utils/permissions";
 
 /**
  * FIXED NORMALIZATION:
@@ -33,47 +33,8 @@ function calcPricePerBaseUnit(
 async function main() {
   console.log("🌱 Full system seed starting...");
 
-  // ====================================================
-  // 1. PERMISSIONS
-  // ====================================================
-  const permissionKeys = [
-    "admin.create",
-    "admin.update",
-    "admin.delete",
+  const permissionKeys  = ALL_PERMISSION_KEYS;
 
-    "user.read",
-    "user.create",
-    "user.update",
-    "user.delete",
-
-    "categories.read",
-    "categories.create",
-    "categories.update",
-    "categories.delete",
-
-    "items.read",
-    "items.create",
-    "items.update",
-    "items.delete",
-
-    "options.read",
-    "options.create",
-    "options.update",
-    "options.delete",
-
-    "orders.read",
-    "orders.create",
-    "orders.update",
-    "orders.delete",
-
-    "roles.read",
-    "roles.create",
-    "roles.update",
-    "roles.delete",
-
-    "company.read",
-    "company.update",
-  ];
 
   await prisma.permission.createMany({
     data: permissionKeys.map((permission_key) => ({
@@ -82,11 +43,11 @@ async function main() {
     skipDuplicates: true,
   });
 
-  const permissions = await prisma.permission.findMany();
 
-  // ====================================================
-  // 2. COMPANY
-  // ====================================================
+
+
+  const allDbPermissions = await prisma.permission.findMany();
+
   const company = await prisma.company.create({
     data: {
       name: "Demo Store",
@@ -95,11 +56,9 @@ async function main() {
     },
   });
 
-  // ====================================================
-  // 3. USERS
-  // ====================================================
+//  password:12345678
   const password =
-    "$2b$10$zjQ2D0PkB8A6dF6z5uW9vO4b4R1FJf5h4zA4Y5XkG7fG6J9s7nD7K";
+   "$2b$10$fFdHKroAJjxfZ7sd7C2z2ulgFRYcyhA6E1fy7KakX2cKOWhGXG.QS";
 
   const owner = await prisma.users.create({
     data: {
@@ -143,24 +102,30 @@ async function main() {
   const ownerRole = await prisma.companyRole.create({
     data: {
       company_id: company.id,
-      name: "Owner",
+      name: "OWNER",
       is_system: true,
+      active:true,
+      user_type:userType.OWNER
     },
   });
 
   const adminRole = await prisma.companyRole.create({
     data: {
       company_id: company.id,
-      name: "Admin",
+      name: "ADMIN",
       is_system: true,
+      active:true,
+      user_type:userType.ADMIN
     },
   });
 
   const staffRole = await prisma.companyRole.create({
     data: {
       company_id: company.id,
-      name: "Staff",
+      name: "STAFF",
       is_system: true,
+      active:true,
+      user_type:userType.STAFF
     },
   });
 
@@ -168,25 +133,28 @@ async function main() {
   // 5. ROLE PERMISSIONS
   // ====================================================
 
-  const ownerPermissions = permissions;
+  // const ownerPermission = permissions;
 
-  const adminPermissions = permissions.filter(
-    (p) =>
-      !["admin.create", "admin.update", "admin.delete"].includes(
-        p.permission_key
-      )
-  );
+  // const adminPermission = permissions.filter(
+  //   (p) =>
+  //     !["admin.create", "admin.update", "admin.delete"].includes(
+  //       p.permission_key
+  //     )
+  // );
 
-  const staffPermissions = permissions.filter((p) =>
-    [
-      "orders.read",
-      "orders.create",
-      "orders.update",
-      "items.read",
-      "categories.read",
-      "options.read",
-    ].includes(p.permission_key)
-  );
+  // const staffPermission = permissions.filter((p) =>
+  //   [
+  //     "orders.read",
+  //     "orders.create",
+  //     "orders.update",
+  //     "items.read",
+  //     "categories.read",
+  //     "options.read",
+  //   ].includes(p.permission_key)
+  // );
+// 2. Get the specific permission lists for each role
+const rolePermissionsList = getRolePermissions(allDbPermissions);
+const { ownerPermissions, adminPermissions, staffPermissions } = rolePermissionsList;
 
   await prisma.rolePermission.createMany({
     data: ownerPermissions.map((p) => ({
@@ -222,6 +190,8 @@ async function main() {
         verified_user: true,
         verified_by: owner.id,
         verified_at: new Date(),
+        created_by:owner.id,
+        updated_by:owner.id
       },
       {
         company_id: company.id,
@@ -231,6 +201,8 @@ async function main() {
         verified_user: true,
         verified_by: owner.id,
         verified_at: new Date(),
+         created_by:owner.id,
+        updated_by:owner.id
       },
       {
         company_id: company.id,
@@ -240,6 +212,8 @@ async function main() {
         verified_user: true,
         verified_by: owner.id,
         verified_at: new Date(),
+        created_by:owner.id,
+        updated_by:owner.id
       },
       {
         company_id: company.id,
@@ -249,6 +223,8 @@ async function main() {
         verified_user: true,
         verified_by: owner.id,
         verified_at: new Date(),
+         created_by:owner.id,
+        updated_by:owner.id
       },
     ],
   });
@@ -355,83 +331,83 @@ async function main() {
   // ====================================================
 
   const rice = await prisma.items.create({
-    data: { name: "Rice", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Rice", cat_id: grocery.id, created_by: owner.id, updated_by: owner.id,company_id:company.id},
   });
 
   const wheat = await prisma.items.create({
-    data: { name: "Wheat", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Wheat", cat_id: grocery.id, created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const sugar = await prisma.items.create({
-    data: { name: "Sugar", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Sugar", cat_id: grocery.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const salt = await prisma.items.create({
-    data: { name: "Salt", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Salt", cat_id: grocery.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const dal = await prisma.items.create({
-    data: { name: "Lentils", cat_id: grocery.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Lentils", cat_id: grocery.id,created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const milk = await prisma.items.create({
-    data: { name: "Milk", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Milk", cat_id: beverages.id,  created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const tea = await prisma.items.create({
-    data: { name: "Tea", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Tea", cat_id: beverages.id, created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const coffee = await prisma.items.create({
-    data: { name: "Coffee", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Coffee", cat_id: beverages.id, created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const juice = await prisma.items.create({
-    data: { name: "Juice", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Juice", cat_id: beverages.id, created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const soda = await prisma.items.create({
-    data: { name: "Soda", cat_id: beverages.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Soda", cat_id: beverages.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const apple = await prisma.items.create({
-    data: { name: "Apple", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Apple", cat_id: fruits.id,  created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const banana = await prisma.items.create({
-    data: { name: "Banana", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Banana", cat_id: fruits.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const mango = await prisma.items.create({
-    data: { name: "Mango", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Mango", cat_id: fruits.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const orange = await prisma.items.create({
-    data: { name: "Orange", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Orange", cat_id: fruits.id,  created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const grapes = await prisma.items.create({
-    data: { name: "Grapes", cat_id: fruits.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Grapes", cat_id: fruits.id, created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   const chips = await prisma.items.create({
-    data: { name: "Chips", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Chips", cat_id: snacks.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const biscuits = await prisma.items.create({
-    data: { name: "Biscuits", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Biscuits", cat_id: snacks.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const namkeen = await prisma.items.create({
-    data: { name: "Namkeen", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Namkeen", cat_id: snacks.id,  created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const chocolate = await prisma.items.create({
-    data: { name: "Chocolate", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Chocolate", cat_id: snacks.id,created_by: owner.id, updated_by: owner.id,company_id:company.id },
   });
 
   const popcorn = await prisma.items.create({
-    data: { name: "Popcorn", cat_id: snacks.id, type: itemType.LOOSE, created_by: owner.id, updated_by: owner.id },
+    data: { name: "Popcorn", cat_id: snacks.id, created_by: owner.id, updated_by: owner.id ,company_id:company.id},
   });
 
   // ====================================================
@@ -475,12 +451,15 @@ for (const opt of optionData) {
       input_value: opt.value,
       unit_id: opt.unit.id,
       item_id: opt.item.id,
+      min_sell_quantity:1,
+      min_sell_unit_id:opt.unit.id,
       currency: currencyType.INR,
       price_per_base_unit: calcPricePerBaseUnit(
         opt.price,
         opt.value,
        Number( opt.unit.to_base_factor)
       ),
+      type:optionType.LOOSE,
       created_by: owner.id,
       updated_by: owner.id,
     },
@@ -531,6 +510,8 @@ await Promise.all(
         price_per_base_unit: opt.price_per_base_unit,
         created_by: owner.id,
         updated_by: owner.id,
+        currency:opt.currency
+      
       },
     });
   })
@@ -580,6 +561,7 @@ await Promise.all(
         price_per_base_unit: opt.price_per_base_unit,
         created_by: admin.id,
         updated_by: admin.id,
+        currency:opt.currency
       },
     });
   })
@@ -631,6 +613,7 @@ await Promise.all(
         price_per_base_unit: opt.price_per_base_unit,
         created_by: owner.id,
         updated_by: owner.id,
+        currency:opt.currency
       },
     });
   })
@@ -682,6 +665,7 @@ await Promise.all(
         price_per_base_unit: opt.price_per_base_unit,
         created_by: admin.id,
         updated_by: admin.id,
+        currency:opt.currency
       },
     });
   })
@@ -733,6 +717,7 @@ await Promise.all(
         price_per_base_unit: opt.price_per_base_unit,
         created_by: owner.id,
         updated_by: owner.id,
+        currency:opt.currency
       },
     });
   })

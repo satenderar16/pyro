@@ -1,32 +1,35 @@
+// src/middleware/auth.middleware.ts
+import {Request,  Response, NextFunction, RequestHandler } from "express";
 import { verifyToken } from "../utils/jwt";
+import { ErrorCode } from "../utils/errors/codes.error";
+import { ResponseBuilder } from "../utils/responses/builder.response";
+import { AuthRequest } from "../types/auth-request";
 
-export const authMiddleware = (req: any, res: any, next: any) => {
+export const authMiddleware:RequestHandler = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    // 1. Get Authorization header
-    const authHeader = req.headers.authorization;
+    const token = req.headers.authorization?.split(" ")[1]|| req.cookies?.access_token;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({
-        message: "No token provided",
-      });
+    if (!token) {
+      return res.status(401).json(
+        ResponseBuilder.error(ErrorCode.AUTH_UNAUTHORIZED, "No token provided")
+      );
+      
     }
 
-    // 2. Extract token
-    const token = authHeader.split(" ")[1];
-
-    // 3. Verify token
     const decoded = verifyToken(token);
-
-    // 4. Attach user
+    
+    //Set req.user for all downstream handlers
     req.user = decoded;
 
     next();
-  } catch (err) {
-    return res.status(401).json({
-      message: "Invalid or expired token",
-    });
+  } catch (error) {
+return res.status(401).json(
+      ResponseBuilder.error(ErrorCode.JWT_ERROR, "Invalid or expired token")
+    );
+   
   }
 };
-
-
-// 

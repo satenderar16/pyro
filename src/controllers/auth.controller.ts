@@ -1,10 +1,14 @@
 import prisma from "../config/prisma";
+import { Request, Response } from "express";
+import { SignupSchema, SignupInput } from "../schema/auth.schema";
+import { SigninSchema,SigninInput } from "../schema/auth.schema";
+import { ErrorCode } from "../utils//errors/codes.error";
+import { ResponseBuilder } from "../utils/responses/builder.response";
 import {
   generateAccessToken,
   generateRefreshToken,
   verifyToken
 } from "../utils/jwt";
-import { isValidEmail } from "../utils/validators/email.validator";
 
 
 
@@ -12,19 +16,21 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 // SIGNUP 
-const signup = async (req: any, res: any) => {
+const signup = async (req: Request<{}, {}, SignupInput>, res: Response) => {
   try {
-    const { name, username, email, password } = req.body;
+    
+    const result = SignupSchema.safeParse(req.body);
 
-    if (!name || !username || !email || !password) {
-      return res.status(400).json({
-        message: "Name, username, email, and password are required",
-      });
+    if (!result.success) {
+      return res.status(400).json(
+        ResponseBuilder.error(
+          ErrorCode.VALIDATION_ERROR,
+          "Validation failed"
+        )
+      );
     }
 
-  if (!isValidEmail(email)) {
-  return res.status(400).json({ message: "Invalid email" });
-}
+    const { name, username, email, password } = result.data;
 
     const existingUser = await prisma.users.findFirst({
       where: {
@@ -33,14 +39,16 @@ const signup = async (req: any, res: any) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({
-        message: "Email or username already exists",
-      });
+      return res.status(409).json(
+        ResponseBuilder.error(
+          ErrorCode.USER_ALREADY_EXISTS,
+          "Email or username already exists"
+        )
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-  
     const user = await prisma.users.create({
       data: {
         name,
@@ -49,14 +57,14 @@ const signup = async (req: any, res: any) => {
         password: hashedPassword,
       },
     });
-    // just singed-up indicating only have userId no company_id,role_id:
 
- const payload = { user_id: user.id};
+
+    const payload = { user_id: user.id};
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
-const accessTokenExpiry = new Date(Date.now() + Number(process.env.JWT_ACCESS_EXPIRY));
-const refreshTokenExpiry = new Date(Date.now() + Number(process.env.JWT_REFRESH_EXPIRY));
+    const accessTokenExpiry = new Date(Date.now() + Number(process.env.JWT_ACCESS_EXPIRY));
+    const refreshTokenExpiry = new Date(Date.now() + Number(process.env.JWT_REFRESH_EXPIRY));
 
     const refreshTokenHash = crypto
       .createHash("sha256")
@@ -70,190 +78,247 @@ const refreshTokenExpiry = new Date(Date.now() + Number(process.env.JWT_REFRESH_
         token_hash: refreshTokenHash,
         expired_at: refreshTokenExpiry, // 7 days
         device: req.headers["user-agent"] || "unknown",
-        ipAddress: req.ip,
       },
     });
    
    
    
     res.status(201)
-  .cookie("access_token", accessToken, {
-    httpOnly: true,
-    secure:  process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    expires: accessTokenExpiry,
-  })
-  .cookie("refresh_token", refreshToken, {
-    httpOnly: true,
-    secure:  process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    expires: refreshTokenExpiry,
-  })
-  .json({
-    message: "Signup successful",
-      user: {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-      },
-     "access_token": accessToken,
-     "refresh_token":refreshToken,
-      "access_expiry": accessTokenExpiry,
-      "refresh_expiry": refreshTokenExpiry
-  });
-
+    .cookie("access_token", accessToken, {
+      httpOnly: true,
+      secure:  process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      expires: accessTokenExpiry,
+    })
+    .cookie("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure:  process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      expires: refreshTokenExpiry,
+    })
+    .json(
+      ResponseBuilder.success(
+          {
+            user: {
+              id: user.id,
+              name: user.name,
+              username: user.username,
+              email: user.email,
+            },
+            "access_token": accessToken,
+        "refresh_token":refreshToken,
+          "access_expiry": accessTokenExpiry,
+          "refresh_expiry": refreshTokenExpiry
    
+          },
+          "Signup successful"
+        )
+      );
+
   } catch (err) {
     // edge case user created then internal error occur -> remove user from db:
-    console.error(err);
-    res.status(500).json({ message: "something went wrong" });
+   return res.status(500).json(
+      ResponseBuilder.error(
+        ErrorCode.INTERNAL_ERROR,
+        "Something went wrong"
+      )
+    );
   }
 };
 
-const signin = async (req: any, res: any) => {
-  try {
-    const { email, password } = req.body;
-   
-    if (!isValidEmail(email)) {
-          return res.status(400).json({ message: "Invalid email" });
-        }
 
-    // 1. Find user
+const signin = async (
+  req: Request<{}, {}, SigninInput>,
+  res: Response
+) => {
+  try {
+    const result = SigninSchema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json(
+        ResponseBuilder.error(
+          ErrorCode.VALIDATION_ERROR,
+          "Validation failed"
+        )
+      );
+    }
+
+    const { email, password } = result.data;
+
     const user = await prisma.users.findUnique({
       where: { email },
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(401).json(
+        ResponseBuilder.error(
+          ErrorCode.AUTH_INVALID_CREDENTIALS,
+          "Invalid  password"
+        )
+      );
     }
 
-    // 2. Check password
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json(
+        ResponseBuilder.error(
+          ErrorCode.AUTH_INVALID_CREDENTIALS,
+          "Invalid  password"
+        )
+      );
     }
-    
-    // get company_id, role_id,user_type 
-    // { user_id: user.id, company_id:null, user_type:null,company_role_id:null};
-    // company_id could contains the list of ids as user can be the part many companies:
-   const companyUsers = await prisma.companyUser.findMany({
-  where: {
-    user_id: user.id,
-  },
-  include: {
-    company: true,
-    role: {
-      include: {
-        role_permissions:true
+
+    const companyUsers = await prisma.companyUser.findMany({
+      where: {
+        user_id: user.id,
       },
-    },
-  },
-});
-    let companyUser = companyUsers?.map(cu => ({
-  company: cu.company,
-  role_id: cu.role_id,
-  user_type: cu.user_type,
-  
-}));
+      include: {
+        company: true,
+        role: true,
+      },
+    });
 
-// when user joined or access any company  we simply gonna create new token for that company payload if user switches the company we delete the token and create new:
+    const companyUser = companyUsers.map((cu) => ({
+      company: cu.company,
+      role: cu.role,
+      role_id: cu.role_id,
+      user_type: cu.user_type,
+    })).filter((cu)=>cu.company.deleted_at === null);
 
-    const payload = { user_id: user.id};
+    const payload = {
+      user_id: user.id,
+    };
 
-    // 3. Generate tokens
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
-const accessTokenExpiry = new Date(Date.now() + Number(process.env.JWT_ACCESS_EXPIRY));
-const refreshTokenExpiry = new Date(Date.now() + Number(process.env.JWT_REFRESH_EXPIRY));
-    // 4. Hash refresh token
+    const accessTokenExpiry = new Date(
+      Date.now() + Number(process.env.JWT_ACCESS_EXPIRY)
+    );
+
+    const refreshTokenExpiry = new Date(
+      Date.now() + Number(process.env.JWT_REFRESH_EXPIRY)
+    );
+
     const refreshTokenHash = crypto
       .createHash("sha256")
       .update(refreshToken)
       .digest("hex");
 
-    // 5. Store refresh token in DB (IMPORTANT)
     await prisma.refreshToken.create({
       data: {
         user_id: user.id,
         token_hash: refreshTokenHash,
         expired_at: refreshTokenExpiry,
         device: req.headers["user-agent"] || "unknown",
-        ipAddress: req.ip,
+      
       },
     });
- return res
+
+    return res
+      .status(200)
       .cookie("access_token", accessToken, {
         httpOnly: true,
-        secure:  process.env.NODE_ENV === "production", 
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         expires: accessTokenExpiry,
       })
       .cookie("refresh_token", refreshToken, {
         httpOnly: true,
-        secure:  process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         expires: refreshTokenExpiry,
-      }).status(200)
-      .json({
-        message: "Signin successful",
-       
-        user: {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-          name: user.name,
-        },
-        company_user:companyUser,
-      "access_token": accessToken,
-     "refresh_token":refreshToken,
-      "access_expiry": accessTokenExpiry,
-      "refresh_expiry": refreshTokenExpiry,
-      });
-
-   
+      })
+      .json(
+        ResponseBuilder.success(
+          {
+            user: {
+              id: user.id,
+              name: user.name,
+              username: user.username,
+              email: user.email,
+            },
+            company_user: companyUser,
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            access_expiry: accessTokenExpiry,
+            refresh_expiry: refreshTokenExpiry,
+          },
+          "Signin successful"
+        )
+      );
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+
+    return res.status(500).json(
+      ResponseBuilder.error(
+        ErrorCode.INTERNAL_ERROR,
+        "Something went wrong"
+      )
+    );
   }
 };
-// SIGNOUT
-const signout = async (req: any, res: any) => {
+
+const signout = async (req: Request, res: Response) => {
   try {
-    //TODO also get token from the header:
-    const refreshToken = req.cookies.refresh_token;
-    if(!refreshToken){
-       return res.status(400).json({
-        message: "Token not found",
-      });
+    const refreshToken =
+      req.headers["x-refresh-token"] ||
+      req.cookies?.refresh_token;
+
+    if (!refreshToken) {
+      return res.status(400).json(
+        ResponseBuilder.error(
+          ErrorCode.VALIDATION_ERROR,
+          "Refresh token not found"
+        )
+      );
     }
 
-    // hash the incoming token (because DB stores hash)
-      const tokenHash = crypto
-        .createHash("sha256")
-        .update(refreshToken)
-        .digest("hex");
-      
-      const storedToken = await prisma.refreshToken.findFirst({ where:{token_hash:tokenHash}});
-      console.log(storedToken);
-         if(!storedToken){
-       return res.status(400).json({
-        message: "Invalid Token",
-      });
+    const tokenHash = crypto
+      .createHash("sha256")
+      .update(refreshToken as string)
+      .digest("hex");
+
+    const storedToken = await prisma.refreshToken.findFirst({
+      where: {
+        token_hash: tokenHash,
+      },
+    });
+
+    if (!storedToken) {
+      return res.status(400).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_ERROR,
+          "Invalid refresh token"
+        )
+      );
     }
 
-
-      if(storedToken.expired_at < new Date()){
-        return res.status(400).json({message: "Token is expired"});
-      }
-
+    if (storedToken.expired_at < new Date()) {
       await prisma.refreshToken.delete({
-        where: { id:storedToken.id },
+        where: {
+          id: storedToken.id,
+        },
       });
 
-    // clear cookies
+      return res.status(401).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_TOKEN_EXPIRED,
+          "Refresh token has expired"
+        )
+      );
+    }
+
+    await prisma.refreshToken.delete({
+      where: {
+        id: storedToken.id,
+      },
+    });
+
     return res
       .clearCookie("access_token", {
         httpOnly: true,
@@ -266,40 +331,59 @@ const signout = async (req: any, res: any) => {
         sameSite: "lax",
       })
       .status(200)
-      .json({ message: "Signout successful" });
-
+      .json(
+        ResponseBuilder.success(
+          null,
+          "Signout successful"
+        )
+      );
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Server error" });
+
+    return res.status(500).json(
+      ResponseBuilder.error(
+        ErrorCode.INTERNAL_ERROR,
+        "Something went wrong"
+      )
+    );
   }
 };
 
 
 
-const refresh = async (req: any, res: any) => {
+const refresh = async (req: Request, res: Response) => {
   try {
-    //TODO update for the header:
-     const refreshToken = req.cookies.refresh_token;
+    const refreshToken =
+      req.headers["x-refresh-token"] ||
+      req.cookies?.refresh_token;
 
     if (!refreshToken) {
-      return res.status(401).json({ message: "Token not found" });
+      return res.status(401).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_ERROR,
+          "Refresh token not found"
+        )
+      );
     }
 
-    // 1. VERIFY JWT
-    let decoded;
+    let decoded: any;
+
     try {
-      decoded = verifyToken(refreshToken);
+      decoded = verifyToken(refreshToken as string);
     } catch (err) {
-      return res.status(403).json({ message: "Invalid refresh token" });
+      return res.status(403).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_ERROR,
+          "Invalid refresh token"
+        )
+      );
     }
 
-    // 2. HASH incoming token
     const oldTokenHash = crypto
       .createHash("sha256")
-      .update(refreshToken)
+      .update(refreshToken as string)
       .digest("hex");
 
-    // 3. FIND token in DB
     const storedToken = await prisma.refreshToken.findFirst({
       where: {
         token_hash: oldTokenHash,
@@ -307,71 +391,95 @@ const refresh = async (req: any, res: any) => {
     });
 
     if (!storedToken) {
-      return res.status(403).json({ message: "Token not found or revoked" });
+      return res.status(403).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_ERROR,
+          "Token not found or revoked"
+        )
+      );
     }
 
     if (storedToken.expired_at < new Date()) {
-      return res.status(403).json({ message: "Token expired" });
+      await prisma.refreshToken.delete({
+        where: {
+          id: storedToken.id,
+        },
+      });
+
+      return res.status(403).json(
+        ResponseBuilder.error(
+          ErrorCode.JWT_TOKEN_EXPIRED,
+          "Refresh token expired"
+        )
+      );
     }
 
-   
-
-    // 5. update TOKEN
     const payload = {
-      user_id: decoded.user_id
+      user_id: decoded.user_id,
     };
 
     const newAccessToken = generateAccessToken(payload);
     const newRefreshToken = generateRefreshToken(payload);
 
-const accessTokenExpiry = new Date(Date.now() + Number(process.env.JWT_ACCESS_EXPIRY));
-const refreshTokenExpiry = new Date(Date.now() + Number(process.env.JWT_REFRESH_EXPIRY));
+    const accessTokenExpiry = new Date(
+      Date.now() + Number(process.env.JWT_ACCESS_EXPIRY)
+    );
 
-    // 6. HASH NEW REFRESH TOKEN
+    const refreshTokenExpiry = new Date(
+      Date.now() + Number(process.env.JWT_REFRESH_EXPIRY)
+    );
+
     const newRefreshTokenHash = crypto
       .createHash("sha256")
       .update(newRefreshToken)
       .digest("hex");
 
-    // 7. STORE NEW REFRESH TOKEN
     await prisma.refreshToken.update({
-      where: {id: storedToken.id},
+      where: {
+        id: storedToken.id,
+      },
       data: {
-        user_id: decoded.user_id,
         token_hash: newRefreshTokenHash,
         expired_at: refreshTokenExpiry,
         device: req.headers["user-agent"] || "unknown",
-        ipAddress: req.ip,
+     
       },
     });
 
-
     return res
-  .cookie("access_token", newAccessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    expires: accessTokenExpiry,
-  })
-  .cookie("refresh_token", newRefreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    expires: refreshTokenExpiry,
-  })
-  .status(200)
-  .json({
-    message: "Successfully",
-    "access_token": newAccessToken,
-  "refresh_token": newRefreshToken,
-  "access_expiry": accessTokenExpiry,
-  "refresh_expiry": refreshTokenExpiry,
-  });
-
-  
+      .cookie("access_token", newAccessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        expires: accessTokenExpiry,
+      })
+      .cookie("refresh_token", newRefreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        expires: refreshTokenExpiry,
+      })
+      .status(200)
+      .json(
+        ResponseBuilder.success(
+          {
+            access_token: newAccessToken,
+            refresh_token: newRefreshToken,
+            access_expiry: accessTokenExpiry,
+            refresh_expiry: refreshTokenExpiry,
+          },
+          "Token refreshed successfully"
+        )
+      );
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Server error" });
+
+    return res.status(500).json(
+      ResponseBuilder.error(
+        ErrorCode.INTERNAL_ERROR,
+        "Something went wrong"
+      )
+    );
   }
 };
 

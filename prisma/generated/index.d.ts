@@ -49,6 +49,11 @@ export type permission = $Result.DefaultSelection<Prisma.$permissionPayload>
  */
 export type categories = $Result.DefaultSelection<Prisma.$categoriesPayload>
 /**
+ * Model CompanyInvite
+ * 
+ */
+export type CompanyInvite = $Result.DefaultSelection<Prisma.$CompanyInvitePayload>
+/**
  * Model items
  * 
  */
@@ -97,12 +102,12 @@ export namespace $Enums {
 export type userType = (typeof userType)[keyof typeof userType]
 
 
-export const itemType: {
+export const optionType: {
   PACKAGE: 'PACKAGE',
   LOOSE: 'LOOSE'
 };
 
-export type itemType = (typeof itemType)[keyof typeof itemType]
+export type optionType = (typeof optionType)[keyof typeof optionType]
 
 
 export const currencyType: {
@@ -137,9 +142,9 @@ export type userType = $Enums.userType
 
 export const userType: typeof $Enums.userType
 
-export type itemType = $Enums.itemType
+export type optionType = $Enums.optionType
 
-export const itemType: typeof $Enums.itemType
+export const optionType: typeof $Enums.optionType
 
 export type currencyType = $Enums.currencyType
 
@@ -343,6 +348,16 @@ export class PrismaClient<
     * ```
     */
   get categories(): Prisma.categoriesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.companyInvite`: Exposes CRUD operations for the **CompanyInvite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CompanyInvites
+    * const companyInvites = await prisma.companyInvite.findMany()
+    * ```
+    */
+  get companyInvite(): Prisma.CompanyInviteDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.items`: Exposes CRUD operations for the **items** model.
@@ -854,6 +869,7 @@ export namespace Prisma {
     rolePermission: 'rolePermission',
     permission: 'permission',
     categories: 'categories',
+    CompanyInvite: 'CompanyInvite',
     items: 'items',
     options: 'options',
     orderOptions: 'orderOptions',
@@ -876,7 +892,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "company" | "companyUser" | "companyRole" | "rolePermission" | "permission" | "categories" | "items" | "options" | "orderOptions" | "orders" | "unitClass" | "units" | "refreshToken"
+      modelProps: "users" | "company" | "companyUser" | "companyRole" | "rolePermission" | "permission" | "categories" | "companyInvite" | "items" | "options" | "orderOptions" | "orders" | "unitClass" | "units" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1395,6 +1411,80 @@ export namespace Prisma {
           count: {
             args: Prisma.categoriesCountArgs<ExtArgs>
             result: $Utils.Optional<CategoriesCountAggregateOutputType> | number
+          }
+        }
+      }
+      CompanyInvite: {
+        payload: Prisma.$CompanyInvitePayload<ExtArgs>
+        fields: Prisma.CompanyInviteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanyInviteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanyInviteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          findFirst: {
+            args: Prisma.CompanyInviteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanyInviteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          findMany: {
+            args: Prisma.CompanyInviteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>[]
+          }
+          create: {
+            args: Prisma.CompanyInviteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          createMany: {
+            args: Prisma.CompanyInviteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanyInviteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>[]
+          }
+          delete: {
+            args: Prisma.CompanyInviteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          update: {
+            args: Prisma.CompanyInviteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanyInviteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanyInviteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanyInviteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanyInviteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyInvitePayload>
+          }
+          aggregate: {
+            args: Prisma.CompanyInviteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompanyInvite>
+          }
+          groupBy: {
+            args: Prisma.CompanyInviteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanyInviteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanyInviteCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanyInviteCountAggregateOutputType> | number
           }
         }
       }
@@ -2031,6 +2121,7 @@ export namespace Prisma {
     rolePermission?: rolePermissionOmit
     permission?: permissionOmit
     categories?: categoriesOmit
+    companyInvite?: CompanyInviteOmit
     items?: itemsOmit
     options?: optionsOmit
     orderOptions?: orderOptionsOmit
@@ -2126,11 +2217,11 @@ export namespace Prisma {
     options_options_updated_byTousers: number
     order_options_order_options_created_byTousers: number
     order_options_order_options_updated_byTousers: number
-    orders_orders_created_byTousers: number
-    orders_orders_status_changed_byTousers: number
     refreshTokens: number
     company_user: number
     verified_members: number
+    created_invites: number
+    received_invites: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2142,11 +2233,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: boolean | UsersCountOutputTypeCountOptions_options_updated_byTousersArgs
     order_options_order_options_created_byTousers?: boolean | UsersCountOutputTypeCountOrder_options_order_options_created_byTousersArgs
     order_options_order_options_updated_byTousers?: boolean | UsersCountOutputTypeCountOrder_options_order_options_updated_byTousersArgs
-    orders_orders_created_byTousers?: boolean | UsersCountOutputTypeCountOrders_orders_created_byTousersArgs
-    orders_orders_status_changed_byTousers?: boolean | UsersCountOutputTypeCountOrders_orders_status_changed_byTousersArgs
     refreshTokens?: boolean | UsersCountOutputTypeCountRefreshTokensArgs
     company_user?: boolean | UsersCountOutputTypeCountCompany_userArgs
     verified_members?: boolean | UsersCountOutputTypeCountVerified_membersArgs
+    created_invites?: boolean | UsersCountOutputTypeCountCreated_invitesArgs
+    received_invites?: boolean | UsersCountOutputTypeCountReceived_invitesArgs
   }
 
   // Custom InputTypes
@@ -2219,20 +2310,6 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountOrders_orders_created_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ordersWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountOrders_orders_status_changed_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ordersWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
   export type UsersCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: refreshTokenWhereInput
   }
@@ -2251,23 +2328,39 @@ export namespace Prisma {
     where?: companyUserWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyInviteWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountReceived_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyInviteWhereInput
+  }
+
 
   /**
    * Count Type CompanyCountOutputType
    */
 
   export type CompanyCountOutputType = {
-    company_orders: number
     users: number
     roles: number
+    items: number
     categories: number
+    company_invites: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    company_orders?: boolean | CompanyCountOutputTypeCountCompany_ordersArgs
     users?: boolean | CompanyCountOutputTypeCountUsersArgs
     roles?: boolean | CompanyCountOutputTypeCountRolesArgs
+    items?: boolean | CompanyCountOutputTypeCountItemsArgs
     categories?: boolean | CompanyCountOutputTypeCountCategoriesArgs
+    company_invites?: boolean | CompanyCountOutputTypeCountCompany_invitesArgs
   }
 
   // Custom InputTypes
@@ -2279,13 +2372,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the CompanyCountOutputType
      */
     select?: CompanyCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CompanyCountOutputType without action
-   */
-  export type CompanyCountOutputTypeCountCompany_ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ordersWhereInput
   }
 
   /**
@@ -2305,8 +2391,22 @@ export namespace Prisma {
   /**
    * CompanyCountOutputType without action
    */
+  export type CompanyCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: itemsWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
   export type CompanyCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: categoriesWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountCompany_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyInviteWhereInput
   }
 
 
@@ -2785,11 +2885,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: boolean | users$options_options_updated_byTousersArgs<ExtArgs>
     order_options_order_options_created_byTousers?: boolean | users$order_options_order_options_created_byTousersArgs<ExtArgs>
     order_options_order_options_updated_byTousers?: boolean | users$order_options_order_options_updated_byTousersArgs<ExtArgs>
-    orders_orders_created_byTousers?: boolean | users$orders_orders_created_byTousersArgs<ExtArgs>
-    orders_orders_status_changed_byTousers?: boolean | users$orders_orders_status_changed_byTousersArgs<ExtArgs>
     refreshTokens?: boolean | users$refreshTokensArgs<ExtArgs>
     company_user?: boolean | users$company_userArgs<ExtArgs>
     verified_members?: boolean | users$verified_membersArgs<ExtArgs>
+    created_invites?: boolean | users$created_invitesArgs<ExtArgs>
+    received_invites?: boolean | users$received_invitesArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -2836,11 +2936,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: boolean | users$options_options_updated_byTousersArgs<ExtArgs>
     order_options_order_options_created_byTousers?: boolean | users$order_options_order_options_created_byTousersArgs<ExtArgs>
     order_options_order_options_updated_byTousers?: boolean | users$order_options_order_options_updated_byTousersArgs<ExtArgs>
-    orders_orders_created_byTousers?: boolean | users$orders_orders_created_byTousersArgs<ExtArgs>
-    orders_orders_status_changed_byTousers?: boolean | users$orders_orders_status_changed_byTousersArgs<ExtArgs>
     refreshTokens?: boolean | users$refreshTokensArgs<ExtArgs>
     company_user?: boolean | users$company_userArgs<ExtArgs>
     verified_members?: boolean | users$verified_membersArgs<ExtArgs>
+    created_invites?: boolean | users$created_invitesArgs<ExtArgs>
+    received_invites?: boolean | users$received_invitesArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2857,11 +2957,11 @@ export namespace Prisma {
       options_options_updated_byTousers: Prisma.$optionsPayload<ExtArgs>[]
       order_options_order_options_created_byTousers: Prisma.$orderOptionsPayload<ExtArgs>[]
       order_options_order_options_updated_byTousers: Prisma.$orderOptionsPayload<ExtArgs>[]
-      orders_orders_created_byTousers: Prisma.$ordersPayload<ExtArgs>[]
-      orders_orders_status_changed_byTousers: Prisma.$ordersPayload<ExtArgs>[]
       refreshTokens: Prisma.$refreshTokenPayload<ExtArgs>[]
       company_user: Prisma.$companyUserPayload<ExtArgs>[]
       verified_members: Prisma.$companyUserPayload<ExtArgs>[]
+      created_invites: Prisma.$CompanyInvitePayload<ExtArgs>[]
+      received_invites: Prisma.$CompanyInvitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3274,11 +3374,11 @@ export namespace Prisma {
     options_options_updated_byTousers<T extends users$options_options_updated_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$options_options_updated_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$optionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     order_options_order_options_created_byTousers<T extends users$order_options_order_options_created_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$order_options_order_options_created_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$orderOptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     order_options_order_options_updated_byTousers<T extends users$order_options_order_options_updated_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$order_options_order_options_updated_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$orderOptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders_orders_created_byTousers<T extends users$orders_orders_created_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$orders_orders_created_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders_orders_status_changed_byTousers<T extends users$orders_orders_status_changed_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$orders_orders_status_changed_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     refreshTokens<T extends users$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, users$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$refreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     company_user<T extends users$company_userArgs<ExtArgs> = {}>(args?: Subset<T, users$company_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$companyUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     verified_members<T extends users$verified_membersArgs<ExtArgs> = {}>(args?: Subset<T, users$verified_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$companyUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_invites<T extends users$created_invitesArgs<ExtArgs> = {}>(args?: Subset<T, users$created_invitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    received_invites<T extends users$received_invitesArgs<ExtArgs> = {}>(args?: Subset<T, users$received_invitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3901,54 +4001,6 @@ export namespace Prisma {
   }
 
   /**
-   * users.orders_orders_created_byTousers
-   */
-  export type users$orders_orders_created_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the orders
-     */
-    select?: ordersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the orders
-     */
-    omit?: ordersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordersInclude<ExtArgs> | null
-    where?: ordersWhereInput
-    orderBy?: ordersOrderByWithRelationInput | ordersOrderByWithRelationInput[]
-    cursor?: ordersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrdersScalarFieldEnum | OrdersScalarFieldEnum[]
-  }
-
-  /**
-   * users.orders_orders_status_changed_byTousers
-   */
-  export type users$orders_orders_status_changed_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the orders
-     */
-    select?: ordersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the orders
-     */
-    omit?: ordersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordersInclude<ExtArgs> | null
-    where?: ordersWhereInput
-    orderBy?: ordersOrderByWithRelationInput | ordersOrderByWithRelationInput[]
-    cursor?: ordersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrdersScalarFieldEnum | OrdersScalarFieldEnum[]
-  }
-
-  /**
    * users.refreshTokens
    */
   export type users$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4021,6 +4073,54 @@ export namespace Prisma {
   }
 
   /**
+   * users.created_invites
+   */
+  export type users$created_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    where?: CompanyInviteWhereInput
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    cursor?: CompanyInviteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
+  }
+
+  /**
+   * users.received_invites
+   */
+  export type users$received_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    where?: CompanyInviteWhereInput
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    cursor?: CompanyInviteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
+  }
+
+  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4056,6 +4156,7 @@ export namespace Prisma {
     address: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type CompanyMaxAggregateOutputType = {
@@ -4065,6 +4166,7 @@ export namespace Prisma {
     address: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type CompanyCountAggregateOutputType = {
@@ -4074,6 +4176,7 @@ export namespace Prisma {
     address: number
     created_at: number
     updated_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -4085,6 +4188,7 @@ export namespace Prisma {
     address?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type CompanyMaxAggregateInputType = {
@@ -4094,6 +4198,7 @@ export namespace Prisma {
     address?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type CompanyCountAggregateInputType = {
@@ -4103,6 +4208,7 @@ export namespace Prisma {
     address?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -4185,6 +4291,7 @@ export namespace Prisma {
     address: string | null
     created_at: Date
     updated_at: Date
+    deleted_at: Date | null
     _count: CompanyCountAggregateOutputType | null
     _min: CompanyMinAggregateOutputType | null
     _max: CompanyMaxAggregateOutputType | null
@@ -4211,10 +4318,12 @@ export namespace Prisma {
     address?: boolean
     created_at?: boolean
     updated_at?: boolean
-    company_orders?: boolean | company$company_ordersArgs<ExtArgs>
+    deleted_at?: boolean
     users?: boolean | company$usersArgs<ExtArgs>
     roles?: boolean | company$rolesArgs<ExtArgs>
+    items?: boolean | company$itemsArgs<ExtArgs>
     categories?: boolean | company$categoriesArgs<ExtArgs>
+    company_invites?: boolean | company$company_invitesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -4225,6 +4334,7 @@ export namespace Prisma {
     address?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }, ExtArgs["result"]["company"]>
 
   export type companySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4234,6 +4344,7 @@ export namespace Prisma {
     address?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }, ExtArgs["result"]["company"]>
 
   export type companySelectScalar = {
@@ -4243,14 +4354,16 @@ export namespace Prisma {
     address?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }
 
-  export type companyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "contact" | "address" | "created_at" | "updated_at", ExtArgs["result"]["company"]>
+  export type companyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "contact" | "address" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["company"]>
   export type companyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    company_orders?: boolean | company$company_ordersArgs<ExtArgs>
     users?: boolean | company$usersArgs<ExtArgs>
     roles?: boolean | company$rolesArgs<ExtArgs>
+    items?: boolean | company$itemsArgs<ExtArgs>
     categories?: boolean | company$categoriesArgs<ExtArgs>
+    company_invites?: boolean | company$company_invitesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type companyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4259,10 +4372,11 @@ export namespace Prisma {
   export type $companyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "company"
     objects: {
-      company_orders: Prisma.$ordersPayload<ExtArgs>[]
       users: Prisma.$companyUserPayload<ExtArgs>[]
       roles: Prisma.$companyRolePayload<ExtArgs>[]
+      items: Prisma.$itemsPayload<ExtArgs>[]
       categories: Prisma.$categoriesPayload<ExtArgs>[]
+      company_invites: Prisma.$CompanyInvitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4271,6 +4385,7 @@ export namespace Prisma {
       address: string | null
       created_at: Date
       updated_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["company"]>
     composites: {}
   }
@@ -4665,10 +4780,11 @@ export namespace Prisma {
    */
   export interface Prisma__companyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    company_orders<T extends company$company_ordersArgs<ExtArgs> = {}>(args?: Subset<T, company$company_ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends company$usersArgs<ExtArgs> = {}>(args?: Subset<T, company$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$companyUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles<T extends company$rolesArgs<ExtArgs> = {}>(args?: Subset<T, company$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$companyRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    items<T extends company$itemsArgs<ExtArgs> = {}>(args?: Subset<T, company$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     categories<T extends company$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, company$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$categoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    company_invites<T extends company$company_invitesArgs<ExtArgs> = {}>(args?: Subset<T, company$company_invitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4704,6 +4820,7 @@ export namespace Prisma {
     readonly address: FieldRef<"company", 'String'>
     readonly created_at: FieldRef<"company", 'DateTime'>
     readonly updated_at: FieldRef<"company", 'DateTime'>
+    readonly deleted_at: FieldRef<"company", 'DateTime'>
   }
     
 
@@ -5097,30 +5214,6 @@ export namespace Prisma {
   }
 
   /**
-   * company.company_orders
-   */
-  export type company$company_ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the orders
-     */
-    select?: ordersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the orders
-     */
-    omit?: ordersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordersInclude<ExtArgs> | null
-    where?: ordersWhereInput
-    orderBy?: ordersOrderByWithRelationInput | ordersOrderByWithRelationInput[]
-    cursor?: ordersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrdersScalarFieldEnum | OrdersScalarFieldEnum[]
-  }
-
-  /**
    * company.users
    */
   export type company$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5169,6 +5262,30 @@ export namespace Prisma {
   }
 
   /**
+   * company.items
+   */
+  export type company$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the items
+     */
+    select?: itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the items
+     */
+    omit?: itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: itemsInclude<ExtArgs> | null
+    where?: itemsWhereInput
+    orderBy?: itemsOrderByWithRelationInput | itemsOrderByWithRelationInput[]
+    cursor?: itemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemsScalarFieldEnum | ItemsScalarFieldEnum[]
+  }
+
+  /**
    * company.categories
    */
   export type company$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5190,6 +5307,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CategoriesScalarFieldEnum | CategoriesScalarFieldEnum[]
+  }
+
+  /**
+   * company.company_invites
+   */
+  export type company$company_invitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    where?: CompanyInviteWhereInput
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    cursor?: CompanyInviteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
   }
 
   /**
@@ -5230,7 +5371,10 @@ export namespace Prisma {
     verified_by: string | null
     verified_at: Date | null
     created_at: Date | null
+    created_by: string | null
     updated_at: Date | null
+    updated_by: string | null
+    deleted_at: Date | null
   }
 
   export type CompanyUserMaxAggregateOutputType = {
@@ -5242,7 +5386,10 @@ export namespace Prisma {
     verified_by: string | null
     verified_at: Date | null
     created_at: Date | null
+    created_by: string | null
     updated_at: Date | null
+    updated_by: string | null
+    deleted_at: Date | null
   }
 
   export type CompanyUserCountAggregateOutputType = {
@@ -5254,7 +5401,10 @@ export namespace Prisma {
     verified_by: number
     verified_at: number
     created_at: number
+    created_by: number
     updated_at: number
+    updated_by: number
+    deleted_at: number
     _all: number
   }
 
@@ -5268,7 +5418,10 @@ export namespace Prisma {
     verified_by?: true
     verified_at?: true
     created_at?: true
+    created_by?: true
     updated_at?: true
+    updated_by?: true
+    deleted_at?: true
   }
 
   export type CompanyUserMaxAggregateInputType = {
@@ -5280,7 +5433,10 @@ export namespace Prisma {
     verified_by?: true
     verified_at?: true
     created_at?: true
+    created_by?: true
     updated_at?: true
+    updated_by?: true
+    deleted_at?: true
   }
 
   export type CompanyUserCountAggregateInputType = {
@@ -5292,7 +5448,10 @@ export namespace Prisma {
     verified_by?: true
     verified_at?: true
     created_at?: true
+    created_by?: true
     updated_at?: true
+    updated_by?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -5377,7 +5536,10 @@ export namespace Prisma {
     verified_by: string | null
     verified_at: Date | null
     created_at: Date
+    created_by: string
     updated_at: Date
+    updated_by: string
+    deleted_at: Date | null
     _count: CompanyUserCountAggregateOutputType | null
     _min: CompanyUserMinAggregateOutputType | null
     _max: CompanyUserMaxAggregateOutputType | null
@@ -5406,7 +5568,10 @@ export namespace Prisma {
     verified_by?: boolean
     verified_at?: boolean
     created_at?: boolean
+    created_by?: boolean
     updated_at?: boolean
+    updated_by?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     verifier?: boolean | companyUser$verifierArgs<ExtArgs>
@@ -5422,7 +5587,10 @@ export namespace Prisma {
     verified_by?: boolean
     verified_at?: boolean
     created_at?: boolean
+    created_by?: boolean
     updated_at?: boolean
+    updated_by?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     verifier?: boolean | companyUser$verifierArgs<ExtArgs>
@@ -5438,7 +5606,10 @@ export namespace Prisma {
     verified_by?: boolean
     verified_at?: boolean
     created_at?: boolean
+    created_by?: boolean
     updated_at?: boolean
+    updated_by?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     verifier?: boolean | companyUser$verifierArgs<ExtArgs>
@@ -5454,10 +5625,13 @@ export namespace Prisma {
     verified_by?: boolean
     verified_at?: boolean
     created_at?: boolean
+    created_by?: boolean
     updated_at?: boolean
+    updated_by?: boolean
+    deleted_at?: boolean
   }
 
-  export type companyUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"company_id" | "user_id" | "user_type" | "role_id" | "verified_user" | "verified_by" | "verified_at" | "created_at" | "updated_at", ExtArgs["result"]["companyUser"]>
+  export type companyUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"company_id" | "user_id" | "user_type" | "role_id" | "verified_user" | "verified_by" | "verified_at" | "created_at" | "created_by" | "updated_at" | "updated_by" | "deleted_at", ExtArgs["result"]["companyUser"]>
   export type companyUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | companyDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
@@ -5494,7 +5668,10 @@ export namespace Prisma {
       verified_by: string | null
       verified_at: Date | null
       created_at: Date
+      created_by: string
       updated_at: Date
+      updated_by: string
+      deleted_at: Date | null
     }, ExtArgs["result"]["companyUser"]>
     composites: {}
   }
@@ -5930,7 +6107,10 @@ export namespace Prisma {
     readonly verified_by: FieldRef<"companyUser", 'String'>
     readonly verified_at: FieldRef<"companyUser", 'DateTime'>
     readonly created_at: FieldRef<"companyUser", 'DateTime'>
+    readonly created_by: FieldRef<"companyUser", 'String'>
     readonly updated_at: FieldRef<"companyUser", 'DateTime'>
+    readonly updated_by: FieldRef<"companyUser", 'String'>
+    readonly deleted_at: FieldRef<"companyUser", 'DateTime'>
   }
     
 
@@ -6405,6 +6585,9 @@ export namespace Prisma {
     is_system: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    user_type: $Enums.userType | null
+    active: boolean | null
+    deleted_at: Date | null
   }
 
   export type CompanyRoleMaxAggregateOutputType = {
@@ -6414,6 +6597,9 @@ export namespace Prisma {
     is_system: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    user_type: $Enums.userType | null
+    active: boolean | null
+    deleted_at: Date | null
   }
 
   export type CompanyRoleCountAggregateOutputType = {
@@ -6423,6 +6609,9 @@ export namespace Prisma {
     is_system: number
     created_at: number
     updated_at: number
+    user_type: number
+    active: number
+    deleted_at: number
     _all: number
   }
 
@@ -6434,6 +6623,9 @@ export namespace Prisma {
     is_system?: true
     created_at?: true
     updated_at?: true
+    user_type?: true
+    active?: true
+    deleted_at?: true
   }
 
   export type CompanyRoleMaxAggregateInputType = {
@@ -6443,6 +6635,9 @@ export namespace Prisma {
     is_system?: true
     created_at?: true
     updated_at?: true
+    user_type?: true
+    active?: true
+    deleted_at?: true
   }
 
   export type CompanyRoleCountAggregateInputType = {
@@ -6452,6 +6647,9 @@ export namespace Prisma {
     is_system?: true
     created_at?: true
     updated_at?: true
+    user_type?: true
+    active?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -6534,6 +6732,9 @@ export namespace Prisma {
     is_system: boolean
     created_at: Date
     updated_at: Date
+    user_type: $Enums.userType
+    active: boolean
+    deleted_at: Date | null
     _count: CompanyRoleCountAggregateOutputType | null
     _min: CompanyRoleMinAggregateOutputType | null
     _max: CompanyRoleMaxAggregateOutputType | null
@@ -6560,6 +6761,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: boolean
     updated_at?: boolean
+    user_type?: boolean
+    active?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
     users?: boolean | companyRole$usersArgs<ExtArgs>
     role_permissions?: boolean | companyRole$role_permissionsArgs<ExtArgs>
@@ -6573,6 +6777,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: boolean
     updated_at?: boolean
+    user_type?: boolean
+    active?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyRole"]>
 
@@ -6583,6 +6790,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: boolean
     updated_at?: boolean
+    user_type?: boolean
+    active?: boolean
+    deleted_at?: boolean
     company?: boolean | companyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyRole"]>
 
@@ -6593,9 +6803,12 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: boolean
     updated_at?: boolean
+    user_type?: boolean
+    active?: boolean
+    deleted_at?: boolean
   }
 
-  export type companyRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_id" | "name" | "is_system" | "created_at" | "updated_at", ExtArgs["result"]["companyRole"]>
+  export type companyRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_id" | "name" | "is_system" | "created_at" | "updated_at" | "user_type" | "active" | "deleted_at", ExtArgs["result"]["companyRole"]>
   export type companyRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | companyDefaultArgs<ExtArgs>
     users?: boolean | companyRole$usersArgs<ExtArgs>
@@ -6623,6 +6836,9 @@ export namespace Prisma {
       is_system: boolean
       created_at: Date
       updated_at: Date
+      user_type: $Enums.userType
+      active: boolean
+      deleted_at: Date | null
     }, ExtArgs["result"]["companyRole"]>
     composites: {}
   }
@@ -7055,6 +7271,9 @@ export namespace Prisma {
     readonly is_system: FieldRef<"companyRole", 'Boolean'>
     readonly created_at: FieldRef<"companyRole", 'DateTime'>
     readonly updated_at: FieldRef<"companyRole", 'DateTime'>
+    readonly user_type: FieldRef<"companyRole", 'userType'>
+    readonly active: FieldRef<"companyRole", 'Boolean'>
+    readonly deleted_at: FieldRef<"companyRole", 'DateTime'>
   }
     
 
@@ -10888,6 +11107,1163 @@ export namespace Prisma {
 
 
   /**
+   * Model CompanyInvite
+   */
+
+  export type AggregateCompanyInvite = {
+    _count: CompanyInviteCountAggregateOutputType | null
+    _min: CompanyInviteMinAggregateOutputType | null
+    _max: CompanyInviteMaxAggregateOutputType | null
+  }
+
+  export type CompanyInviteMinAggregateOutputType = {
+    id: string | null
+    company_id: string | null
+    created_by: string | null
+    invited_user_id: string | null
+    invite_code: string | null
+    creator_user_type: $Enums.userType | null
+    created_at: Date | null
+    expired_at: Date | null
+    is_redeemed: boolean | null
+    deleted_at: Date | null
+    deleted_by: string | null
+  }
+
+  export type CompanyInviteMaxAggregateOutputType = {
+    id: string | null
+    company_id: string | null
+    created_by: string | null
+    invited_user_id: string | null
+    invite_code: string | null
+    creator_user_type: $Enums.userType | null
+    created_at: Date | null
+    expired_at: Date | null
+    is_redeemed: boolean | null
+    deleted_at: Date | null
+    deleted_by: string | null
+  }
+
+  export type CompanyInviteCountAggregateOutputType = {
+    id: number
+    company_id: number
+    created_by: number
+    invited_user_id: number
+    invite_code: number
+    creator_user_type: number
+    created_at: number
+    expired_at: number
+    is_redeemed: number
+    deleted_at: number
+    deleted_by: number
+    _all: number
+  }
+
+
+  export type CompanyInviteMinAggregateInputType = {
+    id?: true
+    company_id?: true
+    created_by?: true
+    invited_user_id?: true
+    invite_code?: true
+    creator_user_type?: true
+    created_at?: true
+    expired_at?: true
+    is_redeemed?: true
+    deleted_at?: true
+    deleted_by?: true
+  }
+
+  export type CompanyInviteMaxAggregateInputType = {
+    id?: true
+    company_id?: true
+    created_by?: true
+    invited_user_id?: true
+    invite_code?: true
+    creator_user_type?: true
+    created_at?: true
+    expired_at?: true
+    is_redeemed?: true
+    deleted_at?: true
+    deleted_by?: true
+  }
+
+  export type CompanyInviteCountAggregateInputType = {
+    id?: true
+    company_id?: true
+    created_by?: true
+    invited_user_id?: true
+    invite_code?: true
+    creator_user_type?: true
+    created_at?: true
+    expired_at?: true
+    is_redeemed?: true
+    deleted_at?: true
+    deleted_by?: true
+    _all?: true
+  }
+
+  export type CompanyInviteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanyInvite to aggregate.
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyInvites to fetch.
+     */
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanyInviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyInvites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyInvites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CompanyInvites
+    **/
+    _count?: true | CompanyInviteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanyInviteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanyInviteMaxAggregateInputType
+  }
+
+  export type GetCompanyInviteAggregateType<T extends CompanyInviteAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompanyInvite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompanyInvite[P]>
+      : GetScalarType<T[P], AggregateCompanyInvite[P]>
+  }
+
+
+
+
+  export type CompanyInviteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyInviteWhereInput
+    orderBy?: CompanyInviteOrderByWithAggregationInput | CompanyInviteOrderByWithAggregationInput[]
+    by: CompanyInviteScalarFieldEnum[] | CompanyInviteScalarFieldEnum
+    having?: CompanyInviteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanyInviteCountAggregateInputType | true
+    _min?: CompanyInviteMinAggregateInputType
+    _max?: CompanyInviteMaxAggregateInputType
+  }
+
+  export type CompanyInviteGroupByOutputType = {
+    id: string
+    company_id: string
+    created_by: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at: Date
+    expired_at: Date
+    is_redeemed: boolean
+    deleted_at: Date | null
+    deleted_by: string | null
+    _count: CompanyInviteCountAggregateOutputType | null
+    _min: CompanyInviteMinAggregateOutputType | null
+    _max: CompanyInviteMaxAggregateOutputType | null
+  }
+
+  type GetCompanyInviteGroupByPayload<T extends CompanyInviteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanyInviteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanyInviteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanyInviteGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanyInviteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanyInviteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_id?: boolean
+    created_by?: boolean
+    invited_user_id?: boolean
+    invite_code?: boolean
+    creator_user_type?: boolean
+    created_at?: boolean
+    expired_at?: boolean
+    is_redeemed?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companyInvite"]>
+
+  export type CompanyInviteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_id?: boolean
+    created_by?: boolean
+    invited_user_id?: boolean
+    invite_code?: boolean
+    creator_user_type?: boolean
+    created_at?: boolean
+    expired_at?: boolean
+    is_redeemed?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companyInvite"]>
+
+  export type CompanyInviteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_id?: boolean
+    created_by?: boolean
+    invited_user_id?: boolean
+    invite_code?: boolean
+    creator_user_type?: boolean
+    created_at?: boolean
+    expired_at?: boolean
+    is_redeemed?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companyInvite"]>
+
+  export type CompanyInviteSelectScalar = {
+    id?: boolean
+    company_id?: boolean
+    created_by?: boolean
+    invited_user_id?: boolean
+    invite_code?: boolean
+    creator_user_type?: boolean
+    created_at?: boolean
+    expired_at?: boolean
+    is_redeemed?: boolean
+    deleted_at?: boolean
+    deleted_by?: boolean
+  }
+
+  export type CompanyInviteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_id" | "created_by" | "invited_user_id" | "invite_code" | "creator_user_type" | "created_at" | "expired_at" | "is_redeemed" | "deleted_at" | "deleted_by", ExtArgs["result"]["companyInvite"]>
+  export type CompanyInviteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type CompanyInviteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type CompanyInviteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invite_company?: boolean | companyDefaultArgs<ExtArgs>
+    created_by_user?: boolean | usersDefaultArgs<ExtArgs>
+    user_invited?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $CompanyInvitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CompanyInvite"
+    objects: {
+      invite_company: Prisma.$companyPayload<ExtArgs>
+      created_by_user: Prisma.$usersPayload<ExtArgs>
+      user_invited: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      company_id: string
+      created_by: string
+      invited_user_id: string
+      invite_code: string
+      creator_user_type: $Enums.userType
+      created_at: Date
+      expired_at: Date
+      is_redeemed: boolean
+      deleted_at: Date | null
+      deleted_by: string | null
+    }, ExtArgs["result"]["companyInvite"]>
+    composites: {}
+  }
+
+  type CompanyInviteGetPayload<S extends boolean | null | undefined | CompanyInviteDefaultArgs> = $Result.GetResult<Prisma.$CompanyInvitePayload, S>
+
+  type CompanyInviteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanyInviteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanyInviteCountAggregateInputType | true
+    }
+
+  export interface CompanyInviteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CompanyInvite'], meta: { name: 'CompanyInvite' } }
+    /**
+     * Find zero or one CompanyInvite that matches the filter.
+     * @param {CompanyInviteFindUniqueArgs} args - Arguments to find a CompanyInvite
+     * @example
+     * // Get one CompanyInvite
+     * const companyInvite = await prisma.companyInvite.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanyInviteFindUniqueArgs>(args: SelectSubset<T, CompanyInviteFindUniqueArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CompanyInvite that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanyInviteFindUniqueOrThrowArgs} args - Arguments to find a CompanyInvite
+     * @example
+     * // Get one CompanyInvite
+     * const companyInvite = await prisma.companyInvite.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanyInviteFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanyInviteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanyInvite that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteFindFirstArgs} args - Arguments to find a CompanyInvite
+     * @example
+     * // Get one CompanyInvite
+     * const companyInvite = await prisma.companyInvite.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanyInviteFindFirstArgs>(args?: SelectSubset<T, CompanyInviteFindFirstArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanyInvite that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteFindFirstOrThrowArgs} args - Arguments to find a CompanyInvite
+     * @example
+     * // Get one CompanyInvite
+     * const companyInvite = await prisma.companyInvite.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanyInviteFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanyInviteFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CompanyInvites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CompanyInvites
+     * const companyInvites = await prisma.companyInvite.findMany()
+     * 
+     * // Get first 10 CompanyInvites
+     * const companyInvites = await prisma.companyInvite.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companyInviteWithIdOnly = await prisma.companyInvite.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanyInviteFindManyArgs>(args?: SelectSubset<T, CompanyInviteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CompanyInvite.
+     * @param {CompanyInviteCreateArgs} args - Arguments to create a CompanyInvite.
+     * @example
+     * // Create one CompanyInvite
+     * const CompanyInvite = await prisma.companyInvite.create({
+     *   data: {
+     *     // ... data to create a CompanyInvite
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanyInviteCreateArgs>(args: SelectSubset<T, CompanyInviteCreateArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CompanyInvites.
+     * @param {CompanyInviteCreateManyArgs} args - Arguments to create many CompanyInvites.
+     * @example
+     * // Create many CompanyInvites
+     * const companyInvite = await prisma.companyInvite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanyInviteCreateManyArgs>(args?: SelectSubset<T, CompanyInviteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CompanyInvites and returns the data saved in the database.
+     * @param {CompanyInviteCreateManyAndReturnArgs} args - Arguments to create many CompanyInvites.
+     * @example
+     * // Create many CompanyInvites
+     * const companyInvite = await prisma.companyInvite.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CompanyInvites and only return the `id`
+     * const companyInviteWithIdOnly = await prisma.companyInvite.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanyInviteCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanyInviteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CompanyInvite.
+     * @param {CompanyInviteDeleteArgs} args - Arguments to delete one CompanyInvite.
+     * @example
+     * // Delete one CompanyInvite
+     * const CompanyInvite = await prisma.companyInvite.delete({
+     *   where: {
+     *     // ... filter to delete one CompanyInvite
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanyInviteDeleteArgs>(args: SelectSubset<T, CompanyInviteDeleteArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CompanyInvite.
+     * @param {CompanyInviteUpdateArgs} args - Arguments to update one CompanyInvite.
+     * @example
+     * // Update one CompanyInvite
+     * const companyInvite = await prisma.companyInvite.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanyInviteUpdateArgs>(args: SelectSubset<T, CompanyInviteUpdateArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CompanyInvites.
+     * @param {CompanyInviteDeleteManyArgs} args - Arguments to filter CompanyInvites to delete.
+     * @example
+     * // Delete a few CompanyInvites
+     * const { count } = await prisma.companyInvite.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanyInviteDeleteManyArgs>(args?: SelectSubset<T, CompanyInviteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanyInvites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CompanyInvites
+     * const companyInvite = await prisma.companyInvite.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanyInviteUpdateManyArgs>(args: SelectSubset<T, CompanyInviteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanyInvites and returns the data updated in the database.
+     * @param {CompanyInviteUpdateManyAndReturnArgs} args - Arguments to update many CompanyInvites.
+     * @example
+     * // Update many CompanyInvites
+     * const companyInvite = await prisma.companyInvite.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CompanyInvites and only return the `id`
+     * const companyInviteWithIdOnly = await prisma.companyInvite.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanyInviteUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanyInviteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CompanyInvite.
+     * @param {CompanyInviteUpsertArgs} args - Arguments to update or create a CompanyInvite.
+     * @example
+     * // Update or create a CompanyInvite
+     * const companyInvite = await prisma.companyInvite.upsert({
+     *   create: {
+     *     // ... data to create a CompanyInvite
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CompanyInvite we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanyInviteUpsertArgs>(args: SelectSubset<T, CompanyInviteUpsertArgs<ExtArgs>>): Prisma__CompanyInviteClient<$Result.GetResult<Prisma.$CompanyInvitePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CompanyInvites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteCountArgs} args - Arguments to filter CompanyInvites to count.
+     * @example
+     * // Count the number of CompanyInvites
+     * const count = await prisma.companyInvite.count({
+     *   where: {
+     *     // ... the filter for the CompanyInvites we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanyInviteCountArgs>(
+      args?: Subset<T, CompanyInviteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanyInviteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CompanyInvite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanyInviteAggregateArgs>(args: Subset<T, CompanyInviteAggregateArgs>): Prisma.PrismaPromise<GetCompanyInviteAggregateType<T>>
+
+    /**
+     * Group by CompanyInvite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyInviteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanyInviteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanyInviteGroupByArgs['orderBy'] }
+        : { orderBy?: CompanyInviteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanyInviteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanyInviteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CompanyInvite model
+   */
+  readonly fields: CompanyInviteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CompanyInvite.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanyInviteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    invite_company<T extends companyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, companyDefaultArgs<ExtArgs>>): Prisma__companyClient<$Result.GetResult<Prisma.$companyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    created_by_user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user_invited<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CompanyInvite model
+   */
+  interface CompanyInviteFieldRefs {
+    readonly id: FieldRef<"CompanyInvite", 'String'>
+    readonly company_id: FieldRef<"CompanyInvite", 'String'>
+    readonly created_by: FieldRef<"CompanyInvite", 'String'>
+    readonly invited_user_id: FieldRef<"CompanyInvite", 'String'>
+    readonly invite_code: FieldRef<"CompanyInvite", 'String'>
+    readonly creator_user_type: FieldRef<"CompanyInvite", 'userType'>
+    readonly created_at: FieldRef<"CompanyInvite", 'DateTime'>
+    readonly expired_at: FieldRef<"CompanyInvite", 'DateTime'>
+    readonly is_redeemed: FieldRef<"CompanyInvite", 'Boolean'>
+    readonly deleted_at: FieldRef<"CompanyInvite", 'DateTime'>
+    readonly deleted_by: FieldRef<"CompanyInvite", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompanyInvite findUnique
+   */
+  export type CompanyInviteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyInvite to fetch.
+     */
+    where: CompanyInviteWhereUniqueInput
+  }
+
+  /**
+   * CompanyInvite findUniqueOrThrow
+   */
+  export type CompanyInviteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyInvite to fetch.
+     */
+    where: CompanyInviteWhereUniqueInput
+  }
+
+  /**
+   * CompanyInvite findFirst
+   */
+  export type CompanyInviteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyInvite to fetch.
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyInvites to fetch.
+     */
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanyInvites.
+     */
+    cursor?: CompanyInviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyInvites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyInvites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanyInvites.
+     */
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
+  }
+
+  /**
+   * CompanyInvite findFirstOrThrow
+   */
+  export type CompanyInviteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyInvite to fetch.
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyInvites to fetch.
+     */
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanyInvites.
+     */
+    cursor?: CompanyInviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyInvites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyInvites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanyInvites.
+     */
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
+  }
+
+  /**
+   * CompanyInvite findMany
+   */
+  export type CompanyInviteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyInvites to fetch.
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyInvites to fetch.
+     */
+    orderBy?: CompanyInviteOrderByWithRelationInput | CompanyInviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CompanyInvites.
+     */
+    cursor?: CompanyInviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyInvites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyInvites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanyInvites.
+     */
+    distinct?: CompanyInviteScalarFieldEnum | CompanyInviteScalarFieldEnum[]
+  }
+
+  /**
+   * CompanyInvite create
+   */
+  export type CompanyInviteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CompanyInvite.
+     */
+    data: XOR<CompanyInviteCreateInput, CompanyInviteUncheckedCreateInput>
+  }
+
+  /**
+   * CompanyInvite createMany
+   */
+  export type CompanyInviteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CompanyInvites.
+     */
+    data: CompanyInviteCreateManyInput | CompanyInviteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CompanyInvite createManyAndReturn
+   */
+  export type CompanyInviteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * The data used to create many CompanyInvites.
+     */
+    data: CompanyInviteCreateManyInput | CompanyInviteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompanyInvite update
+   */
+  export type CompanyInviteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CompanyInvite.
+     */
+    data: XOR<CompanyInviteUpdateInput, CompanyInviteUncheckedUpdateInput>
+    /**
+     * Choose, which CompanyInvite to update.
+     */
+    where: CompanyInviteWhereUniqueInput
+  }
+
+  /**
+   * CompanyInvite updateMany
+   */
+  export type CompanyInviteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CompanyInvites.
+     */
+    data: XOR<CompanyInviteUpdateManyMutationInput, CompanyInviteUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanyInvites to update
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * Limit how many CompanyInvites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanyInvite updateManyAndReturn
+   */
+  export type CompanyInviteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * The data used to update CompanyInvites.
+     */
+    data: XOR<CompanyInviteUpdateManyMutationInput, CompanyInviteUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanyInvites to update
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * Limit how many CompanyInvites to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompanyInvite upsert
+   */
+  export type CompanyInviteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CompanyInvite to update in case it exists.
+     */
+    where: CompanyInviteWhereUniqueInput
+    /**
+     * In case the CompanyInvite found by the `where` argument doesn't exist, create a new CompanyInvite with this data.
+     */
+    create: XOR<CompanyInviteCreateInput, CompanyInviteUncheckedCreateInput>
+    /**
+     * In case the CompanyInvite was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanyInviteUpdateInput, CompanyInviteUncheckedUpdateInput>
+  }
+
+  /**
+   * CompanyInvite delete
+   */
+  export type CompanyInviteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+    /**
+     * Filter which CompanyInvite to delete.
+     */
+    where: CompanyInviteWhereUniqueInput
+  }
+
+  /**
+   * CompanyInvite deleteMany
+   */
+  export type CompanyInviteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanyInvites to delete
+     */
+    where?: CompanyInviteWhereInput
+    /**
+     * Limit how many CompanyInvites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanyInvite without action
+   */
+  export type CompanyInviteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyInvite
+     */
+    select?: CompanyInviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyInvite
+     */
+    omit?: CompanyInviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInviteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model items
    */
 
@@ -10902,12 +12278,12 @@ export namespace Prisma {
     name: string | null
     image_url: string | null
     cat_id: string | null
+    company_id: string | null
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
-    type: $Enums.itemType | null
   }
 
   export type ItemsMaxAggregateOutputType = {
@@ -10915,12 +12291,12 @@ export namespace Prisma {
     name: string | null
     image_url: string | null
     cat_id: string | null
+    company_id: string | null
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
-    type: $Enums.itemType | null
   }
 
   export type ItemsCountAggregateOutputType = {
@@ -10928,12 +12304,12 @@ export namespace Prisma {
     name: number
     image_url: number
     cat_id: number
+    company_id: number
     created_at: number
     updated_at: number
     deleted_at: number
     created_by: number
     updated_by: number
-    type: number
     _all: number
   }
 
@@ -10943,12 +12319,12 @@ export namespace Prisma {
     name?: true
     image_url?: true
     cat_id?: true
+    company_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
-    type?: true
   }
 
   export type ItemsMaxAggregateInputType = {
@@ -10956,12 +12332,12 @@ export namespace Prisma {
     name?: true
     image_url?: true
     cat_id?: true
+    company_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
-    type?: true
   }
 
   export type ItemsCountAggregateInputType = {
@@ -10969,12 +12345,12 @@ export namespace Prisma {
     name?: true
     image_url?: true
     cat_id?: true
+    company_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
-    type?: true
     _all?: true
   }
 
@@ -11055,12 +12431,12 @@ export namespace Prisma {
     name: string
     image_url: string | null
     cat_id: string
+    company_id: string
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
     _count: ItemsCountAggregateOutputType | null
     _min: ItemsMinAggregateOutputType | null
     _max: ItemsMaxAggregateOutputType | null
@@ -11085,13 +12461,14 @@ export namespace Prisma {
     name?: boolean
     image_url?: boolean
     cat_id?: boolean
+    company_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
-    type?: boolean
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | items$optionsArgs<ExtArgs>
@@ -11103,13 +12480,14 @@ export namespace Prisma {
     name?: boolean
     image_url?: boolean
     cat_id?: boolean
+    company_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
-    type?: boolean
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["items"]>
@@ -11119,13 +12497,14 @@ export namespace Prisma {
     name?: boolean
     image_url?: boolean
     cat_id?: boolean
+    company_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
-    type?: boolean
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["items"]>
@@ -11135,17 +12514,18 @@ export namespace Prisma {
     name?: boolean
     image_url?: boolean
     cat_id?: boolean
+    company_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
-    type?: boolean
   }
 
-  export type itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image_url" | "cat_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "type", ExtArgs["result"]["items"]>
+  export type itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image_url" | "cat_id" | "company_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by", ExtArgs["result"]["items"]>
   export type itemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | items$optionsArgs<ExtArgs>
@@ -11153,11 +12533,13 @@ export namespace Prisma {
   }
   export type itemsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
   }
   export type itemsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    company?: boolean | companyDefaultArgs<ExtArgs>
     users_items_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_items_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -11166,6 +12548,7 @@ export namespace Prisma {
     name: "items"
     objects: {
       categories: Prisma.$categoriesPayload<ExtArgs>
+      company: Prisma.$companyPayload<ExtArgs>
       users_items_created_byTousers: Prisma.$usersPayload<ExtArgs>
       users_items_updated_byTousers: Prisma.$usersPayload<ExtArgs>
       options: Prisma.$optionsPayload<ExtArgs>[]
@@ -11175,12 +12558,12 @@ export namespace Prisma {
       name: string
       image_url: string | null
       cat_id: string
+      company_id: string
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
       created_by: string
       updated_by: string
-      type: $Enums.itemType
     }, ExtArgs["result"]["items"]>
     composites: {}
   }
@@ -11576,6 +12959,7 @@ export namespace Prisma {
   export interface Prisma__itemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     categories<T extends categoriesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, categoriesDefaultArgs<ExtArgs>>): Prisma__categoriesClient<$Result.GetResult<Prisma.$categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    company<T extends companyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, companyDefaultArgs<ExtArgs>>): Prisma__companyClient<$Result.GetResult<Prisma.$companyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     users_items_created_byTousers<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     users_items_updated_byTousers<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     options<T extends items$optionsArgs<ExtArgs> = {}>(args?: Subset<T, items$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$optionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11612,12 +12996,12 @@ export namespace Prisma {
     readonly name: FieldRef<"items", 'String'>
     readonly image_url: FieldRef<"items", 'String'>
     readonly cat_id: FieldRef<"items", 'String'>
+    readonly company_id: FieldRef<"items", 'String'>
     readonly created_at: FieldRef<"items", 'DateTime'>
     readonly updated_at: FieldRef<"items", 'DateTime'>
     readonly deleted_at: FieldRef<"items", 'DateTime'>
     readonly created_by: FieldRef<"items", 'String'>
     readonly updated_by: FieldRef<"items", 'String'>
-    readonly type: FieldRef<"items", 'itemType'>
   }
     
 
@@ -12077,12 +13461,14 @@ export namespace Prisma {
     input_price: Decimal | null
     input_value: Decimal | null
     price_per_base_unit: Decimal | null
+    min_sell_quantity: Decimal | null
   }
 
   export type OptionsSumAggregateOutputType = {
     input_price: Decimal | null
     input_value: Decimal | null
     price_per_base_unit: Decimal | null
+    min_sell_quantity: Decimal | null
   }
 
   export type OptionsMinAggregateOutputType = {
@@ -12092,12 +13478,15 @@ export namespace Prisma {
     input_value: Decimal | null
     unit_id: string | null
     price_per_base_unit: Decimal | null
+    min_sell_quantity: Decimal | null
+    min_sell_unit_id: string | null
     item_id: string | null
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
+    type: $Enums.optionType | null
     currency: $Enums.currencyType | null
   }
 
@@ -12108,12 +13497,15 @@ export namespace Prisma {
     input_value: Decimal | null
     unit_id: string | null
     price_per_base_unit: Decimal | null
+    min_sell_quantity: Decimal | null
+    min_sell_unit_id: string | null
     item_id: string | null
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
+    type: $Enums.optionType | null
     currency: $Enums.currencyType | null
   }
 
@@ -12124,12 +13516,15 @@ export namespace Prisma {
     input_value: number
     unit_id: number
     price_per_base_unit: number
+    min_sell_quantity: number
+    min_sell_unit_id: number
     item_id: number
     created_at: number
     updated_at: number
     deleted_at: number
     created_by: number
     updated_by: number
+    type: number
     currency: number
     _all: number
   }
@@ -12139,12 +13534,14 @@ export namespace Prisma {
     input_price?: true
     input_value?: true
     price_per_base_unit?: true
+    min_sell_quantity?: true
   }
 
   export type OptionsSumAggregateInputType = {
     input_price?: true
     input_value?: true
     price_per_base_unit?: true
+    min_sell_quantity?: true
   }
 
   export type OptionsMinAggregateInputType = {
@@ -12154,12 +13551,15 @@ export namespace Prisma {
     input_value?: true
     unit_id?: true
     price_per_base_unit?: true
+    min_sell_quantity?: true
+    min_sell_unit_id?: true
     item_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    type?: true
     currency?: true
   }
 
@@ -12170,12 +13570,15 @@ export namespace Prisma {
     input_value?: true
     unit_id?: true
     price_per_base_unit?: true
+    min_sell_quantity?: true
+    min_sell_unit_id?: true
     item_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    type?: true
     currency?: true
   }
 
@@ -12186,12 +13589,15 @@ export namespace Prisma {
     input_value?: true
     unit_id?: true
     price_per_base_unit?: true
+    min_sell_quantity?: true
+    min_sell_unit_id?: true
     item_id?: true
     created_at?: true
     updated_at?: true
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    type?: true
     currency?: true
     _all?: true
   }
@@ -12289,12 +13695,15 @@ export namespace Prisma {
     input_value: Decimal
     unit_id: string
     price_per_base_unit: Decimal
+    min_sell_quantity: Decimal
+    min_sell_unit_id: string
     item_id: string
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency: $Enums.currencyType
     _count: OptionsCountAggregateOutputType | null
     _avg: OptionsAvgAggregateOutputType | null
@@ -12324,12 +13733,15 @@ export namespace Prisma {
     input_value?: boolean
     unit_id?: boolean
     price_per_base_unit?: boolean
+    min_sell_quantity?: boolean
+    min_sell_unit_id?: boolean
     item_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    type?: boolean
     currency?: boolean
     users_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_options_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
@@ -12346,12 +13758,15 @@ export namespace Prisma {
     input_value?: boolean
     unit_id?: boolean
     price_per_base_unit?: boolean
+    min_sell_quantity?: boolean
+    min_sell_unit_id?: boolean
     item_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    type?: boolean
     currency?: boolean
     users_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_options_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
@@ -12366,12 +13781,15 @@ export namespace Prisma {
     input_value?: boolean
     unit_id?: boolean
     price_per_base_unit?: boolean
+    min_sell_quantity?: boolean
+    min_sell_unit_id?: boolean
     item_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    type?: boolean
     currency?: boolean
     users_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_options_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
@@ -12386,16 +13804,19 @@ export namespace Prisma {
     input_value?: boolean
     unit_id?: boolean
     price_per_base_unit?: boolean
+    min_sell_quantity?: boolean
+    min_sell_unit_id?: boolean
     item_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    type?: boolean
     currency?: boolean
   }
 
-  export type optionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "input_price" | "input_value" | "unit_id" | "price_per_base_unit" | "item_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "currency", ExtArgs["result"]["options"]>
+  export type optionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "input_price" | "input_value" | "unit_id" | "price_per_base_unit" | "min_sell_quantity" | "min_sell_unit_id" | "item_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "type" | "currency", ExtArgs["result"]["options"]>
   export type optionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     users_options_updated_byTousers?: boolean | usersDefaultArgs<ExtArgs>
@@ -12433,12 +13854,15 @@ export namespace Prisma {
       input_value: Prisma.Decimal
       unit_id: string
       price_per_base_unit: Prisma.Decimal
+      min_sell_quantity: Prisma.Decimal
+      min_sell_unit_id: string
       item_id: string
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
       created_by: string
       updated_by: string
+      type: $Enums.optionType
       currency: $Enums.currencyType
     }, ExtArgs["result"]["options"]>
     composites: {}
@@ -12874,12 +14298,15 @@ export namespace Prisma {
     readonly input_value: FieldRef<"options", 'Decimal'>
     readonly unit_id: FieldRef<"options", 'String'>
     readonly price_per_base_unit: FieldRef<"options", 'Decimal'>
+    readonly min_sell_quantity: FieldRef<"options", 'Decimal'>
+    readonly min_sell_unit_id: FieldRef<"options", 'String'>
     readonly item_id: FieldRef<"options", 'String'>
     readonly created_at: FieldRef<"options", 'DateTime'>
     readonly updated_at: FieldRef<"options", 'DateTime'>
     readonly deleted_at: FieldRef<"options", 'DateTime'>
     readonly created_by: FieldRef<"options", 'String'>
     readonly updated_by: FieldRef<"options", 'String'>
+    readonly type: FieldRef<"options", 'optionType'>
     readonly currency: FieldRef<"options", 'currencyType'>
   }
     
@@ -13358,6 +14785,7 @@ export namespace Prisma {
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
+    currency: $Enums.currencyType | null
   }
 
   export type OrderOptionsMaxAggregateOutputType = {
@@ -13372,6 +14800,7 @@ export namespace Prisma {
     deleted_at: Date | null
     created_by: string | null
     updated_by: string | null
+    currency: $Enums.currencyType | null
   }
 
   export type OrderOptionsCountAggregateOutputType = {
@@ -13386,6 +14815,7 @@ export namespace Prisma {
     deleted_at: number
     created_by: number
     updated_by: number
+    currency: number
     _all: number
   }
 
@@ -13412,6 +14842,7 @@ export namespace Prisma {
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    currency?: true
   }
 
   export type OrderOptionsMaxAggregateInputType = {
@@ -13426,6 +14857,7 @@ export namespace Prisma {
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    currency?: true
   }
 
   export type OrderOptionsCountAggregateInputType = {
@@ -13440,6 +14872,7 @@ export namespace Prisma {
     deleted_at?: true
     created_by?: true
     updated_by?: true
+    currency?: true
     _all?: true
   }
 
@@ -13541,6 +14974,7 @@ export namespace Prisma {
     deleted_at: Date | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
     _count: OrderOptionsCountAggregateOutputType | null
     _avg: OrderOptionsAvgAggregateOutputType | null
     _sum: OrderOptionsSumAggregateOutputType | null
@@ -13574,6 +15008,7 @@ export namespace Prisma {
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    currency?: boolean
     users_order_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | optionsDefaultArgs<ExtArgs>
     orders?: boolean | ordersDefaultArgs<ExtArgs>
@@ -13593,6 +15028,7 @@ export namespace Prisma {
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    currency?: boolean
     users_order_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | optionsDefaultArgs<ExtArgs>
     orders?: boolean | ordersDefaultArgs<ExtArgs>
@@ -13612,6 +15048,7 @@ export namespace Prisma {
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    currency?: boolean
     users_order_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | optionsDefaultArgs<ExtArgs>
     orders?: boolean | ordersDefaultArgs<ExtArgs>
@@ -13631,9 +15068,10 @@ export namespace Prisma {
     deleted_at?: boolean
     created_by?: boolean
     updated_by?: boolean
+    currency?: boolean
   }
 
-  export type orderOptionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order_id" | "option_id" | "sell_unit_id" | "sell_quantity" | "price_per_base_unit" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by", ExtArgs["result"]["orderOptions"]>
+  export type orderOptionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order_id" | "option_id" | "sell_unit_id" | "sell_quantity" | "price_per_base_unit" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "currency", ExtArgs["result"]["orderOptions"]>
   export type orderOptionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users_order_options_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
     options?: boolean | optionsDefaultArgs<ExtArgs>
@@ -13677,6 +15115,7 @@ export namespace Prisma {
       deleted_at: Date | null
       created_by: string
       updated_by: string
+      currency: $Enums.currencyType
     }, ExtArgs["result"]["orderOptions"]>
     composites: {}
   }
@@ -14116,6 +15555,7 @@ export namespace Prisma {
     readonly deleted_at: FieldRef<"orderOptions", 'DateTime'>
     readonly created_by: FieldRef<"orderOptions", 'String'>
     readonly updated_by: FieldRef<"orderOptions", 'String'>
+    readonly currency: FieldRef<"orderOptions", 'currencyType'>
   }
     
 
@@ -14758,7 +16198,7 @@ export namespace Prisma {
     status_changed_at: Date | null
     discount: Decimal
     cash_amount: Decimal
-    created_by: string
+    created_by: string | null
     status_changed_by: string
     company_id: string
     status: $Enums.orderStatus
@@ -14798,9 +16238,6 @@ export namespace Prisma {
     status?: boolean
     payment_type?: boolean
     order_options?: boolean | orders$order_optionsArgs<ExtArgs>
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
     _count?: boolean | OrdersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orders"]>
 
@@ -14817,9 +16254,6 @@ export namespace Prisma {
     company_id?: boolean
     status?: boolean
     payment_type?: boolean
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orders"]>
 
   export type ordersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14835,9 +16269,6 @@ export namespace Prisma {
     company_id?: boolean
     status?: boolean
     payment_type?: boolean
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orders"]>
 
   export type ordersSelectScalar = {
@@ -14858,29 +16289,15 @@ export namespace Prisma {
   export type ordersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order_number" | "order_name" | "created_at" | "status_changed_at" | "discount" | "cash_amount" | "created_by" | "status_changed_by" | "company_id" | "status" | "payment_type", ExtArgs["result"]["orders"]>
   export type ordersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order_options?: boolean | orders$order_optionsArgs<ExtArgs>
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
     _count?: boolean | OrdersCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ordersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
-  }
-  export type ordersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_orders_created_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    users_orders_status_changed_byTousers?: boolean | usersDefaultArgs<ExtArgs>
-    order_company?: boolean | companyDefaultArgs<ExtArgs>
-  }
+  export type ordersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ordersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ordersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "orders"
     objects: {
       order_options: Prisma.$orderOptionsPayload<ExtArgs>[]
-      users_orders_created_byTousers: Prisma.$usersPayload<ExtArgs>
-      users_orders_status_changed_byTousers: Prisma.$usersPayload<ExtArgs>
-      order_company: Prisma.$companyPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14890,7 +16307,7 @@ export namespace Prisma {
       status_changed_at: Date | null
       discount: Prisma.Decimal
       cash_amount: Prisma.Decimal
-      created_by: string
+      created_by: string | null
       status_changed_by: string
       company_id: string
       status: $Enums.orderStatus
@@ -15290,9 +16707,6 @@ export namespace Prisma {
   export interface Prisma__ordersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order_options<T extends orders$order_optionsArgs<ExtArgs> = {}>(args?: Subset<T, orders$order_optionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$orderOptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    users_orders_created_byTousers<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    users_orders_status_changed_byTousers<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    order_company<T extends companyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, companyDefaultArgs<ExtArgs>>): Prisma__companyClient<$Result.GetResult<Prisma.$companyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15588,10 +17002,6 @@ export namespace Prisma {
      */
     data: ordersCreateManyInput | ordersCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordersIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -15662,10 +17072,6 @@ export namespace Prisma {
      * Limit how many orders to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordersIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19169,7 +20575,8 @@ export namespace Prisma {
     contact: 'contact',
     address: 'address',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at'
   };
 
   export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
@@ -19184,7 +20591,10 @@ export namespace Prisma {
     verified_by: 'verified_by',
     verified_at: 'verified_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_by: 'created_by',
+    updated_at: 'updated_at',
+    updated_by: 'updated_by',
+    deleted_at: 'deleted_at'
   };
 
   export type CompanyUserScalarFieldEnum = (typeof CompanyUserScalarFieldEnum)[keyof typeof CompanyUserScalarFieldEnum]
@@ -19196,7 +20606,10 @@ export namespace Prisma {
     name: 'name',
     is_system: 'is_system',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    user_type: 'user_type',
+    active: 'active',
+    deleted_at: 'deleted_at'
   };
 
   export type CompanyRoleScalarFieldEnum = (typeof CompanyRoleScalarFieldEnum)[keyof typeof CompanyRoleScalarFieldEnum]
@@ -19234,17 +20647,34 @@ export namespace Prisma {
   export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
 
 
+  export const CompanyInviteScalarFieldEnum: {
+    id: 'id',
+    company_id: 'company_id',
+    created_by: 'created_by',
+    invited_user_id: 'invited_user_id',
+    invite_code: 'invite_code',
+    creator_user_type: 'creator_user_type',
+    created_at: 'created_at',
+    expired_at: 'expired_at',
+    is_redeemed: 'is_redeemed',
+    deleted_at: 'deleted_at',
+    deleted_by: 'deleted_by'
+  };
+
+  export type CompanyInviteScalarFieldEnum = (typeof CompanyInviteScalarFieldEnum)[keyof typeof CompanyInviteScalarFieldEnum]
+
+
   export const ItemsScalarFieldEnum: {
     id: 'id',
     name: 'name',
     image_url: 'image_url',
     cat_id: 'cat_id',
+    company_id: 'company_id',
     created_at: 'created_at',
     updated_at: 'updated_at',
     deleted_at: 'deleted_at',
     created_by: 'created_by',
-    updated_by: 'updated_by',
-    type: 'type'
+    updated_by: 'updated_by'
   };
 
   export type ItemsScalarFieldEnum = (typeof ItemsScalarFieldEnum)[keyof typeof ItemsScalarFieldEnum]
@@ -19257,12 +20687,15 @@ export namespace Prisma {
     input_value: 'input_value',
     unit_id: 'unit_id',
     price_per_base_unit: 'price_per_base_unit',
+    min_sell_quantity: 'min_sell_quantity',
+    min_sell_unit_id: 'min_sell_unit_id',
     item_id: 'item_id',
     created_at: 'created_at',
     updated_at: 'updated_at',
     deleted_at: 'deleted_at',
     created_by: 'created_by',
     updated_by: 'updated_by',
+    type: 'type',
     currency: 'currency'
   };
 
@@ -19280,7 +20713,8 @@ export namespace Prisma {
     updated_at: 'updated_at',
     deleted_at: 'deleted_at',
     created_by: 'created_by',
-    updated_by: 'updated_by'
+    updated_by: 'updated_by',
+    currency: 'currency'
   };
 
   export type OrderOptionsScalarFieldEnum = (typeof OrderOptionsScalarFieldEnum)[keyof typeof OrderOptionsScalarFieldEnum]
@@ -19435,20 +20869,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'itemType'
-   */
-  export type EnumitemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'itemType'>
-    
-
-
-  /**
-   * Reference to a field of type 'itemType[]'
-   */
-  export type ListEnumitemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'itemType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -19459,6 +20879,20 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'optionType'
+   */
+  export type EnumoptionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'optionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'optionType[]'
+   */
+  export type ListEnumoptionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'optionType[]'>
     
 
 
@@ -19555,11 +20989,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: OptionsListRelationFilter
     order_options_order_options_created_byTousers?: OrderOptionsListRelationFilter
     order_options_order_options_updated_byTousers?: OrderOptionsListRelationFilter
-    orders_orders_created_byTousers?: OrdersListRelationFilter
-    orders_orders_status_changed_byTousers?: OrdersListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
     company_user?: CompanyUserListRelationFilter
     verified_members?: CompanyUserListRelationFilter
+    created_invites?: CompanyInviteListRelationFilter
+    received_invites?: CompanyInviteListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -19579,11 +21013,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsOrderByRelationAggregateInput
     order_options_order_options_created_byTousers?: orderOptionsOrderByRelationAggregateInput
     order_options_order_options_updated_byTousers?: orderOptionsOrderByRelationAggregateInput
-    orders_orders_created_byTousers?: ordersOrderByRelationAggregateInput
-    orders_orders_status_changed_byTousers?: ordersOrderByRelationAggregateInput
     refreshTokens?: refreshTokenOrderByRelationAggregateInput
     company_user?: companyUserOrderByRelationAggregateInput
     verified_members?: companyUserOrderByRelationAggregateInput
+    created_invites?: CompanyInviteOrderByRelationAggregateInput
+    received_invites?: CompanyInviteOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -19606,11 +21040,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: OptionsListRelationFilter
     order_options_order_options_created_byTousers?: OrderOptionsListRelationFilter
     order_options_order_options_updated_byTousers?: OrderOptionsListRelationFilter
-    orders_orders_created_byTousers?: OrdersListRelationFilter
-    orders_orders_status_changed_byTousers?: OrdersListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
     company_user?: CompanyUserListRelationFilter
     verified_members?: CompanyUserListRelationFilter
+    created_invites?: CompanyInviteListRelationFilter
+    received_invites?: CompanyInviteListRelationFilter
   }, "id" | "username" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -19651,10 +21085,12 @@ export namespace Prisma {
     address?: StringNullableFilter<"company"> | string | null
     created_at?: DateTimeFilter<"company"> | Date | string
     updated_at?: DateTimeFilter<"company"> | Date | string
-    company_orders?: OrdersListRelationFilter
+    deleted_at?: DateTimeNullableFilter<"company"> | Date | string | null
     users?: CompanyUserListRelationFilter
     roles?: CompanyRoleListRelationFilter
+    items?: ItemsListRelationFilter
     categories?: CategoriesListRelationFilter
+    company_invites?: CompanyInviteListRelationFilter
   }
 
   export type companyOrderByWithRelationInput = {
@@ -19664,10 +21100,12 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    company_orders?: ordersOrderByRelationAggregateInput
+    deleted_at?: SortOrderInput | SortOrder
     users?: companyUserOrderByRelationAggregateInput
     roles?: companyRoleOrderByRelationAggregateInput
+    items?: itemsOrderByRelationAggregateInput
     categories?: categoriesOrderByRelationAggregateInput
+    company_invites?: CompanyInviteOrderByRelationAggregateInput
   }
 
   export type companyWhereUniqueInput = Prisma.AtLeast<{
@@ -19680,10 +21118,12 @@ export namespace Prisma {
     address?: StringNullableFilter<"company"> | string | null
     created_at?: DateTimeFilter<"company"> | Date | string
     updated_at?: DateTimeFilter<"company"> | Date | string
-    company_orders?: OrdersListRelationFilter
+    deleted_at?: DateTimeNullableFilter<"company"> | Date | string | null
     users?: CompanyUserListRelationFilter
     roles?: CompanyRoleListRelationFilter
+    items?: ItemsListRelationFilter
     categories?: CategoriesListRelationFilter
+    company_invites?: CompanyInviteListRelationFilter
   }, "id">
 
   export type companyOrderByWithAggregationInput = {
@@ -19693,6 +21133,7 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: companyCountOrderByAggregateInput
     _max?: companyMaxOrderByAggregateInput
     _min?: companyMinOrderByAggregateInput
@@ -19708,6 +21149,7 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter<"company"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"company"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"company"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"company"> | Date | string | null
   }
 
   export type companyUserWhereInput = {
@@ -19722,7 +21164,10 @@ export namespace Prisma {
     verified_by?: UuidNullableFilter<"companyUser"> | string | null
     verified_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
     created_at?: DateTimeFilter<"companyUser"> | Date | string
+    created_by?: UuidFilter<"companyUser"> | string
     updated_at?: DateTimeFilter<"companyUser"> | Date | string
+    updated_by?: UuidFilter<"companyUser"> | string
+    deleted_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
     company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     verifier?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -19738,7 +21183,10 @@ export namespace Prisma {
     verified_by?: SortOrderInput | SortOrder
     verified_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    created_by?: SortOrder
     updated_at?: SortOrder
+    updated_by?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     company?: companyOrderByWithRelationInput
     user?: usersOrderByWithRelationInput
     verifier?: usersOrderByWithRelationInput
@@ -19758,7 +21206,10 @@ export namespace Prisma {
     verified_by?: UuidNullableFilter<"companyUser"> | string | null
     verified_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
     created_at?: DateTimeFilter<"companyUser"> | Date | string
+    created_by?: UuidFilter<"companyUser"> | string
     updated_at?: DateTimeFilter<"companyUser"> | Date | string
+    updated_by?: UuidFilter<"companyUser"> | string
+    deleted_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
     company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     verifier?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
@@ -19774,7 +21225,10 @@ export namespace Prisma {
     verified_by?: SortOrderInput | SortOrder
     verified_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    created_by?: SortOrder
     updated_at?: SortOrder
+    updated_by?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: companyUserCountOrderByAggregateInput
     _max?: companyUserMaxOrderByAggregateInput
     _min?: companyUserMinOrderByAggregateInput
@@ -19792,7 +21246,10 @@ export namespace Prisma {
     verified_by?: UuidNullableWithAggregatesFilter<"companyUser"> | string | null
     verified_at?: DateTimeNullableWithAggregatesFilter<"companyUser"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"companyUser"> | Date | string
+    created_by?: UuidWithAggregatesFilter<"companyUser"> | string
     updated_at?: DateTimeWithAggregatesFilter<"companyUser"> | Date | string
+    updated_by?: UuidWithAggregatesFilter<"companyUser"> | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"companyUser"> | Date | string | null
   }
 
   export type companyRoleWhereInput = {
@@ -19805,6 +21262,9 @@ export namespace Prisma {
     is_system?: BoolFilter<"companyRole"> | boolean
     created_at?: DateTimeFilter<"companyRole"> | Date | string
     updated_at?: DateTimeFilter<"companyRole"> | Date | string
+    user_type?: EnumuserTypeFilter<"companyRole"> | $Enums.userType
+    active?: BoolFilter<"companyRole"> | boolean
+    deleted_at?: DateTimeNullableFilter<"companyRole"> | Date | string | null
     company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     users?: CompanyUserListRelationFilter
     role_permissions?: RolePermissionListRelationFilter
@@ -19817,6 +21277,9 @@ export namespace Prisma {
     is_system?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    user_type?: SortOrder
+    active?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     company?: companyOrderByWithRelationInput
     users?: companyUserOrderByRelationAggregateInput
     role_permissions?: rolePermissionOrderByRelationAggregateInput
@@ -19833,6 +21296,9 @@ export namespace Prisma {
     is_system?: BoolFilter<"companyRole"> | boolean
     created_at?: DateTimeFilter<"companyRole"> | Date | string
     updated_at?: DateTimeFilter<"companyRole"> | Date | string
+    user_type?: EnumuserTypeFilter<"companyRole"> | $Enums.userType
+    active?: BoolFilter<"companyRole"> | boolean
+    deleted_at?: DateTimeNullableFilter<"companyRole"> | Date | string | null
     company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     users?: CompanyUserListRelationFilter
     role_permissions?: RolePermissionListRelationFilter
@@ -19845,6 +21311,9 @@ export namespace Prisma {
     is_system?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    user_type?: SortOrder
+    active?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: companyRoleCountOrderByAggregateInput
     _max?: companyRoleMaxOrderByAggregateInput
     _min?: companyRoleMinOrderByAggregateInput
@@ -19860,6 +21329,9 @@ export namespace Prisma {
     is_system?: BoolWithAggregatesFilter<"companyRole"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"companyRole"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"companyRole"> | Date | string
+    user_type?: EnumuserTypeWithAggregatesFilter<"companyRole"> | $Enums.userType
+    active?: BoolWithAggregatesFilter<"companyRole"> | boolean
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"companyRole"> | Date | string | null
   }
 
   export type rolePermissionWhereInput = {
@@ -20046,6 +21518,98 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableWithAggregatesFilter<"categories"> | Date | string | null
   }
 
+  export type CompanyInviteWhereInput = {
+    AND?: CompanyInviteWhereInput | CompanyInviteWhereInput[]
+    OR?: CompanyInviteWhereInput[]
+    NOT?: CompanyInviteWhereInput | CompanyInviteWhereInput[]
+    id?: StringFilter<"CompanyInvite"> | string
+    company_id?: UuidFilter<"CompanyInvite"> | string
+    created_by?: UuidFilter<"CompanyInvite"> | string
+    invited_user_id?: UuidFilter<"CompanyInvite"> | string
+    invite_code?: StringFilter<"CompanyInvite"> | string
+    creator_user_type?: EnumuserTypeFilter<"CompanyInvite"> | $Enums.userType
+    created_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    expired_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    is_redeemed?: BoolFilter<"CompanyInvite"> | boolean
+    deleted_at?: DateTimeNullableFilter<"CompanyInvite"> | Date | string | null
+    deleted_by?: UuidNullableFilter<"CompanyInvite"> | string | null
+    invite_company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
+    created_by_user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    user_invited?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type CompanyInviteOrderByWithRelationInput = {
+    id?: SortOrder
+    company_id?: SortOrder
+    created_by?: SortOrder
+    invited_user_id?: SortOrder
+    invite_code?: SortOrder
+    creator_user_type?: SortOrder
+    created_at?: SortOrder
+    expired_at?: SortOrder
+    is_redeemed?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    invite_company?: companyOrderByWithRelationInput
+    created_by_user?: usersOrderByWithRelationInput
+    user_invited?: usersOrderByWithRelationInput
+  }
+
+  export type CompanyInviteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    invite_code_invited_user_id?: CompanyInviteInvite_codeInvited_user_idCompoundUniqueInput
+    AND?: CompanyInviteWhereInput | CompanyInviteWhereInput[]
+    OR?: CompanyInviteWhereInput[]
+    NOT?: CompanyInviteWhereInput | CompanyInviteWhereInput[]
+    company_id?: UuidFilter<"CompanyInvite"> | string
+    created_by?: UuidFilter<"CompanyInvite"> | string
+    invited_user_id?: UuidFilter<"CompanyInvite"> | string
+    invite_code?: StringFilter<"CompanyInvite"> | string
+    creator_user_type?: EnumuserTypeFilter<"CompanyInvite"> | $Enums.userType
+    created_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    expired_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    is_redeemed?: BoolFilter<"CompanyInvite"> | boolean
+    deleted_at?: DateTimeNullableFilter<"CompanyInvite"> | Date | string | null
+    deleted_by?: UuidNullableFilter<"CompanyInvite"> | string | null
+    invite_company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
+    created_by_user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    user_invited?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "invite_code_invited_user_id">
+
+  export type CompanyInviteOrderByWithAggregationInput = {
+    id?: SortOrder
+    company_id?: SortOrder
+    created_by?: SortOrder
+    invited_user_id?: SortOrder
+    invite_code?: SortOrder
+    creator_user_type?: SortOrder
+    created_at?: SortOrder
+    expired_at?: SortOrder
+    is_redeemed?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    _count?: CompanyInviteCountOrderByAggregateInput
+    _max?: CompanyInviteMaxOrderByAggregateInput
+    _min?: CompanyInviteMinOrderByAggregateInput
+  }
+
+  export type CompanyInviteScalarWhereWithAggregatesInput = {
+    AND?: CompanyInviteScalarWhereWithAggregatesInput | CompanyInviteScalarWhereWithAggregatesInput[]
+    OR?: CompanyInviteScalarWhereWithAggregatesInput[]
+    NOT?: CompanyInviteScalarWhereWithAggregatesInput | CompanyInviteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CompanyInvite"> | string
+    company_id?: UuidWithAggregatesFilter<"CompanyInvite"> | string
+    created_by?: UuidWithAggregatesFilter<"CompanyInvite"> | string
+    invited_user_id?: UuidWithAggregatesFilter<"CompanyInvite"> | string
+    invite_code?: StringWithAggregatesFilter<"CompanyInvite"> | string
+    creator_user_type?: EnumuserTypeWithAggregatesFilter<"CompanyInvite"> | $Enums.userType
+    created_at?: DateTimeWithAggregatesFilter<"CompanyInvite"> | Date | string
+    expired_at?: DateTimeWithAggregatesFilter<"CompanyInvite"> | Date | string
+    is_redeemed?: BoolWithAggregatesFilter<"CompanyInvite"> | boolean
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"CompanyInvite"> | Date | string | null
+    deleted_by?: UuidNullableWithAggregatesFilter<"CompanyInvite"> | string | null
+  }
+
   export type itemsWhereInput = {
     AND?: itemsWhereInput | itemsWhereInput[]
     OR?: itemsWhereInput[]
@@ -20054,13 +21618,14 @@ export namespace Prisma {
     name?: StringFilter<"items"> | string
     image_url?: StringNullableFilter<"items"> | string | null
     cat_id?: UuidFilter<"items"> | string
+    company_id?: UuidFilter<"items"> | string
     created_at?: DateTimeFilter<"items"> | Date | string
     updated_at?: DateTimeFilter<"items"> | Date | string
     deleted_at?: DateTimeNullableFilter<"items"> | Date | string | null
     created_by?: UuidFilter<"items"> | string
     updated_by?: UuidFilter<"items"> | string
-    type?: EnumitemTypeFilter<"items"> | $Enums.itemType
     categories?: XOR<CategoriesScalarRelationFilter, categoriesWhereInput>
+    company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     users_items_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     users_items_updated_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     options?: OptionsListRelationFilter
@@ -20071,13 +21636,14 @@ export namespace Prisma {
     name?: SortOrder
     image_url?: SortOrderInput | SortOrder
     cat_id?: SortOrder
+    company_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    type?: SortOrder
     categories?: categoriesOrderByWithRelationInput
+    company?: companyOrderByWithRelationInput
     users_items_created_byTousers?: usersOrderByWithRelationInput
     users_items_updated_byTousers?: usersOrderByWithRelationInput
     options?: optionsOrderByRelationAggregateInput
@@ -20091,13 +21657,14 @@ export namespace Prisma {
     name?: StringFilter<"items"> | string
     image_url?: StringNullableFilter<"items"> | string | null
     cat_id?: UuidFilter<"items"> | string
+    company_id?: UuidFilter<"items"> | string
     created_at?: DateTimeFilter<"items"> | Date | string
     updated_at?: DateTimeFilter<"items"> | Date | string
     deleted_at?: DateTimeNullableFilter<"items"> | Date | string | null
     created_by?: UuidFilter<"items"> | string
     updated_by?: UuidFilter<"items"> | string
-    type?: EnumitemTypeFilter<"items"> | $Enums.itemType
     categories?: XOR<CategoriesScalarRelationFilter, categoriesWhereInput>
+    company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
     users_items_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     users_items_updated_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     options?: OptionsListRelationFilter
@@ -20108,12 +21675,12 @@ export namespace Prisma {
     name?: SortOrder
     image_url?: SortOrderInput | SortOrder
     cat_id?: SortOrder
+    company_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    type?: SortOrder
     _count?: itemsCountOrderByAggregateInput
     _max?: itemsMaxOrderByAggregateInput
     _min?: itemsMinOrderByAggregateInput
@@ -20127,12 +21694,12 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"items"> | string
     image_url?: StringNullableWithAggregatesFilter<"items"> | string | null
     cat_id?: UuidWithAggregatesFilter<"items"> | string
+    company_id?: UuidWithAggregatesFilter<"items"> | string
     created_at?: DateTimeWithAggregatesFilter<"items"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"items"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"items"> | Date | string | null
     created_by?: UuidWithAggregatesFilter<"items"> | string
     updated_by?: UuidWithAggregatesFilter<"items"> | string
-    type?: EnumitemTypeWithAggregatesFilter<"items"> | $Enums.itemType
   }
 
   export type optionsWhereInput = {
@@ -20145,12 +21712,15 @@ export namespace Prisma {
     input_value?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
     unit_id?: UuidFilter<"options"> | string
     price_per_base_unit?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: UuidFilter<"options"> | string
     item_id?: UuidFilter<"options"> | string
     created_at?: DateTimeFilter<"options"> | Date | string
     updated_at?: DateTimeFilter<"options"> | Date | string
     deleted_at?: DateTimeNullableFilter<"options"> | Date | string | null
     created_by?: UuidFilter<"options"> | string
     updated_by?: UuidFilter<"options"> | string
+    type?: EnumoptionTypeFilter<"options"> | $Enums.optionType
     currency?: EnumcurrencyTypeFilter<"options"> | $Enums.currencyType
     users_options_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     users_options_updated_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
@@ -20166,12 +21736,15 @@ export namespace Prisma {
     input_value?: SortOrder
     unit_id?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
+    min_sell_unit_id?: SortOrder
     item_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    type?: SortOrder
     currency?: SortOrder
     users_options_created_byTousers?: usersOrderByWithRelationInput
     users_options_updated_byTousers?: usersOrderByWithRelationInput
@@ -20190,12 +21763,15 @@ export namespace Prisma {
     input_value?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
     unit_id?: UuidFilter<"options"> | string
     price_per_base_unit?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: UuidFilter<"options"> | string
     item_id?: UuidFilter<"options"> | string
     created_at?: DateTimeFilter<"options"> | Date | string
     updated_at?: DateTimeFilter<"options"> | Date | string
     deleted_at?: DateTimeNullableFilter<"options"> | Date | string | null
     created_by?: UuidFilter<"options"> | string
     updated_by?: UuidFilter<"options"> | string
+    type?: EnumoptionTypeFilter<"options"> | $Enums.optionType
     currency?: EnumcurrencyTypeFilter<"options"> | $Enums.currencyType
     users_options_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     users_options_updated_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
@@ -20211,12 +21787,15 @@ export namespace Prisma {
     input_value?: SortOrder
     unit_id?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
+    min_sell_unit_id?: SortOrder
     item_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    type?: SortOrder
     currency?: SortOrder
     _count?: optionsCountOrderByAggregateInput
     _avg?: optionsAvgOrderByAggregateInput
@@ -20235,12 +21814,15 @@ export namespace Prisma {
     input_value?: DecimalWithAggregatesFilter<"options"> | Decimal | DecimalJsLike | number | string
     unit_id?: UuidWithAggregatesFilter<"options"> | string
     price_per_base_unit?: DecimalWithAggregatesFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalWithAggregatesFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: UuidWithAggregatesFilter<"options"> | string
     item_id?: UuidWithAggregatesFilter<"options"> | string
     created_at?: DateTimeWithAggregatesFilter<"options"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"options"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"options"> | Date | string | null
     created_by?: UuidWithAggregatesFilter<"options"> | string
     updated_by?: UuidWithAggregatesFilter<"options"> | string
+    type?: EnumoptionTypeWithAggregatesFilter<"options"> | $Enums.optionType
     currency?: EnumcurrencyTypeWithAggregatesFilter<"options"> | $Enums.currencyType
   }
 
@@ -20259,6 +21841,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"orderOptions"> | Date | string | null
     created_by?: UuidFilter<"orderOptions"> | string
     updated_by?: UuidFilter<"orderOptions"> | string
+    currency?: EnumcurrencyTypeFilter<"orderOptions"> | $Enums.currencyType
     users_order_options_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     options?: XOR<OptionsScalarRelationFilter, optionsWhereInput>
     orders?: XOR<OrdersScalarRelationFilter, ordersWhereInput>
@@ -20278,6 +21861,7 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    currency?: SortOrder
     users_order_options_created_byTousers?: usersOrderByWithRelationInput
     options?: optionsOrderByWithRelationInput
     orders?: ordersOrderByWithRelationInput
@@ -20300,6 +21884,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"orderOptions"> | Date | string | null
     created_by?: UuidFilter<"orderOptions"> | string
     updated_by?: UuidFilter<"orderOptions"> | string
+    currency?: EnumcurrencyTypeFilter<"orderOptions"> | $Enums.currencyType
     users_order_options_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
     options?: XOR<OptionsScalarRelationFilter, optionsWhereInput>
     orders?: XOR<OrdersScalarRelationFilter, ordersWhereInput>
@@ -20319,6 +21904,7 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    currency?: SortOrder
     _count?: orderOptionsCountOrderByAggregateInput
     _avg?: orderOptionsAvgOrderByAggregateInput
     _max?: orderOptionsMaxOrderByAggregateInput
@@ -20341,6 +21927,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableWithAggregatesFilter<"orderOptions"> | Date | string | null
     created_by?: UuidWithAggregatesFilter<"orderOptions"> | string
     updated_by?: UuidWithAggregatesFilter<"orderOptions"> | string
+    currency?: EnumcurrencyTypeWithAggregatesFilter<"orderOptions"> | $Enums.currencyType
   }
 
   export type ordersWhereInput = {
@@ -20354,15 +21941,12 @@ export namespace Prisma {
     status_changed_at?: DateTimeNullableFilter<"orders"> | Date | string | null
     discount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
-    created_by?: UuidFilter<"orders"> | string
+    created_by?: UuidNullableFilter<"orders"> | string | null
     status_changed_by?: UuidFilter<"orders"> | string
     company_id?: UuidFilter<"orders"> | string
     status?: EnumorderStatusFilter<"orders"> | $Enums.orderStatus
     payment_type?: EnumpaymentTypeFilter<"orders"> | $Enums.paymentType
     order_options?: OrderOptionsListRelationFilter
-    users_orders_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    users_orders_status_changed_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    order_company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
   }
 
   export type ordersOrderByWithRelationInput = {
@@ -20373,15 +21957,12 @@ export namespace Prisma {
     status_changed_at?: SortOrderInput | SortOrder
     discount?: SortOrder
     cash_amount?: SortOrder
-    created_by?: SortOrder
+    created_by?: SortOrderInput | SortOrder
     status_changed_by?: SortOrder
     company_id?: SortOrder
     status?: SortOrder
     payment_type?: SortOrder
     order_options?: orderOptionsOrderByRelationAggregateInput
-    users_orders_created_byTousers?: usersOrderByWithRelationInput
-    users_orders_status_changed_byTousers?: usersOrderByWithRelationInput
-    order_company?: companyOrderByWithRelationInput
   }
 
   export type ordersWhereUniqueInput = Prisma.AtLeast<{
@@ -20395,15 +21976,12 @@ export namespace Prisma {
     status_changed_at?: DateTimeNullableFilter<"orders"> | Date | string | null
     discount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
-    created_by?: UuidFilter<"orders"> | string
+    created_by?: UuidNullableFilter<"orders"> | string | null
     status_changed_by?: UuidFilter<"orders"> | string
     company_id?: UuidFilter<"orders"> | string
     status?: EnumorderStatusFilter<"orders"> | $Enums.orderStatus
     payment_type?: EnumpaymentTypeFilter<"orders"> | $Enums.paymentType
     order_options?: OrderOptionsListRelationFilter
-    users_orders_created_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    users_orders_status_changed_byTousers?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    order_company?: XOR<CompanyScalarRelationFilter, companyWhereInput>
   }, "id" | "order_number">
 
   export type ordersOrderByWithAggregationInput = {
@@ -20414,7 +21992,7 @@ export namespace Prisma {
     status_changed_at?: SortOrderInput | SortOrder
     discount?: SortOrder
     cash_amount?: SortOrder
-    created_by?: SortOrder
+    created_by?: SortOrderInput | SortOrder
     status_changed_by?: SortOrder
     company_id?: SortOrder
     status?: SortOrder
@@ -20437,7 +22015,7 @@ export namespace Prisma {
     status_changed_at?: DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
     discount?: DecimalWithAggregatesFilter<"orders"> | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalWithAggregatesFilter<"orders"> | Decimal | DecimalJsLike | number | string
-    created_by?: UuidWithAggregatesFilter<"orders"> | string
+    created_by?: UuidNullableWithAggregatesFilter<"orders"> | string | null
     status_changed_by?: UuidWithAggregatesFilter<"orders"> | string
     company_id?: UuidWithAggregatesFilter<"orders"> | string
     status?: EnumorderStatusWithAggregatesFilter<"orders"> | $Enums.orderStatus
@@ -20661,11 +22239,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -20685,11 +22263,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUpdateInput = {
@@ -20709,11 +22287,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -20733,11 +22311,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -20780,10 +22358,12 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserCreateNestedManyWithoutCompanyInput
     roles?: companyRoleCreateNestedManyWithoutCompanyInput
+    items?: itemsCreateNestedManyWithoutCompanyInput
     categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyUncheckedCreateInput = {
@@ -20793,10 +22373,12 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersUncheckedCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
     roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
+    items?: itemsUncheckedCreateNestedManyWithoutCompanyInput
     categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyUpdateInput = {
@@ -20806,10 +22388,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUpdateManyWithoutCompanyNestedInput
     roles?: companyRoleUpdateManyWithoutCompanyNestedInput
+    items?: itemsUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyUncheckedUpdateInput = {
@@ -20819,10 +22403,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUncheckedUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
     roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    items?: itemsUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyCreateManyInput = {
@@ -20832,6 +22418,7 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type companyUpdateManyMutationInput = {
@@ -20841,6 +22428,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUncheckedUpdateManyInput = {
@@ -20850,6 +22438,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserCreateInput = {
@@ -20857,7 +22446,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutUsersInput
     user: usersCreateNestedOneWithoutCompany_userInput
     verifier?: usersCreateNestedOneWithoutVerified_membersInput
@@ -20873,7 +22465,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserUpdateInput = {
@@ -20881,7 +22476,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutUsersNestedInput
     user?: usersUpdateOneRequiredWithoutCompany_userNestedInput
     verifier?: usersUpdateOneWithoutVerified_membersNestedInput
@@ -20897,7 +22495,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserCreateManyInput = {
@@ -20909,7 +22510,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserUpdateManyMutationInput = {
@@ -20917,7 +22521,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUncheckedUpdateManyInput = {
@@ -20929,7 +22536,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyRoleCreateInput = {
@@ -20938,6 +22548,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutRolesInput
     users?: companyUserCreateNestedManyWithoutRoleInput
     role_permissions?: rolePermissionCreateNestedManyWithoutRoleInput
@@ -20950,6 +22563,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutRoleInput
     role_permissions?: rolePermissionUncheckedCreateNestedManyWithoutRoleInput
   }
@@ -20960,6 +22576,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutRolesNestedInput
     users?: companyUserUpdateManyWithoutRoleNestedInput
     role_permissions?: rolePermissionUpdateManyWithoutRoleNestedInput
@@ -20972,6 +22591,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutRoleNestedInput
     role_permissions?: rolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
@@ -20983,6 +22605,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
   }
 
   export type companyRoleUpdateManyMutationInput = {
@@ -20991,6 +22616,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyRoleUncheckedUpdateManyInput = {
@@ -21000,6 +22628,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type rolePermissionCreateInput = {
@@ -21167,6 +22798,101 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type CompanyInviteCreateInput = {
+    id?: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    invite_company: companyCreateNestedOneWithoutCompany_invitesInput
+    created_by_user: usersCreateNestedOneWithoutCreated_invitesInput
+    user_invited: usersCreateNestedOneWithoutReceived_invitesInput
+  }
+
+  export type CompanyInviteUncheckedCreateInput = {
+    id?: string
+    company_id: string
+    created_by: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+  }
+
+  export type CompanyInviteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    invite_company?: companyUpdateOneRequiredWithoutCompany_invitesNestedInput
+    created_by_user?: usersUpdateOneRequiredWithoutCreated_invitesNestedInput
+    user_invited?: usersUpdateOneRequiredWithoutReceived_invitesNestedInput
+  }
+
+  export type CompanyInviteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteCreateManyInput = {
+    id?: string
+    company_id: string
+    created_by: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+  }
+
+  export type CompanyInviteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type itemsCreateInput = {
     id?: string
     name: string
@@ -21174,8 +22900,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
-    type: $Enums.itemType
     categories: categoriesCreateNestedOneWithoutItemsInput
+    company: companyCreateNestedOneWithoutItemsInput
     users_items_created_byTousers: usersCreateNestedOneWithoutItems_items_created_byTousersInput
     users_items_updated_byTousers: usersCreateNestedOneWithoutItems_items_updated_byTousersInput
     options?: optionsCreateNestedManyWithoutItemsInput
@@ -21186,12 +22912,12 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
     options?: optionsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -21202,8 +22928,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     categories?: categoriesUpdateOneRequiredWithoutItemsNestedInput
+    company?: companyUpdateOneRequiredWithoutItemsNestedInput
     users_items_created_byTousers?: usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput
     users_items_updated_byTousers?: usersUpdateOneRequiredWithoutItems_items_updated_byTousersNestedInput
     options?: optionsUpdateManyWithoutItemsNestedInput
@@ -21214,12 +22940,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     options?: optionsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -21228,12 +22954,12 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
   }
 
   export type itemsUpdateManyMutationInput = {
@@ -21243,7 +22969,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type itemsUncheckedUpdateManyInput = {
@@ -21251,12 +22976,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type optionsCreateInput = {
@@ -21265,9 +22990,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_created_byTousers: usersCreateNestedOneWithoutOptions_options_created_byTousersInput
     users_options_updated_byTousers: usersCreateNestedOneWithoutOptions_options_updated_byTousersInput
@@ -21283,12 +23011,15 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     order_options?: orderOptionsUncheckedCreateNestedManyWithoutOptionsInput
   }
@@ -21299,9 +23030,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_created_byTousers?: usersUpdateOneRequiredWithoutOptions_options_created_byTousersNestedInput
     users_options_updated_byTousers?: usersUpdateOneRequiredWithoutOptions_options_updated_byTousersNestedInput
@@ -21317,12 +23051,15 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     order_options?: orderOptionsUncheckedUpdateManyWithoutOptionsNestedInput
   }
@@ -21334,12 +23071,15 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -21349,9 +23089,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -21362,12 +23105,15 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -21378,6 +23124,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     users_order_options_created_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_created_byTousersInput
     options: optionsCreateNestedOneWithoutOrder_optionsInput
     orders: ordersCreateNestedOneWithoutOrder_optionsInput
@@ -21397,6 +23144,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsUpdateInput = {
@@ -21406,6 +23154,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_order_options_created_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_created_byTousersNestedInput
     options?: optionsUpdateOneRequiredWithoutOrder_optionsNestedInput
     orders?: ordersUpdateOneRequiredWithoutOrder_optionsNestedInput
@@ -21425,6 +23174,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsCreateManyInput = {
@@ -21439,6 +23189,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsUpdateManyMutationInput = {
@@ -21448,6 +23199,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyInput = {
@@ -21462,6 +23214,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type ordersCreateInput = {
@@ -21472,12 +23225,12 @@ export namespace Prisma {
     status_changed_at?: Date | string | null
     discount?: Decimal | DecimalJsLike | number | string
     cash_amount?: Decimal | DecimalJsLike | number | string
+    created_by?: string | null
+    status_changed_by: string
+    company_id: string
     status?: $Enums.orderStatus
     payment_type: $Enums.paymentType
     order_options?: orderOptionsCreateNestedManyWithoutOrdersInput
-    users_orders_created_byTousers: usersCreateNestedOneWithoutOrders_orders_created_byTousersInput
-    users_orders_status_changed_byTousers: usersCreateNestedOneWithoutOrders_orders_status_changed_byTousersInput
-    order_company: companyCreateNestedOneWithoutCompany_ordersInput
   }
 
   export type ordersUncheckedCreateInput = {
@@ -21488,7 +23241,7 @@ export namespace Prisma {
     status_changed_at?: Date | string | null
     discount?: Decimal | DecimalJsLike | number | string
     cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
+    created_by?: string | null
     status_changed_by: string
     company_id: string
     status?: $Enums.orderStatus
@@ -21504,12 +23257,12 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    status_changed_by?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
     payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
     order_options?: orderOptionsUpdateManyWithoutOrdersNestedInput
-    users_orders_created_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_created_byTousersNestedInput
-    users_orders_status_changed_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_status_changed_byTousersNestedInput
-    order_company?: companyUpdateOneRequiredWithoutCompany_ordersNestedInput
   }
 
   export type ordersUncheckedUpdateInput = {
@@ -21520,7 +23273,7 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
     status_changed_by?: StringFieldUpdateOperationsInput | string
     company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
@@ -21536,7 +23289,7 @@ export namespace Prisma {
     status_changed_at?: Date | string | null
     discount?: Decimal | DecimalJsLike | number | string
     cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
+    created_by?: string | null
     status_changed_by: string
     company_id: string
     status?: $Enums.orderStatus
@@ -21551,6 +23304,9 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    status_changed_by?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
     payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
   }
@@ -21563,7 +23319,7 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
     status_changed_by?: StringFieldUpdateOperationsInput | string
     company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
@@ -21856,12 +23612,6 @@ export namespace Prisma {
     none?: orderOptionsWhereInput
   }
 
-  export type OrdersListRelationFilter = {
-    every?: ordersWhereInput
-    some?: ordersWhereInput
-    none?: ordersWhereInput
-  }
-
   export type RefreshTokenListRelationFilter = {
     every?: refreshTokenWhereInput
     some?: refreshTokenWhereInput
@@ -21872,6 +23622,12 @@ export namespace Prisma {
     every?: companyUserWhereInput
     some?: companyUserWhereInput
     none?: companyUserWhereInput
+  }
+
+  export type CompanyInviteListRelationFilter = {
+    every?: CompanyInviteWhereInput
+    some?: CompanyInviteWhereInput
+    none?: CompanyInviteWhereInput
   }
 
   export type SortOrderInput = {
@@ -21895,15 +23651,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ordersOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type refreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type companyUserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CompanyInviteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22033,6 +23789,7 @@ export namespace Prisma {
     address?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyMaxOrderByAggregateInput = {
@@ -22042,6 +23799,7 @@ export namespace Prisma {
     address?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyMinOrderByAggregateInput = {
@@ -22051,6 +23809,7 @@ export namespace Prisma {
     address?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22129,7 +23888,10 @@ export namespace Prisma {
     verified_by?: SortOrder
     verified_at?: SortOrder
     created_at?: SortOrder
+    created_by?: SortOrder
     updated_at?: SortOrder
+    updated_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyUserMaxOrderByAggregateInput = {
@@ -22141,7 +23903,10 @@ export namespace Prisma {
     verified_by?: SortOrder
     verified_at?: SortOrder
     created_at?: SortOrder
+    created_by?: SortOrder
     updated_at?: SortOrder
+    updated_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyUserMinOrderByAggregateInput = {
@@ -22153,7 +23918,10 @@ export namespace Prisma {
     verified_by?: SortOrder
     verified_at?: SortOrder
     created_at?: SortOrder
+    created_by?: SortOrder
     updated_at?: SortOrder
+    updated_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type EnumuserTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -22211,6 +23979,9 @@ export namespace Prisma {
     is_system?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    user_type?: SortOrder
+    active?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyRoleMaxOrderByAggregateInput = {
@@ -22220,6 +23991,9 @@ export namespace Prisma {
     is_system?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    user_type?: SortOrder
+    active?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type companyRoleMinOrderByAggregateInput = {
@@ -22229,6 +24003,9 @@ export namespace Prisma {
     is_system?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    user_type?: SortOrder
+    active?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -22368,11 +24145,51 @@ export namespace Prisma {
     deleted_at?: SortOrder
   }
 
-  export type EnumitemTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.itemType | EnumitemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumitemTypeFilter<$PrismaModel> | $Enums.itemType
+  export type CompanyInviteInvite_codeInvited_user_idCompoundUniqueInput = {
+    invite_code: string
+    invited_user_id: string
+  }
+
+  export type CompanyInviteCountOrderByAggregateInput = {
+    id?: SortOrder
+    company_id?: SortOrder
+    created_by?: SortOrder
+    invited_user_id?: SortOrder
+    invite_code?: SortOrder
+    creator_user_type?: SortOrder
+    created_at?: SortOrder
+    expired_at?: SortOrder
+    is_redeemed?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
+  }
+
+  export type CompanyInviteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    company_id?: SortOrder
+    created_by?: SortOrder
+    invited_user_id?: SortOrder
+    invite_code?: SortOrder
+    creator_user_type?: SortOrder
+    created_at?: SortOrder
+    expired_at?: SortOrder
+    is_redeemed?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
+  }
+
+  export type CompanyInviteMinOrderByAggregateInput = {
+    id?: SortOrder
+    company_id?: SortOrder
+    created_by?: SortOrder
+    invited_user_id?: SortOrder
+    invite_code?: SortOrder
+    creator_user_type?: SortOrder
+    created_at?: SortOrder
+    expired_at?: SortOrder
+    is_redeemed?: SortOrder
+    deleted_at?: SortOrder
+    deleted_by?: SortOrder
   }
 
   export type CategoriesScalarRelationFilter = {
@@ -22385,12 +24202,12 @@ export namespace Prisma {
     name?: SortOrder
     image_url?: SortOrder
     cat_id?: SortOrder
+    company_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    type?: SortOrder
   }
 
   export type itemsMaxOrderByAggregateInput = {
@@ -22398,12 +24215,12 @@ export namespace Prisma {
     name?: SortOrder
     image_url?: SortOrder
     cat_id?: SortOrder
+    company_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    type?: SortOrder
   }
 
   export type itemsMinOrderByAggregateInput = {
@@ -22411,22 +24228,12 @@ export namespace Prisma {
     name?: SortOrder
     image_url?: SortOrder
     cat_id?: SortOrder
+    company_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    type?: SortOrder
-  }
-
-  export type EnumitemTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.itemType | EnumitemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumitemTypeWithAggregatesFilter<$PrismaModel> | $Enums.itemType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumitemTypeFilter<$PrismaModel>
-    _max?: NestedEnumitemTypeFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -22438,6 +24245,13 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumoptionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.optionType | EnumoptionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumoptionTypeFilter<$PrismaModel> | $Enums.optionType
   }
 
   export type EnumcurrencyTypeFilter<$PrismaModel = never> = {
@@ -22464,12 +24278,15 @@ export namespace Prisma {
     input_value?: SortOrder
     unit_id?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
+    min_sell_unit_id?: SortOrder
     item_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    type?: SortOrder
     currency?: SortOrder
   }
 
@@ -22477,6 +24294,7 @@ export namespace Prisma {
     input_price?: SortOrder
     input_value?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
   }
 
   export type optionsMaxOrderByAggregateInput = {
@@ -22486,12 +24304,15 @@ export namespace Prisma {
     input_value?: SortOrder
     unit_id?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
+    min_sell_unit_id?: SortOrder
     item_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    type?: SortOrder
     currency?: SortOrder
   }
 
@@ -22502,12 +24323,15 @@ export namespace Prisma {
     input_value?: SortOrder
     unit_id?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
+    min_sell_unit_id?: SortOrder
     item_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    type?: SortOrder
     currency?: SortOrder
   }
 
@@ -22515,6 +24339,7 @@ export namespace Prisma {
     input_price?: SortOrder
     input_value?: SortOrder
     price_per_base_unit?: SortOrder
+    min_sell_quantity?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -22531,6 +24356,16 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumoptionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.optionType | EnumoptionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumoptionTypeWithAggregatesFilter<$PrismaModel> | $Enums.optionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumoptionTypeFilter<$PrismaModel>
+    _max?: NestedEnumoptionTypeFilter<$PrismaModel>
   }
 
   export type EnumcurrencyTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -22565,6 +24400,7 @@ export namespace Prisma {
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    currency?: SortOrder
   }
 
   export type orderOptionsAvgOrderByAggregateInput = {
@@ -22584,6 +24420,7 @@ export namespace Prisma {
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    currency?: SortOrder
   }
 
   export type orderOptionsMinOrderByAggregateInput = {
@@ -22598,6 +24435,7 @@ export namespace Prisma {
     deleted_at?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
+    currency?: SortOrder
   }
 
   export type orderOptionsSumOrderByAggregateInput = {
@@ -22899,20 +24737,6 @@ export namespace Prisma {
     connect?: orderOptionsWhereUniqueInput | orderOptionsWhereUniqueInput[]
   }
 
-  export type ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput> | ordersCreateWithoutUsers_orders_created_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_created_byTousersInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-  }
-
-  export type ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput> | ordersCreateWithoutUsers_orders_status_changed_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_status_changed_byTousersInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-  }
-
   export type refreshTokenCreateNestedManyWithoutUserInput = {
     create?: XOR<refreshTokenCreateWithoutUserInput, refreshTokenUncheckedCreateWithoutUserInput> | refreshTokenCreateWithoutUserInput[] | refreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: refreshTokenCreateOrConnectWithoutUserInput | refreshTokenCreateOrConnectWithoutUserInput[]
@@ -22932,6 +24756,20 @@ export namespace Prisma {
     connectOrCreate?: companyUserCreateOrConnectWithoutVerifierInput | companyUserCreateOrConnectWithoutVerifierInput[]
     createMany?: companyUserCreateManyVerifierInputEnvelope
     connect?: companyUserWhereUniqueInput | companyUserWhereUniqueInput[]
+  }
+
+  export type CompanyInviteCreateNestedManyWithoutCreated_by_userInput = {
+    create?: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput> | CompanyInviteCreateWithoutCreated_by_userInput[] | CompanyInviteUncheckedCreateWithoutCreated_by_userInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutCreated_by_userInput | CompanyInviteCreateOrConnectWithoutCreated_by_userInput[]
+    createMany?: CompanyInviteCreateManyCreated_by_userInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+  }
+
+  export type CompanyInviteCreateNestedManyWithoutUser_invitedInput = {
+    create?: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput> | CompanyInviteCreateWithoutUser_invitedInput[] | CompanyInviteUncheckedCreateWithoutUser_invitedInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutUser_invitedInput | CompanyInviteCreateOrConnectWithoutUser_invitedInput[]
+    createMany?: CompanyInviteCreateManyUser_invitedInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
   }
 
   export type categoriesUncheckedCreateNestedManyWithoutUsers_categories_created_byTousersInput = {
@@ -22990,20 +24828,6 @@ export namespace Prisma {
     connect?: orderOptionsWhereUniqueInput | orderOptionsWhereUniqueInput[]
   }
 
-  export type ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput> | ordersCreateWithoutUsers_orders_created_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_created_byTousersInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-  }
-
-  export type ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput> | ordersCreateWithoutUsers_orders_status_changed_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_status_changed_byTousersInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-  }
-
   export type refreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<refreshTokenCreateWithoutUserInput, refreshTokenUncheckedCreateWithoutUserInput> | refreshTokenCreateWithoutUserInput[] | refreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: refreshTokenCreateOrConnectWithoutUserInput | refreshTokenCreateOrConnectWithoutUserInput[]
@@ -23023,6 +24847,20 @@ export namespace Prisma {
     connectOrCreate?: companyUserCreateOrConnectWithoutVerifierInput | companyUserCreateOrConnectWithoutVerifierInput[]
     createMany?: companyUserCreateManyVerifierInputEnvelope
     connect?: companyUserWhereUniqueInput | companyUserWhereUniqueInput[]
+  }
+
+  export type CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput = {
+    create?: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput> | CompanyInviteCreateWithoutCreated_by_userInput[] | CompanyInviteUncheckedCreateWithoutCreated_by_userInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutCreated_by_userInput | CompanyInviteCreateOrConnectWithoutCreated_by_userInput[]
+    createMany?: CompanyInviteCreateManyCreated_by_userInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+  }
+
+  export type CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput = {
+    create?: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput> | CompanyInviteCreateWithoutUser_invitedInput[] | CompanyInviteUncheckedCreateWithoutUser_invitedInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutUser_invitedInput | CompanyInviteCreateOrConnectWithoutUser_invitedInput[]
+    createMany?: CompanyInviteCreateManyUser_invitedInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -23149,34 +24987,6 @@ export namespace Prisma {
     deleteMany?: orderOptionsScalarWhereInput | orderOptionsScalarWhereInput[]
   }
 
-  export type ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput> | ordersCreateWithoutUsers_orders_created_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutUsers_orders_created_byTousersInput | ordersUpsertWithWhereUniqueWithoutUsers_orders_created_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_created_byTousersInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutUsers_orders_created_byTousersInput | ordersUpdateWithWhereUniqueWithoutUsers_orders_created_byTousersInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutUsers_orders_created_byTousersInput | ordersUpdateManyWithWhereWithoutUsers_orders_created_byTousersInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
-  }
-
-  export type ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput> | ordersCreateWithoutUsers_orders_status_changed_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput | ordersUpsertWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_status_changed_byTousersInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput | ordersUpdateWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutUsers_orders_status_changed_byTousersInput | ordersUpdateManyWithWhereWithoutUsers_orders_status_changed_byTousersInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
-  }
-
   export type refreshTokenUpdateManyWithoutUserNestedInput = {
     create?: XOR<refreshTokenCreateWithoutUserInput, refreshTokenUncheckedCreateWithoutUserInput> | refreshTokenCreateWithoutUserInput[] | refreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: refreshTokenCreateOrConnectWithoutUserInput | refreshTokenCreateOrConnectWithoutUserInput[]
@@ -23217,6 +25027,34 @@ export namespace Prisma {
     update?: companyUserUpdateWithWhereUniqueWithoutVerifierInput | companyUserUpdateWithWhereUniqueWithoutVerifierInput[]
     updateMany?: companyUserUpdateManyWithWhereWithoutVerifierInput | companyUserUpdateManyWithWhereWithoutVerifierInput[]
     deleteMany?: companyUserScalarWhereInput | companyUserScalarWhereInput[]
+  }
+
+  export type CompanyInviteUpdateManyWithoutCreated_by_userNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput> | CompanyInviteCreateWithoutCreated_by_userInput[] | CompanyInviteUncheckedCreateWithoutCreated_by_userInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutCreated_by_userInput | CompanyInviteCreateOrConnectWithoutCreated_by_userInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutCreated_by_userInput | CompanyInviteUpsertWithWhereUniqueWithoutCreated_by_userInput[]
+    createMany?: CompanyInviteCreateManyCreated_by_userInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutCreated_by_userInput | CompanyInviteUpdateWithWhereUniqueWithoutCreated_by_userInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutCreated_by_userInput | CompanyInviteUpdateManyWithWhereWithoutCreated_by_userInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
+  }
+
+  export type CompanyInviteUpdateManyWithoutUser_invitedNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput> | CompanyInviteCreateWithoutUser_invitedInput[] | CompanyInviteUncheckedCreateWithoutUser_invitedInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutUser_invitedInput | CompanyInviteCreateOrConnectWithoutUser_invitedInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutUser_invitedInput | CompanyInviteUpsertWithWhereUniqueWithoutUser_invitedInput[]
+    createMany?: CompanyInviteCreateManyUser_invitedInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutUser_invitedInput | CompanyInviteUpdateWithWhereUniqueWithoutUser_invitedInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutUser_invitedInput | CompanyInviteUpdateManyWithWhereWithoutUser_invitedInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
   }
 
   export type categoriesUncheckedUpdateManyWithoutUsers_categories_created_byTousersNestedInput = {
@@ -23331,34 +25169,6 @@ export namespace Prisma {
     deleteMany?: orderOptionsScalarWhereInput | orderOptionsScalarWhereInput[]
   }
 
-  export type ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput> | ordersCreateWithoutUsers_orders_created_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutUsers_orders_created_byTousersInput | ordersUpsertWithWhereUniqueWithoutUsers_orders_created_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_created_byTousersInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutUsers_orders_created_byTousersInput | ordersUpdateWithWhereUniqueWithoutUsers_orders_created_byTousersInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutUsers_orders_created_byTousersInput | ordersUpdateManyWithWhereWithoutUsers_orders_created_byTousersInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
-  }
-
-  export type ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput = {
-    create?: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput> | ordersCreateWithoutUsers_orders_status_changed_byTousersInput[] | ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput | ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput | ordersUpsertWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput[]
-    createMany?: ordersCreateManyUsers_orders_status_changed_byTousersInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput | ordersUpdateWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutUsers_orders_status_changed_byTousersInput | ordersUpdateManyWithWhereWithoutUsers_orders_status_changed_byTousersInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
-  }
-
   export type refreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<refreshTokenCreateWithoutUserInput, refreshTokenUncheckedCreateWithoutUserInput> | refreshTokenCreateWithoutUserInput[] | refreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: refreshTokenCreateOrConnectWithoutUserInput | refreshTokenCreateOrConnectWithoutUserInput[]
@@ -23401,11 +25211,32 @@ export namespace Prisma {
     deleteMany?: companyUserScalarWhereInput | companyUserScalarWhereInput[]
   }
 
-  export type ordersCreateNestedManyWithoutOrder_companyInput = {
-    create?: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput> | ordersCreateWithoutOrder_companyInput[] | ordersUncheckedCreateWithoutOrder_companyInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutOrder_companyInput | ordersCreateOrConnectWithoutOrder_companyInput[]
-    createMany?: ordersCreateManyOrder_companyInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
+  export type CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput> | CompanyInviteCreateWithoutCreated_by_userInput[] | CompanyInviteUncheckedCreateWithoutCreated_by_userInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutCreated_by_userInput | CompanyInviteCreateOrConnectWithoutCreated_by_userInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutCreated_by_userInput | CompanyInviteUpsertWithWhereUniqueWithoutCreated_by_userInput[]
+    createMany?: CompanyInviteCreateManyCreated_by_userInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutCreated_by_userInput | CompanyInviteUpdateWithWhereUniqueWithoutCreated_by_userInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutCreated_by_userInput | CompanyInviteUpdateManyWithWhereWithoutCreated_by_userInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
+  }
+
+  export type CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput> | CompanyInviteCreateWithoutUser_invitedInput[] | CompanyInviteUncheckedCreateWithoutUser_invitedInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutUser_invitedInput | CompanyInviteCreateOrConnectWithoutUser_invitedInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutUser_invitedInput | CompanyInviteUpsertWithWhereUniqueWithoutUser_invitedInput[]
+    createMany?: CompanyInviteCreateManyUser_invitedInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutUser_invitedInput | CompanyInviteUpdateWithWhereUniqueWithoutUser_invitedInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutUser_invitedInput | CompanyInviteUpdateManyWithWhereWithoutUser_invitedInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
   }
 
   export type companyUserCreateNestedManyWithoutCompanyInput = {
@@ -23422,6 +25253,13 @@ export namespace Prisma {
     connect?: companyRoleWhereUniqueInput | companyRoleWhereUniqueInput[]
   }
 
+  export type itemsCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput> | itemsCreateWithoutCompanyInput[] | itemsUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: itemsCreateOrConnectWithoutCompanyInput | itemsCreateOrConnectWithoutCompanyInput[]
+    createMany?: itemsCreateManyCompanyInputEnvelope
+    connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+  }
+
   export type categoriesCreateNestedManyWithoutCompany_categoriesInput = {
     create?: XOR<categoriesCreateWithoutCompany_categoriesInput, categoriesUncheckedCreateWithoutCompany_categoriesInput> | categoriesCreateWithoutCompany_categoriesInput[] | categoriesUncheckedCreateWithoutCompany_categoriesInput[]
     connectOrCreate?: categoriesCreateOrConnectWithoutCompany_categoriesInput | categoriesCreateOrConnectWithoutCompany_categoriesInput[]
@@ -23429,11 +25267,11 @@ export namespace Prisma {
     connect?: categoriesWhereUniqueInput | categoriesWhereUniqueInput[]
   }
 
-  export type ordersUncheckedCreateNestedManyWithoutOrder_companyInput = {
-    create?: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput> | ordersCreateWithoutOrder_companyInput[] | ordersUncheckedCreateWithoutOrder_companyInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutOrder_companyInput | ordersCreateOrConnectWithoutOrder_companyInput[]
-    createMany?: ordersCreateManyOrder_companyInputEnvelope
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
+  export type CompanyInviteCreateNestedManyWithoutInvite_companyInput = {
+    create?: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput> | CompanyInviteCreateWithoutInvite_companyInput[] | CompanyInviteUncheckedCreateWithoutInvite_companyInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutInvite_companyInput | CompanyInviteCreateOrConnectWithoutInvite_companyInput[]
+    createMany?: CompanyInviteCreateManyInvite_companyInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
   }
 
   export type companyUserUncheckedCreateNestedManyWithoutCompanyInput = {
@@ -23450,6 +25288,13 @@ export namespace Prisma {
     connect?: companyRoleWhereUniqueInput | companyRoleWhereUniqueInput[]
   }
 
+  export type itemsUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput> | itemsCreateWithoutCompanyInput[] | itemsUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: itemsCreateOrConnectWithoutCompanyInput | itemsCreateOrConnectWithoutCompanyInput[]
+    createMany?: itemsCreateManyCompanyInputEnvelope
+    connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+  }
+
   export type categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput = {
     create?: XOR<categoriesCreateWithoutCompany_categoriesInput, categoriesUncheckedCreateWithoutCompany_categoriesInput> | categoriesCreateWithoutCompany_categoriesInput[] | categoriesUncheckedCreateWithoutCompany_categoriesInput[]
     connectOrCreate?: categoriesCreateOrConnectWithoutCompany_categoriesInput | categoriesCreateOrConnectWithoutCompany_categoriesInput[]
@@ -23457,22 +25302,15 @@ export namespace Prisma {
     connect?: categoriesWhereUniqueInput | categoriesWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput = {
+    create?: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput> | CompanyInviteCreateWithoutInvite_companyInput[] | CompanyInviteUncheckedCreateWithoutInvite_companyInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutInvite_companyInput | CompanyInviteCreateOrConnectWithoutInvite_companyInput[]
+    createMany?: CompanyInviteCreateManyInvite_companyInputEnvelope
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
   }
 
-  export type ordersUpdateManyWithoutOrder_companyNestedInput = {
-    create?: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput> | ordersCreateWithoutOrder_companyInput[] | ordersUncheckedCreateWithoutOrder_companyInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutOrder_companyInput | ordersCreateOrConnectWithoutOrder_companyInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutOrder_companyInput | ordersUpsertWithWhereUniqueWithoutOrder_companyInput[]
-    createMany?: ordersCreateManyOrder_companyInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutOrder_companyInput | ordersUpdateWithWhereUniqueWithoutOrder_companyInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutOrder_companyInput | ordersUpdateManyWithWhereWithoutOrder_companyInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type companyUserUpdateManyWithoutCompanyNestedInput = {
@@ -23503,6 +25341,20 @@ export namespace Prisma {
     deleteMany?: companyRoleScalarWhereInput | companyRoleScalarWhereInput[]
   }
 
+  export type itemsUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput> | itemsCreateWithoutCompanyInput[] | itemsUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: itemsCreateOrConnectWithoutCompanyInput | itemsCreateOrConnectWithoutCompanyInput[]
+    upsert?: itemsUpsertWithWhereUniqueWithoutCompanyInput | itemsUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: itemsCreateManyCompanyInputEnvelope
+    set?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    disconnect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    delete?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    update?: itemsUpdateWithWhereUniqueWithoutCompanyInput | itemsUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: itemsUpdateManyWithWhereWithoutCompanyInput | itemsUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: itemsScalarWhereInput | itemsScalarWhereInput[]
+  }
+
   export type categoriesUpdateManyWithoutCompany_categoriesNestedInput = {
     create?: XOR<categoriesCreateWithoutCompany_categoriesInput, categoriesUncheckedCreateWithoutCompany_categoriesInput> | categoriesCreateWithoutCompany_categoriesInput[] | categoriesUncheckedCreateWithoutCompany_categoriesInput[]
     connectOrCreate?: categoriesCreateOrConnectWithoutCompany_categoriesInput | categoriesCreateOrConnectWithoutCompany_categoriesInput[]
@@ -23517,18 +25369,18 @@ export namespace Prisma {
     deleteMany?: categoriesScalarWhereInput | categoriesScalarWhereInput[]
   }
 
-  export type ordersUncheckedUpdateManyWithoutOrder_companyNestedInput = {
-    create?: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput> | ordersCreateWithoutOrder_companyInput[] | ordersUncheckedCreateWithoutOrder_companyInput[]
-    connectOrCreate?: ordersCreateOrConnectWithoutOrder_companyInput | ordersCreateOrConnectWithoutOrder_companyInput[]
-    upsert?: ordersUpsertWithWhereUniqueWithoutOrder_companyInput | ordersUpsertWithWhereUniqueWithoutOrder_companyInput[]
-    createMany?: ordersCreateManyOrder_companyInputEnvelope
-    set?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    disconnect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    delete?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    connect?: ordersWhereUniqueInput | ordersWhereUniqueInput[]
-    update?: ordersUpdateWithWhereUniqueWithoutOrder_companyInput | ordersUpdateWithWhereUniqueWithoutOrder_companyInput[]
-    updateMany?: ordersUpdateManyWithWhereWithoutOrder_companyInput | ordersUpdateManyWithWhereWithoutOrder_companyInput[]
-    deleteMany?: ordersScalarWhereInput | ordersScalarWhereInput[]
+  export type CompanyInviteUpdateManyWithoutInvite_companyNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput> | CompanyInviteCreateWithoutInvite_companyInput[] | CompanyInviteUncheckedCreateWithoutInvite_companyInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutInvite_companyInput | CompanyInviteCreateOrConnectWithoutInvite_companyInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutInvite_companyInput | CompanyInviteUpsertWithWhereUniqueWithoutInvite_companyInput[]
+    createMany?: CompanyInviteCreateManyInvite_companyInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutInvite_companyInput | CompanyInviteUpdateWithWhereUniqueWithoutInvite_companyInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutInvite_companyInput | CompanyInviteUpdateManyWithWhereWithoutInvite_companyInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
   }
 
   export type companyUserUncheckedUpdateManyWithoutCompanyNestedInput = {
@@ -23559,6 +25411,20 @@ export namespace Prisma {
     deleteMany?: companyRoleScalarWhereInput | companyRoleScalarWhereInput[]
   }
 
+  export type itemsUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput> | itemsCreateWithoutCompanyInput[] | itemsUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: itemsCreateOrConnectWithoutCompanyInput | itemsCreateOrConnectWithoutCompanyInput[]
+    upsert?: itemsUpsertWithWhereUniqueWithoutCompanyInput | itemsUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: itemsCreateManyCompanyInputEnvelope
+    set?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    disconnect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    delete?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
+    update?: itemsUpdateWithWhereUniqueWithoutCompanyInput | itemsUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: itemsUpdateManyWithWhereWithoutCompanyInput | itemsUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: itemsScalarWhereInput | itemsScalarWhereInput[]
+  }
+
   export type categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput = {
     create?: XOR<categoriesCreateWithoutCompany_categoriesInput, categoriesUncheckedCreateWithoutCompany_categoriesInput> | categoriesCreateWithoutCompany_categoriesInput[] | categoriesUncheckedCreateWithoutCompany_categoriesInput[]
     connectOrCreate?: categoriesCreateOrConnectWithoutCompany_categoriesInput | categoriesCreateOrConnectWithoutCompany_categoriesInput[]
@@ -23571,6 +25437,20 @@ export namespace Prisma {
     update?: categoriesUpdateWithWhereUniqueWithoutCompany_categoriesInput | categoriesUpdateWithWhereUniqueWithoutCompany_categoriesInput[]
     updateMany?: categoriesUpdateManyWithWhereWithoutCompany_categoriesInput | categoriesUpdateManyWithWhereWithoutCompany_categoriesInput[]
     deleteMany?: categoriesScalarWhereInput | categoriesScalarWhereInput[]
+  }
+
+  export type CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput = {
+    create?: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput> | CompanyInviteCreateWithoutInvite_companyInput[] | CompanyInviteUncheckedCreateWithoutInvite_companyInput[]
+    connectOrCreate?: CompanyInviteCreateOrConnectWithoutInvite_companyInput | CompanyInviteCreateOrConnectWithoutInvite_companyInput[]
+    upsert?: CompanyInviteUpsertWithWhereUniqueWithoutInvite_companyInput | CompanyInviteUpsertWithWhereUniqueWithoutInvite_companyInput[]
+    createMany?: CompanyInviteCreateManyInvite_companyInputEnvelope
+    set?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    disconnect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    delete?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    connect?: CompanyInviteWhereUniqueInput | CompanyInviteWhereUniqueInput[]
+    update?: CompanyInviteUpdateWithWhereUniqueWithoutInvite_companyInput | CompanyInviteUpdateWithWhereUniqueWithoutInvite_companyInput[]
+    updateMany?: CompanyInviteUpdateManyWithWhereWithoutInvite_companyInput | CompanyInviteUpdateManyWithWhereWithoutInvite_companyInput[]
+    deleteMany?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
   }
 
   export type companyCreateNestedOneWithoutUsersInput = {
@@ -23959,10 +25839,58 @@ export namespace Prisma {
     deleteMany?: itemsScalarWhereInput | itemsScalarWhereInput[]
   }
 
+  export type companyCreateNestedOneWithoutCompany_invitesInput = {
+    create?: XOR<companyCreateWithoutCompany_invitesInput, companyUncheckedCreateWithoutCompany_invitesInput>
+    connectOrCreate?: companyCreateOrConnectWithoutCompany_invitesInput
+    connect?: companyWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutCreated_invitesInput = {
+    create?: XOR<usersCreateWithoutCreated_invitesInput, usersUncheckedCreateWithoutCreated_invitesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_invitesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutReceived_invitesInput = {
+    create?: XOR<usersCreateWithoutReceived_invitesInput, usersUncheckedCreateWithoutReceived_invitesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutReceived_invitesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type companyUpdateOneRequiredWithoutCompany_invitesNestedInput = {
+    create?: XOR<companyCreateWithoutCompany_invitesInput, companyUncheckedCreateWithoutCompany_invitesInput>
+    connectOrCreate?: companyCreateOrConnectWithoutCompany_invitesInput
+    upsert?: companyUpsertWithoutCompany_invitesInput
+    connect?: companyWhereUniqueInput
+    update?: XOR<XOR<companyUpdateToOneWithWhereWithoutCompany_invitesInput, companyUpdateWithoutCompany_invitesInput>, companyUncheckedUpdateWithoutCompany_invitesInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_invitesNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_invitesInput, usersUncheckedCreateWithoutCreated_invitesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_invitesInput
+    upsert?: usersUpsertWithoutCreated_invitesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_invitesInput, usersUpdateWithoutCreated_invitesInput>, usersUncheckedUpdateWithoutCreated_invitesInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutReceived_invitesNestedInput = {
+    create?: XOR<usersCreateWithoutReceived_invitesInput, usersUncheckedCreateWithoutReceived_invitesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutReceived_invitesInput
+    upsert?: usersUpsertWithoutReceived_invitesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutReceived_invitesInput, usersUpdateWithoutReceived_invitesInput>, usersUncheckedUpdateWithoutReceived_invitesInput>
+  }
+
   export type categoriesCreateNestedOneWithoutItemsInput = {
     create?: XOR<categoriesCreateWithoutItemsInput, categoriesUncheckedCreateWithoutItemsInput>
     connectOrCreate?: categoriesCreateOrConnectWithoutItemsInput
     connect?: categoriesWhereUniqueInput
+  }
+
+  export type companyCreateNestedOneWithoutItemsInput = {
+    create?: XOR<companyCreateWithoutItemsInput, companyUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: companyCreateOrConnectWithoutItemsInput
+    connect?: companyWhereUniqueInput
   }
 
   export type usersCreateNestedOneWithoutItems_items_created_byTousersInput = {
@@ -23991,16 +25919,20 @@ export namespace Prisma {
     connect?: optionsWhereUniqueInput | optionsWhereUniqueInput[]
   }
 
-  export type EnumitemTypeFieldUpdateOperationsInput = {
-    set?: $Enums.itemType
-  }
-
   export type categoriesUpdateOneRequiredWithoutItemsNestedInput = {
     create?: XOR<categoriesCreateWithoutItemsInput, categoriesUncheckedCreateWithoutItemsInput>
     connectOrCreate?: categoriesCreateOrConnectWithoutItemsInput
     upsert?: categoriesUpsertWithoutItemsInput
     connect?: categoriesWhereUniqueInput
     update?: XOR<XOR<categoriesUpdateToOneWithWhereWithoutItemsInput, categoriesUpdateWithoutItemsInput>, categoriesUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type companyUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<companyCreateWithoutItemsInput, companyUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: companyCreateOrConnectWithoutItemsInput
+    upsert?: companyUpsertWithoutItemsInput
+    connect?: companyWhereUniqueInput
+    update?: XOR<XOR<companyUpdateToOneWithWhereWithoutItemsInput, companyUpdateWithoutItemsInput>, companyUncheckedUpdateWithoutItemsInput>
   }
 
   export type usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput = {
@@ -24091,6 +26023,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumoptionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.optionType
   }
 
   export type EnumcurrencyTypeFieldUpdateOperationsInput = {
@@ -24234,24 +26170,6 @@ export namespace Prisma {
     connect?: orderOptionsWhereUniqueInput | orderOptionsWhereUniqueInput[]
   }
 
-  export type usersCreateNestedOneWithoutOrders_orders_created_byTousersInput = {
-    create?: XOR<usersCreateWithoutOrders_orders_created_byTousersInput, usersUncheckedCreateWithoutOrders_orders_created_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutOrders_orders_created_byTousersInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type usersCreateNestedOneWithoutOrders_orders_status_changed_byTousersInput = {
-    create?: XOR<usersCreateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedCreateWithoutOrders_orders_status_changed_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutOrders_orders_status_changed_byTousersInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type companyCreateNestedOneWithoutCompany_ordersInput = {
-    create?: XOR<companyCreateWithoutCompany_ordersInput, companyUncheckedCreateWithoutCompany_ordersInput>
-    connectOrCreate?: companyCreateOrConnectWithoutCompany_ordersInput
-    connect?: companyWhereUniqueInput
-  }
-
   export type orderOptionsUncheckedCreateNestedManyWithoutOrdersInput = {
     create?: XOR<orderOptionsCreateWithoutOrdersInput, orderOptionsUncheckedCreateWithoutOrdersInput> | orderOptionsCreateWithoutOrdersInput[] | orderOptionsUncheckedCreateWithoutOrdersInput[]
     connectOrCreate?: orderOptionsCreateOrConnectWithoutOrdersInput | orderOptionsCreateOrConnectWithoutOrdersInput[]
@@ -24287,30 +26205,6 @@ export namespace Prisma {
     update?: orderOptionsUpdateWithWhereUniqueWithoutOrdersInput | orderOptionsUpdateWithWhereUniqueWithoutOrdersInput[]
     updateMany?: orderOptionsUpdateManyWithWhereWithoutOrdersInput | orderOptionsUpdateManyWithWhereWithoutOrdersInput[]
     deleteMany?: orderOptionsScalarWhereInput | orderOptionsScalarWhereInput[]
-  }
-
-  export type usersUpdateOneRequiredWithoutOrders_orders_created_byTousersNestedInput = {
-    create?: XOR<usersCreateWithoutOrders_orders_created_byTousersInput, usersUncheckedCreateWithoutOrders_orders_created_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutOrders_orders_created_byTousersInput
-    upsert?: usersUpsertWithoutOrders_orders_created_byTousersInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutOrders_orders_created_byTousersInput, usersUpdateWithoutOrders_orders_created_byTousersInput>, usersUncheckedUpdateWithoutOrders_orders_created_byTousersInput>
-  }
-
-  export type usersUpdateOneRequiredWithoutOrders_orders_status_changed_byTousersNestedInput = {
-    create?: XOR<usersCreateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedCreateWithoutOrders_orders_status_changed_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutOrders_orders_status_changed_byTousersInput
-    upsert?: usersUpsertWithoutOrders_orders_status_changed_byTousersInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutOrders_orders_status_changed_byTousersInput, usersUpdateWithoutOrders_orders_status_changed_byTousersInput>, usersUncheckedUpdateWithoutOrders_orders_status_changed_byTousersInput>
-  }
-
-  export type companyUpdateOneRequiredWithoutCompany_ordersNestedInput = {
-    create?: XOR<companyCreateWithoutCompany_ordersInput, companyUncheckedCreateWithoutCompany_ordersInput>
-    connectOrCreate?: companyCreateOrConnectWithoutCompany_ordersInput
-    upsert?: companyUpsertWithoutCompany_ordersInput
-    connect?: companyWhereUniqueInput
-    update?: XOR<XOR<companyUpdateToOneWithWhereWithoutCompany_ordersInput, companyUpdateWithoutCompany_ordersInput>, companyUncheckedUpdateWithoutCompany_ordersInput>
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutOrdersNestedInput = {
@@ -24722,23 +26616,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumitemTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.itemType | EnumitemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumitemTypeFilter<$PrismaModel> | $Enums.itemType
-  }
-
-  export type NestedEnumitemTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.itemType | EnumitemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.itemType[] | ListEnumitemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumitemTypeWithAggregatesFilter<$PrismaModel> | $Enums.itemType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumitemTypeFilter<$PrismaModel>
-    _max?: NestedEnumitemTypeFilter<$PrismaModel>
-  }
-
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -24748,6 +26625,13 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumoptionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.optionType | EnumoptionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumoptionTypeFilter<$PrismaModel> | $Enums.optionType
   }
 
   export type NestedEnumcurrencyTypeFilter<$PrismaModel = never> = {
@@ -24771,6 +26655,16 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumoptionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.optionType | EnumoptionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.optionType[] | ListEnumoptionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumoptionTypeWithAggregatesFilter<$PrismaModel> | $Enums.optionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumoptionTypeFilter<$PrismaModel>
+    _max?: NestedEnumoptionTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumcurrencyTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -24927,8 +26821,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
-    type: $Enums.itemType
     categories: categoriesCreateNestedOneWithoutItemsInput
+    company: companyCreateNestedOneWithoutItemsInput
     users_items_updated_byTousers: usersCreateNestedOneWithoutItems_items_updated_byTousersInput
     options?: optionsCreateNestedManyWithoutItemsInput
   }
@@ -24938,11 +26832,11 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
-    type: $Enums.itemType
     options?: optionsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -24963,8 +26857,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
-    type: $Enums.itemType
     categories: categoriesCreateNestedOneWithoutItemsInput
+    company: companyCreateNestedOneWithoutItemsInput
     users_items_created_byTousers: usersCreateNestedOneWithoutItems_items_created_byTousersInput
     options?: optionsCreateNestedManyWithoutItemsInput
   }
@@ -24974,11 +26868,11 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
-    type: $Enums.itemType
     options?: optionsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -24998,9 +26892,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_updated_byTousers: usersCreateNestedOneWithoutOptions_options_updated_byTousersInput
     items: itemsCreateNestedOneWithoutOptionsInput
@@ -25015,11 +26912,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     order_options?: orderOptionsUncheckedCreateNestedManyWithoutOptionsInput
   }
@@ -25040,9 +26940,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_created_byTousers: usersCreateNestedOneWithoutOptions_options_created_byTousersInput
     items: itemsCreateNestedOneWithoutOptionsInput
@@ -25057,11 +26960,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     order_options?: orderOptionsUncheckedCreateNestedManyWithoutOptionsInput
   }
@@ -25083,6 +26989,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     options: optionsCreateNestedOneWithoutOrder_optionsInput
     orders: ordersCreateNestedOneWithoutOrder_optionsInput
     users_order_options_updated_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_updated_byTousersInput
@@ -25100,6 +27007,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateOrConnectWithoutUsers_order_options_created_byTousersInput = {
@@ -25119,6 +27027,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     users_order_options_created_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_created_byTousersInput
     options: optionsCreateNestedOneWithoutOrder_optionsInput
     orders: ordersCreateNestedOneWithoutOrder_optionsInput
@@ -25136,6 +27045,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateOrConnectWithoutUsers_order_options_updated_byTousersInput = {
@@ -25145,86 +27055,6 @@ export namespace Prisma {
 
   export type orderOptionsCreateManyUsers_order_options_updated_byTousersInputEnvelope = {
     data: orderOptionsCreateManyUsers_order_options_updated_byTousersInput | orderOptionsCreateManyUsers_order_options_updated_byTousersInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ordersCreateWithoutUsers_orders_created_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsCreateNestedManyWithoutOrdersInput
-    users_orders_status_changed_byTousers: usersCreateNestedOneWithoutOrders_orders_status_changed_byTousersInput
-    order_company: companyCreateNestedOneWithoutCompany_ordersInput
-  }
-
-  export type ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    status_changed_by: string
-    company_id: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsUncheckedCreateNestedManyWithoutOrdersInput
-  }
-
-  export type ordersCreateOrConnectWithoutUsers_orders_created_byTousersInput = {
-    where: ordersWhereUniqueInput
-    create: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput>
-  }
-
-  export type ordersCreateManyUsers_orders_created_byTousersInputEnvelope = {
-    data: ordersCreateManyUsers_orders_created_byTousersInput | ordersCreateManyUsers_orders_created_byTousersInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ordersCreateWithoutUsers_orders_status_changed_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsCreateNestedManyWithoutOrdersInput
-    users_orders_created_byTousers: usersCreateNestedOneWithoutOrders_orders_created_byTousersInput
-    order_company: companyCreateNestedOneWithoutCompany_ordersInput
-  }
-
-  export type ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
-    company_id: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsUncheckedCreateNestedManyWithoutOrdersInput
-  }
-
-  export type ordersCreateOrConnectWithoutUsers_orders_status_changed_byTousersInput = {
-    where: ordersWhereUniqueInput
-    create: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput>
-  }
-
-  export type ordersCreateManyUsers_orders_status_changed_byTousersInputEnvelope = {
-    data: ordersCreateManyUsers_orders_status_changed_byTousersInput | ordersCreateManyUsers_orders_status_changed_byTousersInput[]
     skipDuplicates?: boolean
   }
 
@@ -25261,7 +27091,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutUsersInput
     verifier?: usersCreateNestedOneWithoutVerified_membersInput
     role?: companyRoleCreateNestedOneWithoutUsersInput
@@ -25275,7 +27108,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserCreateOrConnectWithoutUserInput = {
@@ -25293,7 +27129,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutUsersInput
     user: usersCreateNestedOneWithoutCompany_userInput
     role?: companyRoleCreateNestedOneWithoutUsersInput
@@ -25307,7 +27146,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserCreateOrConnectWithoutVerifierInput = {
@@ -25317,6 +27159,78 @@ export namespace Prisma {
 
   export type companyUserCreateManyVerifierInputEnvelope = {
     data: companyUserCreateManyVerifierInput | companyUserCreateManyVerifierInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyInviteCreateWithoutCreated_by_userInput = {
+    id?: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    invite_company: companyCreateNestedOneWithoutCompany_invitesInput
+    user_invited: usersCreateNestedOneWithoutReceived_invitesInput
+  }
+
+  export type CompanyInviteUncheckedCreateWithoutCreated_by_userInput = {
+    id?: string
+    company_id: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+  }
+
+  export type CompanyInviteCreateOrConnectWithoutCreated_by_userInput = {
+    where: CompanyInviteWhereUniqueInput
+    create: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput>
+  }
+
+  export type CompanyInviteCreateManyCreated_by_userInputEnvelope = {
+    data: CompanyInviteCreateManyCreated_by_userInput | CompanyInviteCreateManyCreated_by_userInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyInviteCreateWithoutUser_invitedInput = {
+    id?: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    invite_company: companyCreateNestedOneWithoutCompany_invitesInput
+    created_by_user: usersCreateNestedOneWithoutCreated_invitesInput
+  }
+
+  export type CompanyInviteUncheckedCreateWithoutUser_invitedInput = {
+    id?: string
+    company_id: string
+    created_by: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+  }
+
+  export type CompanyInviteCreateOrConnectWithoutUser_invitedInput = {
+    where: CompanyInviteWhereUniqueInput
+    create: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput>
+  }
+
+  export type CompanyInviteCreateManyUser_invitedInputEnvelope = {
+    data: CompanyInviteCreateManyUser_invitedInput | CompanyInviteCreateManyUser_invitedInput[]
     skipDuplicates?: boolean
   }
 
@@ -25392,12 +27306,12 @@ export namespace Prisma {
     name?: StringFilter<"items"> | string
     image_url?: StringNullableFilter<"items"> | string | null
     cat_id?: UuidFilter<"items"> | string
+    company_id?: UuidFilter<"items"> | string
     created_at?: DateTimeFilter<"items"> | Date | string
     updated_at?: DateTimeFilter<"items"> | Date | string
     deleted_at?: DateTimeNullableFilter<"items"> | Date | string | null
     created_by?: UuidFilter<"items"> | string
     updated_by?: UuidFilter<"items"> | string
-    type?: EnumitemTypeFilter<"items"> | $Enums.itemType
   }
 
   export type itemsUpsertWithWhereUniqueWithoutUsers_items_updated_byTousersInput = {
@@ -25442,12 +27356,15 @@ export namespace Prisma {
     input_value?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
     unit_id?: UuidFilter<"options"> | string
     price_per_base_unit?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFilter<"options"> | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: UuidFilter<"options"> | string
     item_id?: UuidFilter<"options"> | string
     created_at?: DateTimeFilter<"options"> | Date | string
     updated_at?: DateTimeFilter<"options"> | Date | string
     deleted_at?: DateTimeNullableFilter<"options"> | Date | string | null
     created_by?: UuidFilter<"options"> | string
     updated_by?: UuidFilter<"options"> | string
+    type?: EnumoptionTypeFilter<"options"> | $Enums.optionType
     currency?: EnumcurrencyTypeFilter<"options"> | $Enums.currencyType
   }
 
@@ -25498,6 +27415,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"orderOptions"> | Date | string | null
     created_by?: UuidFilter<"orderOptions"> | string
     updated_by?: UuidFilter<"orderOptions"> | string
+    currency?: EnumcurrencyTypeFilter<"orderOptions"> | $Enums.currencyType
   }
 
   export type orderOptionsUpsertWithWhereUniqueWithoutUsers_order_options_updated_byTousersInput = {
@@ -25514,56 +27432,6 @@ export namespace Prisma {
   export type orderOptionsUpdateManyWithWhereWithoutUsers_order_options_updated_byTousersInput = {
     where: orderOptionsScalarWhereInput
     data: XOR<orderOptionsUpdateManyMutationInput, orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersInput>
-  }
-
-  export type ordersUpsertWithWhereUniqueWithoutUsers_orders_created_byTousersInput = {
-    where: ordersWhereUniqueInput
-    update: XOR<ordersUpdateWithoutUsers_orders_created_byTousersInput, ordersUncheckedUpdateWithoutUsers_orders_created_byTousersInput>
-    create: XOR<ordersCreateWithoutUsers_orders_created_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_created_byTousersInput>
-  }
-
-  export type ordersUpdateWithWhereUniqueWithoutUsers_orders_created_byTousersInput = {
-    where: ordersWhereUniqueInput
-    data: XOR<ordersUpdateWithoutUsers_orders_created_byTousersInput, ordersUncheckedUpdateWithoutUsers_orders_created_byTousersInput>
-  }
-
-  export type ordersUpdateManyWithWhereWithoutUsers_orders_created_byTousersInput = {
-    where: ordersScalarWhereInput
-    data: XOR<ordersUpdateManyMutationInput, ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersInput>
-  }
-
-  export type ordersScalarWhereInput = {
-    AND?: ordersScalarWhereInput | ordersScalarWhereInput[]
-    OR?: ordersScalarWhereInput[]
-    NOT?: ordersScalarWhereInput | ordersScalarWhereInput[]
-    id?: UuidFilter<"orders"> | string
-    order_number?: BigIntFilter<"orders"> | bigint | number
-    order_name?: StringNullableFilter<"orders"> | string | null
-    created_at?: DateTimeFilter<"orders"> | Date | string
-    status_changed_at?: DateTimeNullableFilter<"orders"> | Date | string | null
-    discount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFilter<"orders"> | Decimal | DecimalJsLike | number | string
-    created_by?: UuidFilter<"orders"> | string
-    status_changed_by?: UuidFilter<"orders"> | string
-    company_id?: UuidFilter<"orders"> | string
-    status?: EnumorderStatusFilter<"orders"> | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFilter<"orders"> | $Enums.paymentType
-  }
-
-  export type ordersUpsertWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput = {
-    where: ordersWhereUniqueInput
-    update: XOR<ordersUpdateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedUpdateWithoutUsers_orders_status_changed_byTousersInput>
-    create: XOR<ordersCreateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedCreateWithoutUsers_orders_status_changed_byTousersInput>
-  }
-
-  export type ordersUpdateWithWhereUniqueWithoutUsers_orders_status_changed_byTousersInput = {
-    where: ordersWhereUniqueInput
-    data: XOR<ordersUpdateWithoutUsers_orders_status_changed_byTousersInput, ordersUncheckedUpdateWithoutUsers_orders_status_changed_byTousersInput>
-  }
-
-  export type ordersUpdateManyWithWhereWithoutUsers_orders_status_changed_byTousersInput = {
-    where: ordersScalarWhereInput
-    data: XOR<ordersUpdateManyMutationInput, ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersInput>
   }
 
   export type refreshTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -25623,7 +27491,10 @@ export namespace Prisma {
     verified_by?: UuidNullableFilter<"companyUser"> | string | null
     verified_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
     created_at?: DateTimeFilter<"companyUser"> | Date | string
+    created_by?: UuidFilter<"companyUser"> | string
     updated_at?: DateTimeFilter<"companyUser"> | Date | string
+    updated_by?: UuidFilter<"companyUser"> | string
+    deleted_at?: DateTimeNullableFilter<"companyUser"> | Date | string | null
   }
 
   export type companyUserUpsertWithWhereUniqueWithoutVerifierInput = {
@@ -25642,44 +27513,53 @@ export namespace Prisma {
     data: XOR<companyUserUpdateManyMutationInput, companyUserUncheckedUpdateManyWithoutVerifierInput>
   }
 
-  export type ordersCreateWithoutOrder_companyInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsCreateNestedManyWithoutOrdersInput
-    users_orders_created_byTousers: usersCreateNestedOneWithoutOrders_orders_created_byTousersInput
-    users_orders_status_changed_byTousers: usersCreateNestedOneWithoutOrders_orders_status_changed_byTousersInput
+  export type CompanyInviteUpsertWithWhereUniqueWithoutCreated_by_userInput = {
+    where: CompanyInviteWhereUniqueInput
+    update: XOR<CompanyInviteUpdateWithoutCreated_by_userInput, CompanyInviteUncheckedUpdateWithoutCreated_by_userInput>
+    create: XOR<CompanyInviteCreateWithoutCreated_by_userInput, CompanyInviteUncheckedCreateWithoutCreated_by_userInput>
   }
 
-  export type ordersUncheckedCreateWithoutOrder_companyInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
-    status_changed_by: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-    order_options?: orderOptionsUncheckedCreateNestedManyWithoutOrdersInput
+  export type CompanyInviteUpdateWithWhereUniqueWithoutCreated_by_userInput = {
+    where: CompanyInviteWhereUniqueInput
+    data: XOR<CompanyInviteUpdateWithoutCreated_by_userInput, CompanyInviteUncheckedUpdateWithoutCreated_by_userInput>
   }
 
-  export type ordersCreateOrConnectWithoutOrder_companyInput = {
-    where: ordersWhereUniqueInput
-    create: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput>
+  export type CompanyInviteUpdateManyWithWhereWithoutCreated_by_userInput = {
+    where: CompanyInviteScalarWhereInput
+    data: XOR<CompanyInviteUpdateManyMutationInput, CompanyInviteUncheckedUpdateManyWithoutCreated_by_userInput>
   }
 
-  export type ordersCreateManyOrder_companyInputEnvelope = {
-    data: ordersCreateManyOrder_companyInput | ordersCreateManyOrder_companyInput[]
-    skipDuplicates?: boolean
+  export type CompanyInviteScalarWhereInput = {
+    AND?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
+    OR?: CompanyInviteScalarWhereInput[]
+    NOT?: CompanyInviteScalarWhereInput | CompanyInviteScalarWhereInput[]
+    id?: StringFilter<"CompanyInvite"> | string
+    company_id?: UuidFilter<"CompanyInvite"> | string
+    created_by?: UuidFilter<"CompanyInvite"> | string
+    invited_user_id?: UuidFilter<"CompanyInvite"> | string
+    invite_code?: StringFilter<"CompanyInvite"> | string
+    creator_user_type?: EnumuserTypeFilter<"CompanyInvite"> | $Enums.userType
+    created_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    expired_at?: DateTimeFilter<"CompanyInvite"> | Date | string
+    is_redeemed?: BoolFilter<"CompanyInvite"> | boolean
+    deleted_at?: DateTimeNullableFilter<"CompanyInvite"> | Date | string | null
+    deleted_by?: UuidNullableFilter<"CompanyInvite"> | string | null
+  }
+
+  export type CompanyInviteUpsertWithWhereUniqueWithoutUser_invitedInput = {
+    where: CompanyInviteWhereUniqueInput
+    update: XOR<CompanyInviteUpdateWithoutUser_invitedInput, CompanyInviteUncheckedUpdateWithoutUser_invitedInput>
+    create: XOR<CompanyInviteCreateWithoutUser_invitedInput, CompanyInviteUncheckedCreateWithoutUser_invitedInput>
+  }
+
+  export type CompanyInviteUpdateWithWhereUniqueWithoutUser_invitedInput = {
+    where: CompanyInviteWhereUniqueInput
+    data: XOR<CompanyInviteUpdateWithoutUser_invitedInput, CompanyInviteUncheckedUpdateWithoutUser_invitedInput>
+  }
+
+  export type CompanyInviteUpdateManyWithWhereWithoutUser_invitedInput = {
+    where: CompanyInviteScalarWhereInput
+    data: XOR<CompanyInviteUpdateManyMutationInput, CompanyInviteUncheckedUpdateManyWithoutUser_invitedInput>
   }
 
   export type companyUserCreateWithoutCompanyInput = {
@@ -25687,7 +27567,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
     user: usersCreateNestedOneWithoutCompany_userInput
     verifier?: usersCreateNestedOneWithoutVerified_membersInput
     role?: companyRoleCreateNestedOneWithoutUsersInput
@@ -25701,7 +27584,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserCreateOrConnectWithoutCompanyInput = {
@@ -25720,6 +27606,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     users?: companyUserCreateNestedManyWithoutRoleInput
     role_permissions?: rolePermissionCreateNestedManyWithoutRoleInput
   }
@@ -25730,6 +27619,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutRoleInput
     role_permissions?: rolePermissionUncheckedCreateNestedManyWithoutRoleInput
   }
@@ -25741,6 +27633,42 @@ export namespace Prisma {
 
   export type companyRoleCreateManyCompanyInputEnvelope = {
     data: companyRoleCreateManyCompanyInput | companyRoleCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type itemsCreateWithoutCompanyInput = {
+    id?: string
+    name: string
+    image_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    categories: categoriesCreateNestedOneWithoutItemsInput
+    users_items_created_byTousers: usersCreateNestedOneWithoutItems_items_created_byTousersInput
+    users_items_updated_byTousers: usersCreateNestedOneWithoutItems_items_updated_byTousersInput
+    options?: optionsCreateNestedManyWithoutItemsInput
+  }
+
+  export type itemsUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    name: string
+    image_url?: string | null
+    cat_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    created_by: string
+    updated_by: string
+    options?: optionsUncheckedCreateNestedManyWithoutItemsInput
+  }
+
+  export type itemsCreateOrConnectWithoutCompanyInput = {
+    where: itemsWhereUniqueInput
+    create: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type itemsCreateManyCompanyInputEnvelope = {
+    data: itemsCreateManyCompanyInput | itemsCreateManyCompanyInput[]
     skipDuplicates?: boolean
   }
 
@@ -25782,20 +27710,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ordersUpsertWithWhereUniqueWithoutOrder_companyInput = {
-    where: ordersWhereUniqueInput
-    update: XOR<ordersUpdateWithoutOrder_companyInput, ordersUncheckedUpdateWithoutOrder_companyInput>
-    create: XOR<ordersCreateWithoutOrder_companyInput, ordersUncheckedCreateWithoutOrder_companyInput>
+  export type CompanyInviteCreateWithoutInvite_companyInput = {
+    id?: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+    created_by_user: usersCreateNestedOneWithoutCreated_invitesInput
+    user_invited: usersCreateNestedOneWithoutReceived_invitesInput
   }
 
-  export type ordersUpdateWithWhereUniqueWithoutOrder_companyInput = {
-    where: ordersWhereUniqueInput
-    data: XOR<ordersUpdateWithoutOrder_companyInput, ordersUncheckedUpdateWithoutOrder_companyInput>
+  export type CompanyInviteUncheckedCreateWithoutInvite_companyInput = {
+    id?: string
+    created_by: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
   }
 
-  export type ordersUpdateManyWithWhereWithoutOrder_companyInput = {
-    where: ordersScalarWhereInput
-    data: XOR<ordersUpdateManyMutationInput, ordersUncheckedUpdateManyWithoutOrder_companyInput>
+  export type CompanyInviteCreateOrConnectWithoutInvite_companyInput = {
+    where: CompanyInviteWhereUniqueInput
+    create: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput>
+  }
+
+  export type CompanyInviteCreateManyInvite_companyInputEnvelope = {
+    data: CompanyInviteCreateManyInvite_companyInput | CompanyInviteCreateManyInvite_companyInput[]
+    skipDuplicates?: boolean
   }
 
   export type companyUserUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -25840,6 +27788,25 @@ export namespace Prisma {
     is_system?: BoolFilter<"companyRole"> | boolean
     created_at?: DateTimeFilter<"companyRole"> | Date | string
     updated_at?: DateTimeFilter<"companyRole"> | Date | string
+    user_type?: EnumuserTypeFilter<"companyRole"> | $Enums.userType
+    active?: BoolFilter<"companyRole"> | boolean
+    deleted_at?: DateTimeNullableFilter<"companyRole"> | Date | string | null
+  }
+
+  export type itemsUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: itemsWhereUniqueInput
+    update: XOR<itemsUpdateWithoutCompanyInput, itemsUncheckedUpdateWithoutCompanyInput>
+    create: XOR<itemsCreateWithoutCompanyInput, itemsUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type itemsUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: itemsWhereUniqueInput
+    data: XOR<itemsUpdateWithoutCompanyInput, itemsUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type itemsUpdateManyWithWhereWithoutCompanyInput = {
+    where: itemsScalarWhereInput
+    data: XOR<itemsUpdateManyMutationInput, itemsUncheckedUpdateManyWithoutCompanyInput>
   }
 
   export type categoriesUpsertWithWhereUniqueWithoutCompany_categoriesInput = {
@@ -25858,6 +27825,22 @@ export namespace Prisma {
     data: XOR<categoriesUpdateManyMutationInput, categoriesUncheckedUpdateManyWithoutCompany_categoriesInput>
   }
 
+  export type CompanyInviteUpsertWithWhereUniqueWithoutInvite_companyInput = {
+    where: CompanyInviteWhereUniqueInput
+    update: XOR<CompanyInviteUpdateWithoutInvite_companyInput, CompanyInviteUncheckedUpdateWithoutInvite_companyInput>
+    create: XOR<CompanyInviteCreateWithoutInvite_companyInput, CompanyInviteUncheckedCreateWithoutInvite_companyInput>
+  }
+
+  export type CompanyInviteUpdateWithWhereUniqueWithoutInvite_companyInput = {
+    where: CompanyInviteWhereUniqueInput
+    data: XOR<CompanyInviteUpdateWithoutInvite_companyInput, CompanyInviteUncheckedUpdateWithoutInvite_companyInput>
+  }
+
+  export type CompanyInviteUpdateManyWithWhereWithoutInvite_companyInput = {
+    where: CompanyInviteScalarWhereInput
+    data: XOR<CompanyInviteUpdateManyMutationInput, CompanyInviteUncheckedUpdateManyWithoutInvite_companyInput>
+  }
+
   export type companyCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -25865,9 +27848,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     roles?: companyRoleCreateNestedManyWithoutCompanyInput
+    items?: itemsCreateNestedManyWithoutCompanyInput
     categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyUncheckedCreateWithoutUsersInput = {
@@ -25877,9 +27862,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersUncheckedCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
+    items?: itemsUncheckedCreateNestedManyWithoutCompanyInput
     categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyCreateOrConnectWithoutUsersInput = {
@@ -25904,10 +27891,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutCompany_userInput = {
@@ -25927,10 +27914,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutCompany_userInput = {
@@ -25955,10 +27942,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutVerified_membersInput = {
@@ -25978,10 +27965,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutVerified_membersInput = {
@@ -25995,6 +27982,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutRolesInput
     role_permissions?: rolePermissionCreateNestedManyWithoutRoleInput
   }
@@ -26006,6 +27996,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     role_permissions?: rolePermissionUncheckedCreateNestedManyWithoutRoleInput
   }
 
@@ -26032,9 +28025,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     roles?: companyRoleUpdateManyWithoutCompanyNestedInput
+    items?: itemsUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyUncheckedUpdateWithoutUsersInput = {
@@ -26044,9 +28039,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUncheckedUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    items?: itemsUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type usersUpsertWithoutCompany_userInput = {
@@ -26077,10 +28074,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCompany_userInput = {
@@ -26100,10 +28097,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUpsertWithoutVerified_membersInput = {
@@ -26134,10 +28131,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutVerified_membersInput = {
@@ -26157,10 +28154,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type companyRoleUpsertWithoutUsersInput = {
@@ -26180,6 +28177,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutRolesNestedInput
     role_permissions?: rolePermissionUpdateManyWithoutRoleNestedInput
   }
@@ -26191,6 +28191,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_permissions?: rolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
 
@@ -26201,9 +28204,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserCreateNestedManyWithoutCompanyInput
+    items?: itemsCreateNestedManyWithoutCompanyInput
     categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyUncheckedCreateWithoutRolesInput = {
@@ -26213,9 +28218,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersUncheckedCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
+    items?: itemsUncheckedCreateNestedManyWithoutCompanyInput
     categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyCreateOrConnectWithoutRolesInput = {
@@ -26228,7 +28235,10 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutUsersInput
     user: usersCreateNestedOneWithoutCompany_userInput
     verifier?: usersCreateNestedOneWithoutVerified_membersInput
@@ -26242,7 +28252,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserCreateOrConnectWithoutRoleInput = {
@@ -26291,9 +28304,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUpdateManyWithoutCompanyNestedInput
+    items?: itemsUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyUncheckedUpdateWithoutRolesInput = {
@@ -26303,9 +28318,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUncheckedUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
+    items?: itemsUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyUserUpsertWithWhereUniqueWithoutRoleInput = {
@@ -26354,6 +28371,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     company: companyCreateNestedOneWithoutRolesInput
     users?: companyUserCreateNestedManyWithoutRoleInput
   }
@@ -26365,6 +28385,9 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutRoleInput
   }
 
@@ -26404,6 +28427,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutRolesNestedInput
     users?: companyUserUpdateManyWithoutRoleNestedInput
   }
@@ -26415,6 +28441,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutRoleNestedInput
   }
 
@@ -26488,11 +28517,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutCategories_categories_created_byTousersInput = {
@@ -26511,11 +28540,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutCategories_categories_created_byTousersInput = {
@@ -26610,11 +28639,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutCategories_categories_updated_byTousersInput = {
@@ -26633,11 +28662,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutCategories_categories_updated_byTousersInput = {
@@ -26652,9 +28681,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserCreateNestedManyWithoutCompanyInput
     roles?: companyRoleCreateNestedManyWithoutCompanyInput
+    items?: itemsCreateNestedManyWithoutCompanyInput
+    company_invites?: CompanyInviteCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyUncheckedCreateWithoutCategoriesInput = {
@@ -26664,9 +28695,11 @@ export namespace Prisma {
     address?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    company_orders?: ordersUncheckedCreateNestedManyWithoutOrder_companyInput
+    deleted_at?: Date | string | null
     users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
     roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
+    items?: itemsUncheckedCreateNestedManyWithoutCompanyInput
+    company_invites?: CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput
   }
 
   export type companyCreateOrConnectWithoutCategoriesInput = {
@@ -26681,7 +28714,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
-    type: $Enums.itemType
+    company: companyCreateNestedOneWithoutItemsInput
     users_items_created_byTousers: usersCreateNestedOneWithoutItems_items_created_byTousersInput
     users_items_updated_byTousers: usersCreateNestedOneWithoutItems_items_updated_byTousersInput
     options?: optionsCreateNestedManyWithoutItemsInput
@@ -26691,12 +28724,12 @@ export namespace Prisma {
     id?: string
     name: string
     image_url?: string | null
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
     options?: optionsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -26737,11 +28770,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCategories_categories_created_byTousersInput = {
@@ -26760,11 +28793,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type categoriesUpsertWithoutOther_categoriesInput = {
@@ -26849,11 +28882,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCategories_categories_updated_byTousersInput = {
@@ -26872,11 +28905,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type companyUpsertWithoutCategoriesInput = {
@@ -26897,9 +28930,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUpdateManyWithoutCompanyNestedInput
     roles?: companyRoleUpdateManyWithoutCompanyNestedInput
+    items?: itemsUpdateManyWithoutCompanyNestedInput
+    company_invites?: CompanyInviteUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type companyUncheckedUpdateWithoutCategoriesInput = {
@@ -26909,9 +28944,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    company_orders?: ordersUncheckedUpdateManyWithoutOrder_companyNestedInput
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
     roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    items?: itemsUncheckedUpdateManyWithoutCompanyNestedInput
+    company_invites?: CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput
   }
 
   export type itemsUpsertWithWhereUniqueWithoutCategoriesInput = {
@@ -26928,6 +28965,294 @@ export namespace Prisma {
   export type itemsUpdateManyWithWhereWithoutCategoriesInput = {
     where: itemsScalarWhereInput
     data: XOR<itemsUpdateManyMutationInput, itemsUncheckedUpdateManyWithoutCategoriesInput>
+  }
+
+  export type companyCreateWithoutCompany_invitesInput = {
+    id?: string
+    name: string
+    contact?: string | null
+    address?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    users?: companyUserCreateNestedManyWithoutCompanyInput
+    roles?: companyRoleCreateNestedManyWithoutCompanyInput
+    items?: itemsCreateNestedManyWithoutCompanyInput
+    categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
+  }
+
+  export type companyUncheckedCreateWithoutCompany_invitesInput = {
+    id?: string
+    name: string
+    contact?: string | null
+    address?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
+    roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
+    items?: itemsUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
+  }
+
+  export type companyCreateOrConnectWithoutCompany_invitesInput = {
+    where: companyWhereUniqueInput
+    create: XOR<companyCreateWithoutCompany_invitesInput, companyUncheckedCreateWithoutCompany_invitesInput>
+  }
+
+  export type usersCreateWithoutCreated_invitesInput = {
+    id?: string
+    name: string
+    username: string
+    password: string
+    email: string
+    deleted_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    categories_categories_created_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_created_byTousersInput
+    categories_categories_updated_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_updated_byTousersInput
+    items_items_created_byTousers?: itemsCreateNestedManyWithoutUsers_items_created_byTousersInput
+    items_items_updated_byTousers?: itemsCreateNestedManyWithoutUsers_items_updated_byTousersInput
+    options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
+    options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
+    order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
+    order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
+    refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
+    company_user?: companyUserCreateNestedManyWithoutUserInput
+    verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_invitesInput = {
+    id?: string
+    name: string
+    username: string
+    password: string
+    email: string
+    deleted_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    categories_categories_created_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_created_byTousersInput
+    categories_categories_updated_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_updated_byTousersInput
+    items_items_created_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_created_byTousersInput
+    items_items_updated_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_updated_byTousersInput
+    options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
+    options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
+    order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
+    order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
+    refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
+    company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
+    verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_invitesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_invitesInput, usersUncheckedCreateWithoutCreated_invitesInput>
+  }
+
+  export type usersCreateWithoutReceived_invitesInput = {
+    id?: string
+    name: string
+    username: string
+    password: string
+    email: string
+    deleted_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    categories_categories_created_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_created_byTousersInput
+    categories_categories_updated_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_updated_byTousersInput
+    items_items_created_byTousers?: itemsCreateNestedManyWithoutUsers_items_created_byTousersInput
+    items_items_updated_byTousers?: itemsCreateNestedManyWithoutUsers_items_updated_byTousersInput
+    options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
+    options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
+    order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
+    order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
+    refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
+    company_user?: companyUserCreateNestedManyWithoutUserInput
+    verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+  }
+
+  export type usersUncheckedCreateWithoutReceived_invitesInput = {
+    id?: string
+    name: string
+    username: string
+    password: string
+    email: string
+    deleted_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    categories_categories_created_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_created_byTousersInput
+    categories_categories_updated_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_updated_byTousersInput
+    items_items_created_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_created_byTousersInput
+    items_items_updated_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_updated_byTousersInput
+    options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
+    options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
+    order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
+    order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
+    refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
+    company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
+    verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+  }
+
+  export type usersCreateOrConnectWithoutReceived_invitesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutReceived_invitesInput, usersUncheckedCreateWithoutReceived_invitesInput>
+  }
+
+  export type companyUpsertWithoutCompany_invitesInput = {
+    update: XOR<companyUpdateWithoutCompany_invitesInput, companyUncheckedUpdateWithoutCompany_invitesInput>
+    create: XOR<companyCreateWithoutCompany_invitesInput, companyUncheckedCreateWithoutCompany_invitesInput>
+    where?: companyWhereInput
+  }
+
+  export type companyUpdateToOneWithWhereWithoutCompany_invitesInput = {
+    where?: companyWhereInput
+    data: XOR<companyUpdateWithoutCompany_invitesInput, companyUncheckedUpdateWithoutCompany_invitesInput>
+  }
+
+  export type companyUpdateWithoutCompany_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: companyUserUpdateManyWithoutCompanyNestedInput
+    roles?: companyRoleUpdateManyWithoutCompanyNestedInput
+    items?: itemsUpdateManyWithoutCompanyNestedInput
+    categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
+  }
+
+  export type companyUncheckedUpdateWithoutCompany_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
+    roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    items?: itemsUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
+  }
+
+  export type usersUpsertWithoutCreated_invitesInput = {
+    update: XOR<usersUpdateWithoutCreated_invitesInput, usersUncheckedUpdateWithoutCreated_invitesInput>
+    create: XOR<usersCreateWithoutCreated_invitesInput, usersUncheckedCreateWithoutCreated_invitesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_invitesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_invitesInput, usersUncheckedUpdateWithoutCreated_invitesInput>
+  }
+
+  export type usersUpdateWithoutCreated_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories_categories_created_byTousers?: categoriesUpdateManyWithoutUsers_categories_created_byTousersNestedInput
+    categories_categories_updated_byTousers?: categoriesUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
+    items_items_created_byTousers?: itemsUpdateManyWithoutUsers_items_created_byTousersNestedInput
+    items_items_updated_byTousers?: itemsUpdateManyWithoutUsers_items_updated_byTousersNestedInput
+    options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
+    options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
+    order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
+    order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
+    refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
+    company_user?: companyUserUpdateManyWithoutUserNestedInput
+    verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories_categories_created_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_created_byTousersNestedInput
+    categories_categories_updated_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
+    items_items_created_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_created_byTousersNestedInput
+    items_items_updated_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_updated_byTousersNestedInput
+    options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
+    options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
+    order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
+    order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
+    refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
+    verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
+  }
+
+  export type usersUpsertWithoutReceived_invitesInput = {
+    update: XOR<usersUpdateWithoutReceived_invitesInput, usersUncheckedUpdateWithoutReceived_invitesInput>
+    create: XOR<usersCreateWithoutReceived_invitesInput, usersUncheckedCreateWithoutReceived_invitesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutReceived_invitesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutReceived_invitesInput, usersUncheckedUpdateWithoutReceived_invitesInput>
+  }
+
+  export type usersUpdateWithoutReceived_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories_categories_created_byTousers?: categoriesUpdateManyWithoutUsers_categories_created_byTousersNestedInput
+    categories_categories_updated_byTousers?: categoriesUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
+    items_items_created_byTousers?: itemsUpdateManyWithoutUsers_items_created_byTousersNestedInput
+    items_items_updated_byTousers?: itemsUpdateManyWithoutUsers_items_updated_byTousersNestedInput
+    options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
+    options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
+    order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
+    order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
+    refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
+    company_user?: companyUserUpdateManyWithoutUserNestedInput
+    verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutReceived_invitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories_categories_created_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_created_byTousersNestedInput
+    categories_categories_updated_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
+    items_items_created_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_created_byTousersNestedInput
+    items_items_updated_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_updated_byTousersNestedInput
+    options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
+    options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
+    order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
+    order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
+    refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
+    verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
   }
 
   export type categoriesCreateWithoutItemsInput = {
@@ -26963,6 +29288,39 @@ export namespace Prisma {
     create: XOR<categoriesCreateWithoutItemsInput, categoriesUncheckedCreateWithoutItemsInput>
   }
 
+  export type companyCreateWithoutItemsInput = {
+    id?: string
+    name: string
+    contact?: string | null
+    address?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    users?: companyUserCreateNestedManyWithoutCompanyInput
+    roles?: companyRoleCreateNestedManyWithoutCompanyInput
+    categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteCreateNestedManyWithoutInvite_companyInput
+  }
+
+  export type companyUncheckedCreateWithoutItemsInput = {
+    id?: string
+    name: string
+    contact?: string | null
+    address?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
+    roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
+    company_invites?: CompanyInviteUncheckedCreateNestedManyWithoutInvite_companyInput
+  }
+
+  export type companyCreateOrConnectWithoutItemsInput = {
+    where: companyWhereUniqueInput
+    create: XOR<companyCreateWithoutItemsInput, companyUncheckedCreateWithoutItemsInput>
+  }
+
   export type usersCreateWithoutItems_items_created_byTousersInput = {
     id?: string
     name: string
@@ -26979,11 +29337,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutItems_items_created_byTousersInput = {
@@ -27002,11 +29360,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutItems_items_created_byTousersInput = {
@@ -27030,11 +29388,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutItems_items_updated_byTousersInput = {
@@ -27053,11 +29411,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutItems_items_updated_byTousersInput = {
@@ -27071,9 +29429,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_created_byTousers: usersCreateNestedOneWithoutOptions_options_created_byTousersInput
     users_options_updated_byTousers: usersCreateNestedOneWithoutOptions_options_updated_byTousersInput
@@ -27088,11 +29449,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     order_options?: orderOptionsUncheckedCreateNestedManyWithoutOptionsInput
   }
@@ -27146,6 +29510,45 @@ export namespace Prisma {
     other_categories?: categoriesUncheckedUpdateManyWithoutCategoriesNestedInput
   }
 
+  export type companyUpsertWithoutItemsInput = {
+    update: XOR<companyUpdateWithoutItemsInput, companyUncheckedUpdateWithoutItemsInput>
+    create: XOR<companyCreateWithoutItemsInput, companyUncheckedCreateWithoutItemsInput>
+    where?: companyWhereInput
+  }
+
+  export type companyUpdateToOneWithWhereWithoutItemsInput = {
+    where?: companyWhereInput
+    data: XOR<companyUpdateWithoutItemsInput, companyUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type companyUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: companyUserUpdateManyWithoutCompanyNestedInput
+    roles?: companyRoleUpdateManyWithoutCompanyNestedInput
+    categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUpdateManyWithoutInvite_companyNestedInput
+  }
+
+  export type companyUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
+    roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
+    company_invites?: CompanyInviteUncheckedUpdateManyWithoutInvite_companyNestedInput
+  }
+
   export type usersUpsertWithoutItems_items_created_byTousersInput = {
     update: XOR<usersUpdateWithoutItems_items_created_byTousersInput, usersUncheckedUpdateWithoutItems_items_created_byTousersInput>
     create: XOR<usersCreateWithoutItems_items_created_byTousersInput, usersUncheckedCreateWithoutItems_items_created_byTousersInput>
@@ -27173,11 +29576,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutItems_items_created_byTousersInput = {
@@ -27196,11 +29599,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUpsertWithoutItems_items_updated_byTousersInput = {
@@ -27230,11 +29633,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutItems_items_updated_byTousersInput = {
@@ -27253,11 +29656,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type optionsUpsertWithWhereUniqueWithoutItemsInput = {
@@ -27292,11 +29695,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutOptions_options_created_byTousersInput = {
@@ -27315,11 +29718,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutOptions_options_created_byTousersInput = {
@@ -27343,11 +29746,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutOptions_options_updated_byTousersInput = {
@@ -27366,11 +29769,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutOptions_options_updated_byTousersInput = {
@@ -27385,8 +29788,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
-    type: $Enums.itemType
     categories: categoriesCreateNestedOneWithoutItemsInput
+    company: companyCreateNestedOneWithoutItemsInput
     users_items_created_byTousers: usersCreateNestedOneWithoutItems_items_created_byTousersInput
     users_items_updated_byTousers: usersCreateNestedOneWithoutItems_items_updated_byTousersInput
   }
@@ -27396,12 +29799,12 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
   }
 
   export type itemsCreateOrConnectWithoutOptionsInput = {
@@ -27443,6 +29846,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     users_order_options_created_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_created_byTousersInput
     orders: ordersCreateNestedOneWithoutOrder_optionsInput
     users_order_options_updated_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_updated_byTousersInput
@@ -27460,6 +29864,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateOrConnectWithoutOptionsInput = {
@@ -27499,11 +29904,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutOptions_options_created_byTousersInput = {
@@ -27522,11 +29927,11 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUpsertWithoutOptions_options_updated_byTousersInput = {
@@ -27556,11 +29961,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutOptions_options_updated_byTousersInput = {
@@ -27579,11 +29984,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type itemsUpsertWithoutOptionsInput = {
@@ -27604,8 +30009,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     categories?: categoriesUpdateOneRequiredWithoutItemsNestedInput
+    company?: companyUpdateOneRequiredWithoutItemsNestedInput
     users_items_created_byTousers?: usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput
     users_items_updated_byTousers?: usersUpdateOneRequiredWithoutItems_items_updated_byTousersNestedInput
   }
@@ -27615,12 +30020,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type unitsUpsertWithoutOptionsInput = {
@@ -27688,11 +30093,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutOrder_options_order_options_created_byTousersInput = {
@@ -27711,11 +30116,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutOrder_options_order_options_created_byTousersInput = {
@@ -27729,9 +30134,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_created_byTousers: usersCreateNestedOneWithoutOptions_options_created_byTousersInput
     users_options_updated_byTousers: usersCreateNestedOneWithoutOptions_options_updated_byTousersInput
@@ -27746,12 +30154,15 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -27768,11 +30179,11 @@ export namespace Prisma {
     status_changed_at?: Date | string | null
     discount?: Decimal | DecimalJsLike | number | string
     cash_amount?: Decimal | DecimalJsLike | number | string
+    created_by?: string | null
+    status_changed_by: string
+    company_id: string
     status?: $Enums.orderStatus
     payment_type: $Enums.paymentType
-    users_orders_created_byTousers: usersCreateNestedOneWithoutOrders_orders_created_byTousersInput
-    users_orders_status_changed_byTousers: usersCreateNestedOneWithoutOrders_orders_status_changed_byTousersInput
-    order_company: companyCreateNestedOneWithoutCompany_ordersInput
   }
 
   export type ordersUncheckedCreateWithoutOrder_optionsInput = {
@@ -27783,7 +30194,7 @@ export namespace Prisma {
     status_changed_at?: Date | string | null
     discount?: Decimal | DecimalJsLike | number | string
     cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
+    created_by?: string | null
     status_changed_by: string
     company_id: string
     status?: $Enums.orderStatus
@@ -27811,11 +30222,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutOrder_options_order_options_updated_byTousersInput = {
@@ -27834,11 +30245,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutOrder_options_order_options_updated_byTousersInput = {
@@ -27900,11 +30311,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutOrder_options_order_options_created_byTousersInput = {
@@ -27923,11 +30334,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type optionsUpsertWithoutOrder_optionsInput = {
@@ -27947,9 +30358,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_created_byTousers?: usersUpdateOneRequiredWithoutOptions_options_created_byTousersNestedInput
     users_options_updated_byTousers?: usersUpdateOneRequiredWithoutOptions_options_updated_byTousersNestedInput
@@ -27964,12 +30378,15 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -27992,11 +30409,11 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    status_changed_by?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
     payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    users_orders_created_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_created_byTousersNestedInput
-    users_orders_status_changed_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_status_changed_byTousersNestedInput
-    order_company?: companyUpdateOneRequiredWithoutCompany_ordersNestedInput
   }
 
   export type ordersUncheckedUpdateWithoutOrder_optionsInput = {
@@ -28007,7 +30424,7 @@ export namespace Prisma {
     status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
     status_changed_by?: StringFieldUpdateOperationsInput | string
     company_id?: StringFieldUpdateOperationsInput | string
     status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
@@ -28041,11 +30458,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutOrder_options_order_options_updated_byTousersInput = {
@@ -28064,11 +30481,11 @@ export namespace Prisma {
     options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type unitsUpsertWithoutOrder_optionsInput = {
@@ -28111,6 +30528,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     users_order_options_created_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_created_byTousersInput
     options: optionsCreateNestedOneWithoutOrder_optionsInput
     users_order_options_updated_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_updated_byTousersInput
@@ -28128,6 +30546,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateOrConnectWithoutOrdersInput = {
@@ -28138,137 +30557,6 @@ export namespace Prisma {
   export type orderOptionsCreateManyOrdersInputEnvelope = {
     data: orderOptionsCreateManyOrdersInput | orderOptionsCreateManyOrdersInput[]
     skipDuplicates?: boolean
-  }
-
-  export type usersCreateWithoutOrders_orders_created_byTousersInput = {
-    id?: string
-    name: string
-    username: string
-    password: string
-    email: string
-    deleted_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    categories_categories_created_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_created_byTousersInput
-    categories_categories_updated_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_updated_byTousersInput
-    items_items_created_byTousers?: itemsCreateNestedManyWithoutUsers_items_created_byTousersInput
-    items_items_updated_byTousers?: itemsCreateNestedManyWithoutUsers_items_updated_byTousersInput
-    options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
-    options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
-    order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
-    refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
-    company_user?: companyUserCreateNestedManyWithoutUserInput
-    verified_members?: companyUserCreateNestedManyWithoutVerifierInput
-  }
-
-  export type usersUncheckedCreateWithoutOrders_orders_created_byTousersInput = {
-    id?: string
-    name: string
-    username: string
-    password: string
-    email: string
-    deleted_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    categories_categories_created_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_created_byTousersInput
-    categories_categories_updated_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_updated_byTousersInput
-    items_items_created_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_created_byTousersInput
-    items_items_updated_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_updated_byTousersInput
-    options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
-    options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
-    order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
-    refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
-    company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
-    verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
-  }
-
-  export type usersCreateOrConnectWithoutOrders_orders_created_byTousersInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutOrders_orders_created_byTousersInput, usersUncheckedCreateWithoutOrders_orders_created_byTousersInput>
-  }
-
-  export type usersCreateWithoutOrders_orders_status_changed_byTousersInput = {
-    id?: string
-    name: string
-    username: string
-    password: string
-    email: string
-    deleted_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    categories_categories_created_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_created_byTousersInput
-    categories_categories_updated_byTousers?: categoriesCreateNestedManyWithoutUsers_categories_updated_byTousersInput
-    items_items_created_byTousers?: itemsCreateNestedManyWithoutUsers_items_created_byTousersInput
-    items_items_updated_byTousers?: itemsCreateNestedManyWithoutUsers_items_updated_byTousersInput
-    options_options_created_byTousers?: optionsCreateNestedManyWithoutUsers_options_created_byTousersInput
-    options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
-    order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    refreshTokens?: refreshTokenCreateNestedManyWithoutUserInput
-    company_user?: companyUserCreateNestedManyWithoutUserInput
-    verified_members?: companyUserCreateNestedManyWithoutVerifierInput
-  }
-
-  export type usersUncheckedCreateWithoutOrders_orders_status_changed_byTousersInput = {
-    id?: string
-    name: string
-    username: string
-    password: string
-    email: string
-    deleted_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    categories_categories_created_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_created_byTousersInput
-    categories_categories_updated_byTousers?: categoriesUncheckedCreateNestedManyWithoutUsers_categories_updated_byTousersInput
-    items_items_created_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_created_byTousersInput
-    items_items_updated_byTousers?: itemsUncheckedCreateNestedManyWithoutUsers_items_updated_byTousersInput
-    options_options_created_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_created_byTousersInput
-    options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
-    order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
-    order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    refreshTokens?: refreshTokenUncheckedCreateNestedManyWithoutUserInput
-    company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
-    verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
-  }
-
-  export type usersCreateOrConnectWithoutOrders_orders_status_changed_byTousersInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedCreateWithoutOrders_orders_status_changed_byTousersInput>
-  }
-
-  export type companyCreateWithoutCompany_ordersInput = {
-    id?: string
-    name: string
-    contact?: string | null
-    address?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    users?: companyUserCreateNestedManyWithoutCompanyInput
-    roles?: companyRoleCreateNestedManyWithoutCompanyInput
-    categories?: categoriesCreateNestedManyWithoutCompany_categoriesInput
-  }
-
-  export type companyUncheckedCreateWithoutCompany_ordersInput = {
-    id?: string
-    name: string
-    contact?: string | null
-    address?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    users?: companyUserUncheckedCreateNestedManyWithoutCompanyInput
-    roles?: companyRoleUncheckedCreateNestedManyWithoutCompanyInput
-    categories?: categoriesUncheckedCreateNestedManyWithoutCompany_categoriesInput
-  }
-
-  export type companyCreateOrConnectWithoutCompany_ordersInput = {
-    where: companyWhereUniqueInput
-    create: XOR<companyCreateWithoutCompany_ordersInput, companyUncheckedCreateWithoutCompany_ordersInput>
   }
 
   export type orderOptionsUpsertWithWhereUniqueWithoutOrdersInput = {
@@ -28285,155 +30573,6 @@ export namespace Prisma {
   export type orderOptionsUpdateManyWithWhereWithoutOrdersInput = {
     where: orderOptionsScalarWhereInput
     data: XOR<orderOptionsUpdateManyMutationInput, orderOptionsUncheckedUpdateManyWithoutOrdersInput>
-  }
-
-  export type usersUpsertWithoutOrders_orders_created_byTousersInput = {
-    update: XOR<usersUpdateWithoutOrders_orders_created_byTousersInput, usersUncheckedUpdateWithoutOrders_orders_created_byTousersInput>
-    create: XOR<usersCreateWithoutOrders_orders_created_byTousersInput, usersUncheckedCreateWithoutOrders_orders_created_byTousersInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutOrders_orders_created_byTousersInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutOrders_orders_created_byTousersInput, usersUncheckedUpdateWithoutOrders_orders_created_byTousersInput>
-  }
-
-  export type usersUpdateWithoutOrders_orders_created_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories_categories_created_byTousers?: categoriesUpdateManyWithoutUsers_categories_created_byTousersNestedInput
-    categories_categories_updated_byTousers?: categoriesUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
-    items_items_created_byTousers?: itemsUpdateManyWithoutUsers_items_created_byTousersNestedInput
-    items_items_updated_byTousers?: itemsUpdateManyWithoutUsers_items_updated_byTousersNestedInput
-    options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
-    options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
-    order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
-    refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
-    company_user?: companyUserUpdateManyWithoutUserNestedInput
-    verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutOrders_orders_created_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories_categories_created_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_created_byTousersNestedInput
-    categories_categories_updated_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
-    items_items_created_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_created_byTousersNestedInput
-    items_items_updated_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_updated_byTousersNestedInput
-    options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
-    options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
-    order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
-    refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
-    verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
-  }
-
-  export type usersUpsertWithoutOrders_orders_status_changed_byTousersInput = {
-    update: XOR<usersUpdateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedUpdateWithoutOrders_orders_status_changed_byTousersInput>
-    create: XOR<usersCreateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedCreateWithoutOrders_orders_status_changed_byTousersInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutOrders_orders_status_changed_byTousersInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutOrders_orders_status_changed_byTousersInput, usersUncheckedUpdateWithoutOrders_orders_status_changed_byTousersInput>
-  }
-
-  export type usersUpdateWithoutOrders_orders_status_changed_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories_categories_created_byTousers?: categoriesUpdateManyWithoutUsers_categories_created_byTousersNestedInput
-    categories_categories_updated_byTousers?: categoriesUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
-    items_items_created_byTousers?: itemsUpdateManyWithoutUsers_items_created_byTousersNestedInput
-    items_items_updated_byTousers?: itemsUpdateManyWithoutUsers_items_updated_byTousersNestedInput
-    options_options_created_byTousers?: optionsUpdateManyWithoutUsers_options_created_byTousersNestedInput
-    options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
-    order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    refreshTokens?: refreshTokenUpdateManyWithoutUserNestedInput
-    company_user?: companyUserUpdateManyWithoutUserNestedInput
-    verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutOrders_orders_status_changed_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories_categories_created_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_created_byTousersNestedInput
-    categories_categories_updated_byTousers?: categoriesUncheckedUpdateManyWithoutUsers_categories_updated_byTousersNestedInput
-    items_items_created_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_created_byTousersNestedInput
-    items_items_updated_byTousers?: itemsUncheckedUpdateManyWithoutUsers_items_updated_byTousersNestedInput
-    options_options_created_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_created_byTousersNestedInput
-    options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
-    order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
-    order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    refreshTokens?: refreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
-    verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
-  }
-
-  export type companyUpsertWithoutCompany_ordersInput = {
-    update: XOR<companyUpdateWithoutCompany_ordersInput, companyUncheckedUpdateWithoutCompany_ordersInput>
-    create: XOR<companyCreateWithoutCompany_ordersInput, companyUncheckedCreateWithoutCompany_ordersInput>
-    where?: companyWhereInput
-  }
-
-  export type companyUpdateToOneWithWhereWithoutCompany_ordersInput = {
-    where?: companyWhereInput
-    data: XOR<companyUpdateWithoutCompany_ordersInput, companyUncheckedUpdateWithoutCompany_ordersInput>
-  }
-
-  export type companyUpdateWithoutCompany_ordersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    contact?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: companyUserUpdateManyWithoutCompanyNestedInput
-    roles?: companyRoleUpdateManyWithoutCompanyNestedInput
-    categories?: categoriesUpdateManyWithoutCompany_categoriesNestedInput
-  }
-
-  export type companyUncheckedUpdateWithoutCompany_ordersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    contact?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: companyUserUncheckedUpdateManyWithoutCompanyNestedInput
-    roles?: companyRoleUncheckedUpdateManyWithoutCompanyNestedInput
-    categories?: categoriesUncheckedUpdateManyWithoutCompany_categoriesNestedInput
   }
 
   export type unitsCreateWithoutUnit_classInput = {
@@ -28526,9 +30665,12 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     users_options_created_byTousers: usersCreateNestedOneWithoutOptions_options_created_byTousersInput
     users_options_updated_byTousers: usersCreateNestedOneWithoutOptions_options_updated_byTousersInput
@@ -28542,12 +30684,15 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
     order_options?: orderOptionsUncheckedCreateNestedManyWithoutOptionsInput
   }
@@ -28569,6 +30714,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    currency: $Enums.currencyType
     users_order_options_created_byTousers: usersCreateNestedOneWithoutOrder_options_order_options_created_byTousersInput
     options: optionsCreateNestedOneWithoutOrder_optionsInput
     orders: ordersCreateNestedOneWithoutOrder_optionsInput
@@ -28586,6 +30732,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateOrConnectWithoutUnitsInput = {
@@ -28676,10 +30823,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     company_user?: companyUserCreateNestedManyWithoutUserInput
     verified_members?: companyUserCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersUncheckedCreateWithoutRefreshTokensInput = {
@@ -28699,10 +30846,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedCreateNestedManyWithoutUsers_options_updated_byTousersInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_created_byTousersInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedCreateNestedManyWithoutUsers_order_options_updated_byTousersInput
-    orders_orders_created_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_created_byTousersInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedCreateNestedManyWithoutUsers_orders_status_changed_byTousersInput
     company_user?: companyUserUncheckedCreateNestedManyWithoutUserInput
     verified_members?: companyUserUncheckedCreateNestedManyWithoutVerifierInput
+    created_invites?: CompanyInviteUncheckedCreateNestedManyWithoutCreated_by_userInput
+    received_invites?: CompanyInviteUncheckedCreateNestedManyWithoutUser_invitedInput
   }
 
   export type usersCreateOrConnectWithoutRefreshTokensInput = {
@@ -28738,10 +30885,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     company_user?: companyUserUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRefreshTokensInput = {
@@ -28761,10 +30908,10 @@ export namespace Prisma {
     options_options_updated_byTousers?: optionsUncheckedUpdateManyWithoutUsers_options_updated_byTousersNestedInput
     order_options_order_options_created_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersNestedInput
     order_options_order_options_updated_byTousers?: orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersNestedInput
-    orders_orders_created_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersNestedInput
-    orders_orders_status_changed_byTousers?: ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersNestedInput
     company_user?: companyUserUncheckedUpdateManyWithoutUserNestedInput
     verified_members?: companyUserUncheckedUpdateManyWithoutVerifierNestedInput
+    created_invites?: CompanyInviteUncheckedUpdateManyWithoutCreated_by_userNestedInput
+    received_invites?: CompanyInviteUncheckedUpdateManyWithoutUser_invitedNestedInput
   }
 
   export type categoriesCreateManyUsers_categories_created_byTousersInput = {
@@ -28796,11 +30943,11 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
-    type: $Enums.itemType
   }
 
   export type itemsCreateManyUsers_items_updated_byTousersInput = {
@@ -28808,11 +30955,11 @@ export namespace Prisma {
     name: string
     image_url?: string | null
     cat_id: string
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
-    type: $Enums.itemType
   }
 
   export type optionsCreateManyUsers_options_created_byTousersInput = {
@@ -28822,11 +30969,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -28837,11 +30987,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -28856,6 +31009,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsCreateManyUsers_order_options_updated_byTousersInput = {
@@ -28869,34 +31023,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
-  }
-
-  export type ordersCreateManyUsers_orders_created_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    status_changed_by: string
-    company_id: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
-  }
-
-  export type ordersCreateManyUsers_orders_status_changed_byTousersInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
-    company_id: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
+    currency: $Enums.currencyType
   }
 
   export type refreshTokenCreateManyUserInput = {
@@ -28916,7 +31043,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyUserCreateManyVerifierInput = {
@@ -28927,7 +31057,36 @@ export namespace Prisma {
     verified_user?: boolean
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
+  }
+
+  export type CompanyInviteCreateManyCreated_by_userInput = {
+    id?: string
+    company_id: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
+  }
+
+  export type CompanyInviteCreateManyUser_invitedInput = {
+    id?: string
+    company_id: string
+    created_by: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
   }
 
   export type categoriesUpdateWithoutUsers_categories_created_byTousersInput = {
@@ -29017,8 +31176,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     categories?: categoriesUpdateOneRequiredWithoutItemsNestedInput
+    company?: companyUpdateOneRequiredWithoutItemsNestedInput
     users_items_updated_byTousers?: usersUpdateOneRequiredWithoutItems_items_updated_byTousersNestedInput
     options?: optionsUpdateManyWithoutItemsNestedInput
   }
@@ -29028,11 +31187,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     options?: optionsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -29041,11 +31200,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type itemsUpdateWithoutUsers_items_updated_byTousersInput = {
@@ -29055,8 +31214,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     categories?: categoriesUpdateOneRequiredWithoutItemsNestedInput
+    company?: companyUpdateOneRequiredWithoutItemsNestedInput
     users_items_created_byTousers?: usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput
     options?: optionsUpdateManyWithoutItemsNestedInput
   }
@@ -29066,11 +31225,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     options?: optionsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -29079,11 +31238,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     cat_id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type optionsUpdateWithoutUsers_options_created_byTousersInput = {
@@ -29092,9 +31251,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_updated_byTousers?: usersUpdateOneRequiredWithoutOptions_options_updated_byTousersNestedInput
     items?: itemsUpdateOneRequiredWithoutOptionsNestedInput
@@ -29109,11 +31271,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     order_options?: orderOptionsUncheckedUpdateManyWithoutOptionsNestedInput
   }
@@ -29125,11 +31290,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -29139,9 +31307,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_created_byTousers?: usersUpdateOneRequiredWithoutOptions_options_created_byTousersNestedInput
     items?: itemsUpdateOneRequiredWithoutOptionsNestedInput
@@ -29156,11 +31327,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     order_options?: orderOptionsUncheckedUpdateManyWithoutOptionsNestedInput
   }
@@ -29172,11 +31346,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -29187,6 +31364,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     options?: optionsUpdateOneRequiredWithoutOrder_optionsNestedInput
     orders?: ordersUpdateOneRequiredWithoutOrder_optionsNestedInput
     users_order_options_updated_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_updated_byTousersNestedInput
@@ -29204,6 +31382,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutUsers_order_options_created_byTousersInput = {
@@ -29217,6 +31396,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUpdateWithoutUsers_order_options_updated_byTousersInput = {
@@ -29226,6 +31406,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_order_options_created_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_created_byTousersNestedInput
     options?: optionsUpdateOneRequiredWithoutOrder_optionsNestedInput
     orders?: ordersUpdateOneRequiredWithoutOrder_optionsNestedInput
@@ -29243,6 +31424,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutUsers_order_options_updated_byTousersInput = {
@@ -29256,94 +31438,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ordersUpdateWithoutUsers_orders_created_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUpdateManyWithoutOrdersNestedInput
-    users_orders_status_changed_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_status_changed_byTousersNestedInput
-    order_company?: companyUpdateOneRequiredWithoutCompany_ordersNestedInput
-  }
-
-  export type ordersUncheckedUpdateWithoutUsers_orders_created_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status_changed_by?: StringFieldUpdateOperationsInput | string
-    company_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUncheckedUpdateManyWithoutOrdersNestedInput
-  }
-
-  export type ordersUncheckedUpdateManyWithoutUsers_orders_created_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status_changed_by?: StringFieldUpdateOperationsInput | string
-    company_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-  }
-
-  export type ordersUpdateWithoutUsers_orders_status_changed_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUpdateManyWithoutOrdersNestedInput
-    users_orders_created_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_created_byTousersNestedInput
-    order_company?: companyUpdateOneRequiredWithoutCompany_ordersNestedInput
-  }
-
-  export type ordersUncheckedUpdateWithoutUsers_orders_status_changed_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    company_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUncheckedUpdateManyWithoutOrdersNestedInput
-  }
-
-  export type ordersUncheckedUpdateManyWithoutUsers_orders_status_changed_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    company_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type refreshTokenUpdateWithoutUserInput = {
@@ -29378,7 +31473,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutUsersNestedInput
     verifier?: usersUpdateOneWithoutVerified_membersNestedInput
     role?: companyRoleUpdateOneWithoutUsersNestedInput
@@ -29392,7 +31490,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUncheckedUpdateManyWithoutUserInput = {
@@ -29403,7 +31504,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUpdateWithoutVerifierInput = {
@@ -29411,7 +31515,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutUsersNestedInput
     user?: usersUpdateOneRequiredWithoutCompany_userNestedInput
     role?: companyRoleUpdateOneWithoutUsersNestedInput
@@ -29425,7 +31532,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUncheckedUpdateManyWithoutVerifierInput = {
@@ -29436,21 +31546,88 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type ordersCreateManyOrder_companyInput = {
-    id?: string
-    order_number?: bigint | number
-    order_name?: string | null
-    created_at?: Date | string
-    status_changed_at?: Date | string | null
-    discount?: Decimal | DecimalJsLike | number | string
-    cash_amount?: Decimal | DecimalJsLike | number | string
-    created_by: string
-    status_changed_by: string
-    status?: $Enums.orderStatus
-    payment_type: $Enums.paymentType
+  export type CompanyInviteUpdateWithoutCreated_by_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    invite_company?: companyUpdateOneRequiredWithoutCompany_invitesNestedInput
+    user_invited?: usersUpdateOneRequiredWithoutReceived_invitesNestedInput
+  }
+
+  export type CompanyInviteUncheckedUpdateWithoutCreated_by_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteUncheckedUpdateManyWithoutCreated_by_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteUpdateWithoutUser_invitedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    invite_company?: companyUpdateOneRequiredWithoutCompany_invitesNestedInput
+    created_by_user?: usersUpdateOneRequiredWithoutCreated_invitesNestedInput
+  }
+
+  export type CompanyInviteUncheckedUpdateWithoutUser_invitedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteUncheckedUpdateManyWithoutUser_invitedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type companyUserCreateManyCompanyInput = {
@@ -29461,7 +31638,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type companyRoleCreateManyCompanyInput = {
@@ -29470,6 +31650,21 @@ export namespace Prisma {
     is_system?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    user_type: $Enums.userType
+    active?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type itemsCreateManyCompanyInput = {
+    id?: string
+    name: string
+    image_url?: string | null
+    cat_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    created_by: string
+    updated_by: string
   }
 
   export type categoriesCreateManyCompany_categoriesInput = {
@@ -29484,48 +31679,17 @@ export namespace Prisma {
     deleted_at?: Date | string | null
   }
 
-  export type ordersUpdateWithoutOrder_companyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUpdateManyWithoutOrdersNestedInput
-    users_orders_created_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_created_byTousersNestedInput
-    users_orders_status_changed_byTousers?: usersUpdateOneRequiredWithoutOrders_orders_status_changed_byTousersNestedInput
-  }
-
-  export type ordersUncheckedUpdateWithoutOrder_companyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    status_changed_by?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
-    order_options?: orderOptionsUncheckedUpdateManyWithoutOrdersNestedInput
-  }
-
-  export type ordersUncheckedUpdateManyWithoutOrder_companyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order_number?: BigIntFieldUpdateOperationsInput | bigint | number
-    order_name?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_changed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    cash_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    status_changed_by?: StringFieldUpdateOperationsInput | string
-    status?: EnumorderStatusFieldUpdateOperationsInput | $Enums.orderStatus
-    payment_type?: EnumpaymentTypeFieldUpdateOperationsInput | $Enums.paymentType
+  export type CompanyInviteCreateManyInvite_companyInput = {
+    id?: string
+    created_by: string
+    invited_user_id: string
+    invite_code: string
+    creator_user_type: $Enums.userType
+    created_at?: Date | string
+    expired_at: Date | string
+    is_redeemed?: boolean
+    deleted_at?: Date | string | null
+    deleted_by?: string | null
   }
 
   export type companyUserUpdateWithoutCompanyInput = {
@@ -29533,7 +31697,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: usersUpdateOneRequiredWithoutCompany_userNestedInput
     verifier?: usersUpdateOneWithoutVerified_membersNestedInput
     role?: companyRoleUpdateOneWithoutUsersNestedInput
@@ -29547,7 +31714,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUncheckedUpdateManyWithoutCompanyInput = {
@@ -29558,7 +31728,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyRoleUpdateWithoutCompanyInput = {
@@ -29567,6 +31740,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUpdateManyWithoutRoleNestedInput
     role_permissions?: rolePermissionUpdateManyWithoutRoleNestedInput
   }
@@ -29577,6 +31753,9 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: companyUserUncheckedUpdateManyWithoutRoleNestedInput
     role_permissions?: rolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
@@ -29587,6 +31766,47 @@ export namespace Prisma {
     is_system?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type itemsUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    categories?: categoriesUpdateOneRequiredWithoutItemsNestedInput
+    users_items_created_byTousers?: usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput
+    users_items_updated_byTousers?: usersUpdateOneRequiredWithoutItems_items_updated_byTousersNestedInput
+    options?: optionsUpdateManyWithoutItemsNestedInput
+  }
+
+  export type itemsUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    cat_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    options?: optionsUncheckedUpdateManyWithoutItemsNestedInput
+  }
+
+  export type itemsUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    cat_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type categoriesUpdateWithoutCompany_categoriesInput = {
@@ -29629,6 +31849,45 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type CompanyInviteUpdateWithoutInvite_companyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by_user?: usersUpdateOneRequiredWithoutCreated_invitesNestedInput
+    user_invited?: usersUpdateOneRequiredWithoutReceived_invitesNestedInput
+  }
+
+  export type CompanyInviteUncheckedUpdateWithoutInvite_companyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyInviteUncheckedUpdateManyWithoutInvite_companyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    invited_user_id?: StringFieldUpdateOperationsInput | string
+    invite_code?: StringFieldUpdateOperationsInput | string
+    creator_user_type?: EnumuserTypeFieldUpdateOperationsInput | $Enums.userType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_redeemed?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type companyUserCreateManyRoleInput = {
     company_id: string
     user_id: string
@@ -29637,7 +31896,10 @@ export namespace Prisma {
     verified_by?: string | null
     verified_at?: Date | string | null
     created_at?: Date | string
+    created_by: string
     updated_at?: Date | string
+    updated_by: string
+    deleted_at?: Date | string | null
   }
 
   export type rolePermissionCreateManyRoleInput = {
@@ -29649,7 +31911,10 @@ export namespace Prisma {
     verified_user?: BoolFieldUpdateOperationsInput | boolean
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: companyUpdateOneRequiredWithoutUsersNestedInput
     user?: usersUpdateOneRequiredWithoutCompany_userNestedInput
     verifier?: usersUpdateOneWithoutVerified_membersNestedInput
@@ -29663,7 +31928,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type companyUserUncheckedUpdateManyWithoutRoleInput = {
@@ -29674,7 +31942,10 @@ export namespace Prisma {
     verified_by?: NullableStringFieldUpdateOperationsInput | string | null
     verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_by?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type rolePermissionUpdateWithoutRoleInput = {
@@ -29721,12 +31992,12 @@ export namespace Prisma {
     id?: string
     name: string
     image_url?: string | null
+    company_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
-    type: $Enums.itemType
   }
 
   export type categoriesUpdateWithoutCategoriesInput = {
@@ -29776,7 +32047,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
+    company?: companyUpdateOneRequiredWithoutItemsNestedInput
     users_items_created_byTousers?: usersUpdateOneRequiredWithoutItems_items_created_byTousersNestedInput
     users_items_updated_byTousers?: usersUpdateOneRequiredWithoutItems_items_updated_byTousersNestedInput
     options?: optionsUpdateManyWithoutItemsNestedInput
@@ -29786,12 +32057,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
     options?: optionsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -29799,12 +32070,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    company_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
-    type?: EnumitemTypeFieldUpdateOperationsInput | $Enums.itemType
   }
 
   export type optionsCreateManyItemsInput = {
@@ -29814,11 +32085,14 @@ export namespace Prisma {
     input_value: Decimal | DecimalJsLike | number | string
     unit_id: string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -29828,9 +32102,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_created_byTousers?: usersUpdateOneRequiredWithoutOptions_options_created_byTousersNestedInput
     users_options_updated_byTousers?: usersUpdateOneRequiredWithoutOptions_options_updated_byTousersNestedInput
@@ -29845,11 +32122,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     order_options?: orderOptionsUncheckedUpdateManyWithoutOptionsNestedInput
   }
@@ -29861,11 +32141,14 @@ export namespace Prisma {
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_id?: StringFieldUpdateOperationsInput | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -29880,6 +32163,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsUpdateWithoutOptionsInput = {
@@ -29889,6 +32173,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_order_options_created_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_created_byTousersNestedInput
     orders?: ordersUpdateOneRequiredWithoutOrder_optionsNestedInput
     users_order_options_updated_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_updated_byTousersNestedInput
@@ -29906,6 +32191,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutOptionsInput = {
@@ -29919,6 +32205,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsCreateManyOrdersInput = {
@@ -29932,6 +32219,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type orderOptionsUpdateWithoutOrdersInput = {
@@ -29941,6 +32229,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_order_options_created_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_created_byTousersNestedInput
     options?: optionsUpdateOneRequiredWithoutOrder_optionsNestedInput
     users_order_options_updated_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_updated_byTousersNestedInput
@@ -29958,6 +32247,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutOrdersInput = {
@@ -29971,6 +32261,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type unitsCreateManyUnit_classInput = {
@@ -30019,12 +32310,15 @@ export namespace Prisma {
     input_price: Decimal | DecimalJsLike | number | string
     input_value: Decimal | DecimalJsLike | number | string
     price_per_base_unit: Decimal | DecimalJsLike | number | string
+    min_sell_quantity: Decimal | DecimalJsLike | number | string
+    min_sell_unit_id: string
     item_id: string
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    type: $Enums.optionType
     currency?: $Enums.currencyType
   }
 
@@ -30039,6 +32333,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     created_by: string
     updated_by: string
+    currency: $Enums.currencyType
   }
 
   export type optionsUpdateWithoutUnitsInput = {
@@ -30047,9 +32342,12 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_options_created_byTousers?: usersUpdateOneRequiredWithoutOptions_options_created_byTousersNestedInput
     users_options_updated_byTousers?: usersUpdateOneRequiredWithoutOptions_options_updated_byTousersNestedInput
@@ -30063,12 +32361,15 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     order_options?: orderOptionsUncheckedUpdateManyWithoutOptionsNestedInput
   }
@@ -30079,12 +32380,15 @@ export namespace Prisma {
     input_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     input_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_per_base_unit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    min_sell_unit_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    type?: EnumoptionTypeFieldUpdateOperationsInput | $Enums.optionType
     currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
@@ -30095,6 +32399,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
     users_order_options_created_byTousers?: usersUpdateOneRequiredWithoutOrder_options_order_options_created_byTousersNestedInput
     options?: optionsUpdateOneRequiredWithoutOrder_optionsNestedInput
     orders?: ordersUpdateOneRequiredWithoutOrder_optionsNestedInput
@@ -30112,6 +32417,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
   export type orderOptionsUncheckedUpdateManyWithoutUnitsInput = {
@@ -30125,6 +32431,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: StringFieldUpdateOperationsInput | string
+    currency?: EnumcurrencyTypeFieldUpdateOperationsInput | $Enums.currencyType
   }
 
 

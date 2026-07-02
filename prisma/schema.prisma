@@ -27,14 +27,15 @@ model users {
   options_options_updated_byTousers             options[]      @relation("options_updated_byTousers")
   order_options_order_options_created_byTousers orderOptions[] @relation("order_options_created_byTousers")
   order_options_order_options_updated_byTousers orderOptions[] @relation("order_options_updated_byTousers")
-  orders_orders_created_byTousers               orders[]       @relation("orders_created_byTousers")
-  orders_orders_status_changed_byTousers        orders[]       @relation("orders_status_changed_byTousers")
+  
  
   refreshTokens                                 refreshToken[]
   
   company_user  companyUser[]  @relation("company_users")
   verified_members     companyUser[] @relation("company_member_verifier")
-
+ 
+  created_invites                               CompanyInvite[] @relation("creator_user_invites")
+  received_invites                              CompanyInvite[] @relation("user_invited")
 }
 
 
@@ -46,11 +47,13 @@ model company {
 
   created_at    DateTime      @default(now()) @db.Timestamp(6)
   updated_at    DateTime      @updatedAt @db.Timestamp(6)
+  deleted_at    DateTime?     @db.Timestamp(6)
 
-  company_orders   orders[]       @relation("order_company_id")
   users         companyUser[]
   roles         companyRole[]
+  items         items[] @relation("company_items")
   categories    categories[]  @relation("company_categories")
+  company_invites                               CompanyInvite[] @relation("company_invites")
   @@map("companies")
 }
 
@@ -65,11 +68,13 @@ model companyUser {
   verified_at     DateTime? @db.Timestamp(6)
 
   created_at      DateTime  @default(now()) @db.Timestamp(6)
+  created_by      String    @db.Uuid
   updated_at      DateTime  @updatedAt @db.Timestamp(6)
-
+  updated_by      String    @db.Uuid
+  deleted_at      DateTime?  @db.Timestamp(6)
   company         company   @relation(fields: [company_id], references: [id], onDelete: Cascade)
 
- user             users     @relation("company_users", fields: [user_id], references: [id])
+  user             users     @relation("company_users", fields: [user_id], references: [id])
 
   verifier        users?    @relation("company_member_verifier", fields: [verified_by], references: [id])
 
@@ -92,6 +97,9 @@ model companyRole {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  user_type  userType
+  active     Boolean @default(true) //default is active state:
+  deleted_at DateTime? 
 
   company company @relation(fields: [company_id], references: [id], onDelete: Cascade)
 
@@ -149,18 +157,48 @@ model categories {
   @@index([company_id], map: "idx_categories_company_id")
 }
 
+model CompanyInvite {
+  id                String    @id @default(uuid())
+
+  company_id        String    @db.Uuid
+  created_by        String    @db.Uuid
+  invited_user_id   String    @db.Uuid
+
+  invite_code       String
+  creator_user_type userType
+
+  created_at        DateTime  @default(now())
+  expired_at        DateTime
+  is_redeemed       Boolean   @default(false)
+
+  deleted_at        DateTime?
+  deleted_by        String?   @db.Uuid // Tip: Made nullable since deleted_at is optional
+
+  invite_company    company   @relation("company_invites", fields: [company_id], references: [id])
+  created_by_user   users     @relation("creator_user_invites", fields: [created_by], references: [id])
+  user_invited      users     @relation("user_invited", fields: [invited_user_id], references: [id])
+
+  @@unique([invite_code, invited_user_id])
+  @@index([company_id])
+  @@index([invited_user_id])
+  @@index([created_by])
+  @@map("company_invite")
+}
+
 model items {
   id                            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name                          String
   image_url                     String?
   cat_id                        String     @db.Uuid
+  company_id                    String     @db.Uuid
   created_at                    DateTime   @default(now()) @db.Timestamp(6)
   updated_at                    DateTime   @default(now()) @db.Timestamp(6)
   deleted_at                    DateTime?  @db.Timestamp(6)
   created_by                    String     @db.Uuid
   updated_by                    String     @db.Uuid
-  type                          itemType
+
   categories                    categories @relation(fields: [cat_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_items_category")
+  company                       company    @relation("company_items", fields: [company_id], references: [id], onUpdate: NoAction, map: "fk_items_company")
   users_items_created_byTousers users      @relation("items_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_items_created_by")
   users_items_updated_byTousers users      @relation("items_updated_byTousers", fields: [updated_by], references: [id], onUpdate: NoAction, map: "fk_items_updated_by")
   options                       options[]
@@ -179,7 +217,10 @@ model options {
 
   // Normalized value used for calculations
   price_per_base_unit             Decimal       @db.Decimal(18,6)
-
+  
+  min_sell_quantity               Decimal       @db.Decimal(18,6)
+  min_sell_unit_id                String        @db.Uuid          
+  
   item_id                         String        @db.Uuid
 
   created_at                      DateTime      @default(now()) @db.Timestamp(6)
@@ -188,7 +229,7 @@ model options {
 
   created_by                      String        @db.Uuid
   updated_by                      String        @db.Uuid
-
+  type                            optionType
   currency                        currencyType  @default(INR)
 
   users_options_created_byTousers users         @relation("options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_options_created_by")
@@ -215,7 +256,7 @@ model orderOptions {
   deleted_at                            DateTime? @db.Timestamp(6)
   created_by                            String    @db.Uuid
   updated_by                            String    @db.Uuid
-
+  currency                              currencyType 
   users_order_options_created_byTousers users     @relation("order_options_created_byTousers", fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_order_options_created_by")
   options                               options   @relation(fields: [option_id], references: [id], onUpdate: NoAction, map: "fk_order_options_option")
   orders                                orders    @relation(fields: [order_id], references: [id], onUpdate: NoAction, map: "fk_order_options_order")
@@ -232,15 +273,13 @@ model orders {
   status_changed_at                     DateTime?      @db.Timestamp(6)
   discount                              Decimal        @default(0) @db.Decimal(10, 2)
   cash_amount                           Decimal        @default(0) @db.Decimal(10, 2)
-  created_by                            String         @db.Uuid
+  created_by                            String?         @db.Uuid
   status_changed_by                     String         @db.Uuid
-  company_id                               String         @db.Uuid
+  company_id                            String         @db.Uuid
   status                                orderStatus    @default(PENDING)
   payment_type                          paymentType
   order_options                         orderOptions[]
-  users_orders_created_byTousers        users          @relation("orders_created_byTousers", fields: [created_by], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_orders_created_by")
-  users_orders_status_changed_byTousers users          @relation("orders_status_changed_byTousers", fields: [status_changed_by], references: [id], onUpdate: NoAction, map: "fk_orders_status_changed_by")
-  order_company                         company          @relation("order_company_id", fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_orders_company")
+ 
 }
 
 
@@ -312,7 +351,7 @@ enum userType {
 }
 
 
-enum itemType {
+enum optionType {
   PACKAGE
   LOOSE
 }

@@ -137,7 +137,8 @@ exports.Prisma.CompanyScalarFieldEnum = {
   contact: 'contact',
   address: 'address',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.CompanyUserScalarFieldEnum = {
@@ -149,7 +150,10 @@ exports.Prisma.CompanyUserScalarFieldEnum = {
   verified_by: 'verified_by',
   verified_at: 'verified_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_by: 'created_by',
+  updated_at: 'updated_at',
+  updated_by: 'updated_by',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.CompanyRoleScalarFieldEnum = {
@@ -158,7 +162,10 @@ exports.Prisma.CompanyRoleScalarFieldEnum = {
   name: 'name',
   is_system: 'is_system',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  user_type: 'user_type',
+  active: 'active',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.RolePermissionScalarFieldEnum = {
@@ -184,17 +191,31 @@ exports.Prisma.CategoriesScalarFieldEnum = {
   deleted_at: 'deleted_at'
 };
 
+exports.Prisma.CompanyInviteScalarFieldEnum = {
+  id: 'id',
+  company_id: 'company_id',
+  created_by: 'created_by',
+  invited_user_id: 'invited_user_id',
+  invite_code: 'invite_code',
+  creator_user_type: 'creator_user_type',
+  created_at: 'created_at',
+  expired_at: 'expired_at',
+  is_redeemed: 'is_redeemed',
+  deleted_at: 'deleted_at',
+  deleted_by: 'deleted_by'
+};
+
 exports.Prisma.ItemsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   image_url: 'image_url',
   cat_id: 'cat_id',
+  company_id: 'company_id',
   created_at: 'created_at',
   updated_at: 'updated_at',
   deleted_at: 'deleted_at',
   created_by: 'created_by',
-  updated_by: 'updated_by',
-  type: 'type'
+  updated_by: 'updated_by'
 };
 
 exports.Prisma.OptionsScalarFieldEnum = {
@@ -204,12 +225,15 @@ exports.Prisma.OptionsScalarFieldEnum = {
   input_value: 'input_value',
   unit_id: 'unit_id',
   price_per_base_unit: 'price_per_base_unit',
+  min_sell_quantity: 'min_sell_quantity',
+  min_sell_unit_id: 'min_sell_unit_id',
   item_id: 'item_id',
   created_at: 'created_at',
   updated_at: 'updated_at',
   deleted_at: 'deleted_at',
   created_by: 'created_by',
   updated_by: 'updated_by',
+  type: 'type',
   currency: 'currency'
 };
 
@@ -224,7 +248,8 @@ exports.Prisma.OrderOptionsScalarFieldEnum = {
   updated_at: 'updated_at',
   deleted_at: 'deleted_at',
   created_by: 'created_by',
-  updated_by: 'updated_by'
+  updated_by: 'updated_by',
+  currency: 'currency'
 };
 
 exports.Prisma.OrdersScalarFieldEnum = {
@@ -291,7 +316,7 @@ exports.userType = exports.$Enums.userType = {
   STAFF: 'STAFF'
 };
 
-exports.itemType = exports.$Enums.itemType = {
+exports.optionType = exports.$Enums.optionType = {
   PACKAGE: 'PACKAGE',
   LOOSE: 'LOOSE'
 };
@@ -322,6 +347,7 @@ exports.Prisma.ModelName = {
   rolePermission: 'rolePermission',
   permission: 'permission',
   categories: 'categories',
+  CompanyInvite: 'CompanyInvite',
   items: 'items',
   options: 'options',
   orderOptions: 'orderOptions',
